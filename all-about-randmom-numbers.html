@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-02 Sun 16:41 -->
+<!-- 2017-04-02 Sun 17:01 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>随机数——僭越之罪</title>
@@ -180,6 +180,7 @@
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css" href="css/site.css"/>
+<link rel="icon" href="favicon.ico">
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -261,15 +262,15 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orge4937ba">在Java中使用随机数</a></li>
-<li><a href="#orgfcb703e">TAOCP中线性同余法摘记</a>
+<li><a href="#orge894461">在Java中使用随机数</a></li>
+<li><a href="#orge65f477">TAOCP中线性同余法摘记</a>
 <ul>
-<li><a href="#org4b828ed">3.2.1 线性同余法 P8</a></li>
-<li><a href="#org471ee56">3.2.1.2 乘数的选择 定理A P15</a></li>
-<li><a href="#orgbb928ac">3.6 小结 P163</a></li>
+<li><a href="#orgd6dcc08">3.2.1 线性同余法 P8</a></li>
+<li><a href="#org029a4aa">3.2.1.2 乘数的选择 定理A P15</a></li>
+<li><a href="#org569ffd2">3.6 小结 P163</a></li>
 </ul>
 </li>
-<li><a href="#orgf6c2943">从 Java 源代码看线性同余法</a></li>
+<li><a href="#orgfb9eeab">从 Java 源代码看线性同余法</a></li>
 </ul>
 </div>
 </div>
@@ -296,9 +297,9 @@ for the JavaScript code in this tag.
 在之前，玩炉石开卡包拼人品，总是开出一蓝四白，于是开始怀疑这玩的不是同一个游戏，终于弃坑，现在想想，暴雪这个随机数生成程序的实现也许随机性不是很好。当然，这只是猜想。
 </p>
 
-<div id="outline-container-orge4937ba" class="outline-2">
-<h2 id="orge4937ba">在Java中使用随机数</h2>
-<div class="outline-text-2" id="text-orge4937ba">
+<div id="outline-container-orge894461" class="outline-2">
+<h2 id="orge894461">在Java中使用随机数</h2>
+<div class="outline-text-2" id="text-orge894461">
 <p>
 在Java中使用随机数只需调用：
 </p>
@@ -366,18 +367,18 @@ exactly as if by the expression. This new pseudorandom-number generator is used 
 </div>
 </div>
 
-<div id="outline-container-orgfcb703e" class="outline-2">
-<h2 id="orgfcb703e">TAOCP中线性同余法摘记</h2>
-<div class="outline-text-2" id="text-orgfcb703e">
+<div id="outline-container-orge65f477" class="outline-2">
+<h2 id="orge65f477">TAOCP中线性同余法摘记</h2>
+<div class="outline-text-2" id="text-orge65f477">
 <p>
 最近花时间过了一下 TAOCP 第二卷的随机数一章，数学证明太多，我也仅是想知道随机数的产生，也可以算是目的已经达到了，
 下面将书上这一章关于线性同余法的介绍摘录如下（ TAOCP 第二卷，半数值算法，第三版，国防工业出版社）。
 </p>
 </div>
 
-<div id="outline-container-org4b828ed" class="outline-3">
-<h3 id="org4b828ed">3.2.1 线性同余法 P8</h3>
-<div class="outline-text-3" id="text-org4b828ed">
+<div id="outline-container-orgd6dcc08" class="outline-3">
+<h3 id="orgd6dcc08">3.2.1 线性同余法 P8</h3>
+<div class="outline-text-3" id="text-orgd6dcc08">
 <p>
 当今使用的最流行的随机数生成程序是 D.H.Lehmer 1949年介绍过的方案的特殊情况。我们选择 4 个魔术整数：
 </p>
@@ -418,9 +419,9 @@ exactly as if by the expression. This new pseudorandom-number generator is used 
 </div>
 </div>
 
-<div id="outline-container-org471ee56" class="outline-3">
-<h3 id="org471ee56">3.2.1.2 乘数的选择 定理A P15</h3>
-<div class="outline-text-3" id="text-org471ee56">
+<div id="outline-container-org029a4aa" class="outline-3">
+<h3 id="org029a4aa">3.2.1.2 乘数的选择 定理A P15</h3>
+<div class="outline-text-3" id="text-org029a4aa">
 <p>
 由 \(m\) ， \(a\) ， \(c\) 和 \(X_0\) 所定义的线性同余序列有周期长度 \(m\) 当且仅当
 </p>
@@ -433,9 +434,9 @@ exactly as if by the expression. This new pseudorandom-number generator is used 
 </div>
 </div>
 
-<div id="outline-container-orgbb928ac" class="outline-3">
-<h3 id="orgbb928ac">3.6 小结 P163</h3>
-<div class="outline-text-3" id="text-orgbb928ac">
+<div id="outline-container-org569ffd2" class="outline-3">
+<h3 id="org569ffd2">3.6 小结 P163</h3>
+<div class="outline-text-3" id="text-org569ffd2">
 <p>
 在这一章中我们叙述了相当大量的课题：怎样生成随机数，怎样检验它们，怎样在应用中修正它们，以及怎样推导关于它们的理论等。
 也许在许多读者的心目中，主要的问题是：“什么是整个理论的结果？什么是在我的程序中可以使用的简单而良好的生成程序，以便有一个可靠的随机数的来源？”
@@ -459,9 +460,9 @@ exactly as if by the expression. This new pseudorandom-number generator is used 
 </div>
 </div>
 
-<div id="outline-container-orgf6c2943" class="outline-2">
-<h2 id="orgf6c2943">从 Java 源代码看线性同余法</h2>
-<div class="outline-text-2" id="text-orgf6c2943">
+<div id="outline-container-orgfb9eeab" class="outline-2">
+<h2 id="orgfb9eeab">从 Java 源代码看线性同余法</h2>
+<div class="outline-text-2" id="text-orgfb9eeab">
 <p>
 如上所述，Java 中两种生成随机数的方法，均是在使用 <code>java.util.Random</code> 这个类所提供的方法。为了方便描述，将上面使用随机数的代码（依次编号为0，1，2，3）拷贝在下面：
 </p>
@@ -685,7 +686,7 @@ An instance of this class is used to generate a stream of <b>pseudorandom</b> nu
 </div>
 </div>
 <div id="postamble" class="status">
-<div id="sitemap"><a href="https://aprilwith.me/index.html">Other posts</a></div>
+<div id="sitemap"><a href="https://aprilwith.me">Other posts</a></div>
               <div id="disqus_thread"></div>
               <script type="text/javascript">
               /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
