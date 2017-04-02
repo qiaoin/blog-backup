@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-02 Sun 17:01 -->
+<!-- 2017-04-02 Sun 17:38 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Python中的“魔法方法”</title>
@@ -244,23 +244,23 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orga34de19">构造和析构</a>
+<li><a href="#org20c8fde">构造和析构</a>
 <ul>
-<li><a href="#orgee4b6ff"><code>__init__(self[,...])</code></a></li>
-<li><a href="#org2e3bb5c"><code>__new__(cls[,...])</code></a></li>
-<li><a href="#orgd574308"><code>__del__(self)</code></a></li>
+<li><a href="#org30ceb9d"><code>__init__(self[,...])</code></a></li>
+<li><a href="#orge3f67ab"><code>__new__(cls[,...])</code></a></li>
+<li><a href="#orgf650c35"><code>__del__(self)</code></a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orga34de19" class="outline-2">
-<h2 id="orga34de19">构造和析构</h2>
-<div class="outline-text-2" id="text-orga34de19">
-</div><div id="outline-container-orgee4b6ff" class="outline-3">
-<h3 id="orgee4b6ff"><code>__init__(self[,...])</code></h3>
-<div class="outline-text-3" id="text-orgee4b6ff">
+<div id="outline-container-org20c8fde" class="outline-2">
+<h2 id="org20c8fde">构造和析构</h2>
+<div class="outline-text-2" id="text-org20c8fde">
+</div><div id="outline-container-org30ceb9d" class="outline-3">
+<h3 id="org30ceb9d"><code>__init__(self[,...])</code></h3>
+<div class="outline-text-3" id="text-org30ceb9d">
 <p>
 相当于构造方法，返回是一个 <code>None</code> 类型， <code>__init()__ should return None</code>
 </p>
@@ -280,9 +280,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org2e3bb5c" class="outline-3">
-<h3 id="org2e3bb5c"><code>__new__(cls[,...])</code></h3>
-<div class="outline-text-3" id="text-org2e3bb5c">
+<div id="outline-container-orge3f67ab" class="outline-3">
+<h3 id="orge3f67ab"><code>__new__(cls[,...])</code></h3>
+<div class="outline-text-3" id="text-orge3f67ab">
 <p>
 对象创建时，第一个被调用的方法，后面的 <code>...</code> 参数会原封不动的传递给 <code>__init__()</code> ，返回一个对象（通常是返回 <code>cls</code> 类的实例对象，也可以返回其他类的一个对象）。
 但在平常，我们是极少情况会去重写 <code>__new__()</code> 的，使用 Python 默认的方法执行就可以了。但在一种情况下就得重写了，当我们在继承了一个不可变类型
@@ -301,9 +301,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgd574308" class="outline-3">
-<h3 id="orgd574308"><code>__del__(self)</code></h3>
-<div class="outline-text-3" id="text-orgd574308">
+<div id="outline-container-orgf650c35" class="outline-3">
+<h3 id="orgf650c35"><code>__del__(self)</code></h3>
+<div class="outline-text-3" id="text-orgf650c35">
 <p>
 相当于析构函数，并不是 <code>del</code> 之后就会执行这个方法，而是 Python 使用垃圾回收机制进行处理，没有任何变量去引用这个对象的时候，就会去自动调用这个 <code>__del__()</code> 去销毁这个对象
 </p>
