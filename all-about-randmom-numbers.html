@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-02 Sun 17:51 -->
+<!-- 2017-04-02 Sun 18:18 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>随机数——僭越之罪</title>
@@ -262,15 +262,15 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org18eb9ab">在Java中使用随机数</a></li>
-<li><a href="#orgf0a4515">TAOCP中线性同余法摘记</a>
+<li><a href="#orgadca54a">在Java中使用随机数</a></li>
+<li><a href="#org075b9ae">TAOCP中线性同余法摘记</a>
 <ul>
-<li><a href="#org005a79c">3.2.1 线性同余法 P8</a></li>
-<li><a href="#orgf986c6b">3.2.1.2 乘数的选择 定理A P15</a></li>
-<li><a href="#org2f6fb6b">3.6 小结 P163</a></li>
+<li><a href="#org700f627">3.2.1 线性同余法 P8</a></li>
+<li><a href="#org1f25a18">3.2.1.2 乘数的选择 定理A P15</a></li>
+<li><a href="#orgf03a0e3">3.6 小结 P163</a></li>
 </ul>
 </li>
-<li><a href="#orge3fc32f">从 Java 源代码看线性同余法</a></li>
+<li><a href="#org90bf29e">从 Java 源代码看线性同余法</a></li>
 </ul>
 </div>
 </div>
@@ -297,9 +297,9 @@ for the JavaScript code in this tag.
 在之前，玩炉石开卡包拼人品，总是开出一蓝四白，于是开始怀疑这玩的不是同一个游戏，终于弃坑，现在想想，暴雪这个随机数生成程序的实现也许随机性不是很好。当然，这只是猜想。
 </p>
 
-<div id="outline-container-org18eb9ab" class="outline-2">
-<h2 id="org18eb9ab">在Java中使用随机数</h2>
-<div class="outline-text-2" id="text-org18eb9ab">
+<div id="outline-container-orgadca54a" class="outline-2">
+<h2 id="orgadca54a">在Java中使用随机数</h2>
+<div class="outline-text-2" id="text-orgadca54a">
 <p>
 在Java中使用随机数只需调用：
 </p>
@@ -367,18 +367,18 @@ exactly as if by the expression. This new pseudorandom-number generator is used 
 </div>
 </div>
 
-<div id="outline-container-orgf0a4515" class="outline-2">
-<h2 id="orgf0a4515">TAOCP中线性同余法摘记</h2>
-<div class="outline-text-2" id="text-orgf0a4515">
+<div id="outline-container-org075b9ae" class="outline-2">
+<h2 id="org075b9ae">TAOCP中线性同余法摘记</h2>
+<div class="outline-text-2" id="text-org075b9ae">
 <p>
 最近花时间过了一下 TAOCP 第二卷的随机数一章，数学证明太多，我也仅是想知道随机数的产生，也可以算是目的已经达到了，
 下面将书上这一章关于线性同余法的介绍摘录如下（ TAOCP 第二卷，半数值算法，第三版，国防工业出版社）。
 </p>
 </div>
 
-<div id="outline-container-org005a79c" class="outline-3">
-<h3 id="org005a79c">3.2.1 线性同余法 P8</h3>
-<div class="outline-text-3" id="text-org005a79c">
+<div id="outline-container-org700f627" class="outline-3">
+<h3 id="org700f627">3.2.1 线性同余法 P8</h3>
+<div class="outline-text-3" id="text-org700f627">
 <p>
 当今使用的最流行的随机数生成程序是 D.H.Lehmer 1949年介绍过的方案的特殊情况。我们选择 4 个魔术整数：
 </p>
@@ -419,9 +419,9 @@ exactly as if by the expression. This new pseudorandom-number generator is used 
 </div>
 </div>
 
-<div id="outline-container-orgf986c6b" class="outline-3">
-<h3 id="orgf986c6b">3.2.1.2 乘数的选择 定理A P15</h3>
-<div class="outline-text-3" id="text-orgf986c6b">
+<div id="outline-container-org1f25a18" class="outline-3">
+<h3 id="org1f25a18">3.2.1.2 乘数的选择 定理A P15</h3>
+<div class="outline-text-3" id="text-org1f25a18">
 <p>
 由 \(m\) ， \(a\) ， \(c\) 和 \(X_0\) 所定义的线性同余序列有周期长度 \(m\) 当且仅当
 </p>
@@ -434,9 +434,9 @@ exactly as if by the expression. This new pseudorandom-number generator is used 
 </div>
 </div>
 
-<div id="outline-container-org2f6fb6b" class="outline-3">
-<h3 id="org2f6fb6b">3.6 小结 P163</h3>
-<div class="outline-text-3" id="text-org2f6fb6b">
+<div id="outline-container-orgf03a0e3" class="outline-3">
+<h3 id="orgf03a0e3">3.6 小结 P163</h3>
+<div class="outline-text-3" id="text-orgf03a0e3">
 <p>
 在这一章中我们叙述了相当大量的课题：怎样生成随机数，怎样检验它们，怎样在应用中修正它们，以及怎样推导关于它们的理论等。
 也许在许多读者的心目中，主要的问题是：“什么是整个理论的结果？什么是在我的程序中可以使用的简单而良好的生成程序，以便有一个可靠的随机数的来源？”
@@ -460,9 +460,9 @@ exactly as if by the expression. This new pseudorandom-number generator is used 
 </div>
 </div>
 
-<div id="outline-container-orge3fc32f" class="outline-2">
-<h2 id="orge3fc32f">从 Java 源代码看线性同余法</h2>
-<div class="outline-text-2" id="text-orge3fc32f">
+<div id="outline-container-org90bf29e" class="outline-2">
+<h2 id="org90bf29e">从 Java 源代码看线性同余法</h2>
+<div class="outline-text-2" id="text-org90bf29e">
 <p>
 如上所述，Java 中两种生成随机数的方法，均是在使用 <code>java.util.Random</code> 这个类所提供的方法。为了方便描述，将上面使用随机数的代码（依次编号为0，1，2，3）拷贝在下面：
 </p>
@@ -686,23 +686,28 @@ An instance of this class is used to generate a stream of <b>pseudorandom</b> nu
 </div>
 </div>
 <div id="postamble" class="status">
-<div id="sitemap"><a href="https://aprilwith.me">Other posts</a></div>
-              <div id="disqus_thread"></div>
-              <script type="text/javascript">
-              /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-              var disqus_shortname = 'bastibe';
-              /* * * DON'T EDIT BELOW THIS LINE * * */
-              (function() {
-                var dsq = document.createElement('script');
-                dsq.type = 'text/javascript';
-                dsq.async = true;
-                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+<div id="disqus_thread"></div>
+                  <script>
+                  /**
+                   *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                   */
+                  /*
+                  var disqus_config = function () {
+                    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                  };
+                  */
+                  (function() { // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://aprilwith.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
                   })();
-              </script>
-              <noscript>Please enable JavaScript to view the
-                  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-              <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                  </script>
+                  <noscript>
+                    Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+                  </noscript>
 </div>
 </body>
 </html>

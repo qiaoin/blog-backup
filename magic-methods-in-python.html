@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-02 Sun 17:51 -->
+<!-- 2017-04-02 Sun 18:18 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Python中的“魔法方法”</title>
@@ -244,23 +244,23 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgc247193">构造和析构</a>
+<li><a href="#orgfc08606">构造和析构</a>
 <ul>
-<li><a href="#org5e9069b"><code>__init__(self[,...])</code></a></li>
-<li><a href="#org371bd12"><code>__new__(cls[,...])</code></a></li>
-<li><a href="#orgd3704b0"><code>__del__(self)</code></a></li>
+<li><a href="#org921f76d"><code>__init__(self[,...])</code></a></li>
+<li><a href="#org146b1bf"><code>__new__(cls[,...])</code></a></li>
+<li><a href="#orgaceea0c"><code>__del__(self)</code></a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgc247193" class="outline-2">
-<h2 id="orgc247193">构造和析构</h2>
-<div class="outline-text-2" id="text-orgc247193">
-</div><div id="outline-container-org5e9069b" class="outline-3">
-<h3 id="org5e9069b"><code>__init__(self[,...])</code></h3>
-<div class="outline-text-3" id="text-org5e9069b">
+<div id="outline-container-orgfc08606" class="outline-2">
+<h2 id="orgfc08606">构造和析构</h2>
+<div class="outline-text-2" id="text-orgfc08606">
+</div><div id="outline-container-org921f76d" class="outline-3">
+<h3 id="org921f76d"><code>__init__(self[,...])</code></h3>
+<div class="outline-text-3" id="text-org921f76d">
 <p>
 相当于构造方法，返回是一个 <code>None</code> 类型， <code>__init()__ should return None</code>
 </p>
@@ -280,9 +280,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org371bd12" class="outline-3">
-<h3 id="org371bd12"><code>__new__(cls[,...])</code></h3>
-<div class="outline-text-3" id="text-org371bd12">
+<div id="outline-container-org146b1bf" class="outline-3">
+<h3 id="org146b1bf"><code>__new__(cls[,...])</code></h3>
+<div class="outline-text-3" id="text-org146b1bf">
 <p>
 对象创建时，第一个被调用的方法，后面的 <code>...</code> 参数会原封不动的传递给 <code>__init__()</code> ，返回一个对象（通常是返回 <code>cls</code> 类的实例对象，也可以返回其他类的一个对象）。
 但在平常，我们是极少情况会去重写 <code>__new__()</code> 的，使用 Python 默认的方法执行就可以了。但在一种情况下就得重写了，当我们在继承了一个不可变类型
@@ -301,9 +301,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgd3704b0" class="outline-3">
-<h3 id="orgd3704b0"><code>__del__(self)</code></h3>
-<div class="outline-text-3" id="text-orgd3704b0">
+<div id="outline-container-orgaceea0c" class="outline-3">
+<h3 id="orgaceea0c"><code>__del__(self)</code></h3>
+<div class="outline-text-3" id="text-orgaceea0c">
 <p>
 相当于析构函数，并不是 <code>del</code> 之后就会执行这个方法，而是 Python 使用垃圾回收机制进行处理，没有任何变量去引用这个对象的时候，就会去自动调用这个 <code>__del__()</code> 去销毁这个对象
 </p>
@@ -329,23 +329,28 @@ for the JavaScript code in this tag.
 </div>
 </div>
 <div id="postamble" class="status">
-<div id="sitemap"><a href="https://aprilwith.me">Other posts</a></div>
-              <div id="disqus_thread"></div>
-              <script type="text/javascript">
-              /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-              var disqus_shortname = 'bastibe';
-              /* * * DON'T EDIT BELOW THIS LINE * * */
-              (function() {
-                var dsq = document.createElement('script');
-                dsq.type = 'text/javascript';
-                dsq.async = true;
-                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+<div id="disqus_thread"></div>
+                  <script>
+                  /**
+                   *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                   */
+                  /*
+                  var disqus_config = function () {
+                    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                  };
+                  */
+                  (function() { // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://aprilwith.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
                   })();
-              </script>
-              <noscript>Please enable JavaScript to view the
-                  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-              <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                  </script>
+                  <noscript>
+                    Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+                  </noscript>
 </div>
 </body>
 </html>

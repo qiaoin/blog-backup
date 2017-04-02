@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-02 Sun 17:51 -->
+<!-- 2017-04-02 Sun 18:18 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>C FAQ（二）：结构体与数组</title>
@@ -244,16 +244,16 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orge8bcdca">结构体</a></li>
-<li><a href="#org8ba721a">数组</a></li>
-<li><a href="#orge962547">杂项</a></li>
+<li><a href="#org4134536">结构体</a></li>
+<li><a href="#org94134c3">数组</a></li>
+<li><a href="#org4e9c5c6">杂项</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orge8bcdca" class="outline-2">
-<h2 id="orge8bcdca">结构体</h2>
-<div class="outline-text-2" id="text-orge8bcdca">
+<div id="outline-container-org4134536" class="outline-2">
+<h2 id="org4134536">结构体</h2>
+<div class="outline-text-2" id="text-org4134536">
 <ul class="org-ul">
 <li>在学习一门编程语言时要特别注意以下三个方面： <br />
 <ol class="org-ol">
@@ -370,9 +370,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org8ba721a" class="outline-2">
-<h2 id="org8ba721a">数组</h2>
-<div class="outline-text-2" id="text-org8ba721a">
+<div id="outline-container-org94134c3" class="outline-2">
+<h2 id="org94134c3">数组</h2>
+<div class="outline-text-2" id="text-org94134c3">
 <ul class="org-ul">
 <li><p>
 数组的定义 <br />
@@ -497,9 +497,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orge962547" class="outline-2">
-<h2 id="orge962547">杂项</h2>
-<div class="outline-text-2" id="text-orge962547">
+<div id="outline-container-org4e9c5c6" class="outline-2">
+<h2 id="org4e9c5c6">杂项</h2>
+<div class="outline-text-2" id="text-org4e9c5c6">
 <ul class="org-ul">
 <li>随机数在某些场合（例如游戏程序）是非常有用的，但是用计算机生成完全随机的数却不是那么容易。计算机执行的每一条指令的结果都是确定的，没有一条指令产生的是真实意义上的“随机数”，调用 C 标准库得到的随机数其实是伪随机数（pseudorandom），是用数学公式算出来的确定的数，只不过这些数看起来很随机，并且从统计意义上也很接近均匀分布（uniform distribution）的随机数。更详细的介绍可以参考我写的 <a href="https://aprilwith.me/2016/01/23/all-about-randmom-numbers/">随机数——僭越之罪</a> ，上面以 Java JDK 的实现为例作为讲解，并有详细的数学推导过程。</li>
 <li><p>
@@ -528,23 +528,28 @@ C 标准库中生成伪随机数的是 <code>rand()</code> 函数，使用这个
 </div>
 </div>
 <div id="postamble" class="status">
-<div id="sitemap"><a href="https://aprilwith.me">Other posts</a></div>
-              <div id="disqus_thread"></div>
-              <script type="text/javascript">
-              /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-              var disqus_shortname = 'bastibe';
-              /* * * DON'T EDIT BELOW THIS LINE * * */
-              (function() {
-                var dsq = document.createElement('script');
-                dsq.type = 'text/javascript';
-                dsq.async = true;
-                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+<div id="disqus_thread"></div>
+                  <script>
+                  /**
+                   *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                   */
+                  /*
+                  var disqus_config = function () {
+                    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                  };
+                  */
+                  (function() { // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://aprilwith.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
                   })();
-              </script>
-              <noscript>Please enable JavaScript to view the
-                  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-              <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                  </script>
+                  <noscript>
+                    Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+                  </noscript>
 </div>
 </body>
 </html>
