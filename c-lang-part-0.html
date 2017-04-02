@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-04-02 Sun 14:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>C FAQ（一）：基础概念</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="qiaoin" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="css/site.css"/>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<div class="header">
+              <a href="https://aprilwith.me">自在随心</a> | <a href="http://github.com/qiaoin">Github</a>
+          </div>
+</div>
+<div id="content">
+<h1 class="title">C FAQ（一）：基础概念</h1>
+<p>
+之前对 C 语言的学习太零散，就找来 <a href="http://akaedu.github.io/book/">Linux C编程一站式学习</a> 进行系统地梳理，这个系列准备整理 C 语言中一些小的 Tips。
+</p>
+
+<ul class="org-ul">
+<li>编写程序可以说就是这样的一个过程：把复杂的任务分解成子任务，把子任务再分解成更简单的任务，层层分解，直到最后简单得可以用以下指令来完成：
+<ul class="org-ul">
+<li>输入指令——从键盘、文件或者其他设备获取数据；</li>
+<li>输出指令——把数据显示到屏幕，或者存入一个文件，或者发送到其他设备；</li>
+<li>基本运算指令——执行最基本的数学运算（加减乘除）和数据存取，其实输入和输出也属于数据存取；</li>
+<li>测试和分支指令——测试某个条件，然后根据不同的测试结果执行不同的后续指令；</li>
+<li>循环指令——重复执行一系列操作。</li>
+</ul></li>
+<li>经常听，C 语言属于比较靠近底层的高级语言，但它与机器语言和汇编语言有着本质的区别，其中最常提及的就是——“C 语言是可以移植的（portable）或者称为平台无关的（platform independent）”。这应该怎样来理解？ <br />
+C 语言的语句和低级语言的指令之间不是简单的一一对应关系，一条 C 语言可以翻译成多条汇编或机器语言（汇编语言和机器语言的指令是一一对应的），这个过程称为编译（compile），由编译器（compiler）来完成。 <br />
+C 语言可移植或者说平台无关。平台这个词有很多种解释，可以指计算机体系结构（architecture），也可以指操作系统（operating system），也可以指两者的组合。不同的计算机体系结构有不同的指令集（instruction set），可以识别的机器指令格式是不同的，直接用某种计算机的汇编指令或机器指令写出来的程序只能在这种计算机上执行，然而各种计算机都有 C 编译器，可以把 C 程序编译成该计算机自己的（native）机器指令，这意味着用 C 语言写出来的程序只需要稍加修改甚至不用修改就可以在不同的计算机上编译执行。</li>
+<li><p>
+编译时干了什么？运行时又干了什么？如何区分编译时和运行时这两个概念？ <br />
+<b>待整理</b> <br />
+转义序列是编译器在处理字符串字面值时转义的，而占位符是由 <code>printf</code> 解释的。
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #9e5a00;">printf</span><span style="color: #969896;">(</span><span style="color: #183691;">"character: %c\ninteger: %d\nfloating point: %f\n"</span>, <span style="color: #183691;">'}'</span>, <span style="color: #0086b3;">34</span>, <span style="color: #0086b3;">3.14</span><span style="color: #969896;">)</span>;
+<span style="color: #969896;">/* </span><span style="color: #969896;">double &#31867;&#22411;&#30340;&#21344;&#20301;&#31526;&#26159; =%f= &#65292;&#19981;&#35201;&#35748;&#20026; =%f= &#19982; =float= &#31867;&#22411;&#39318;&#23383;&#27597;&#30456;&#21516;&#65292;&#23601;&#35748;&#20026;&#26159; =float= &#31867;&#22411;&#21344;&#20301;&#31526; </span><span style="color: #969896;">*/</span>
+</pre>
+</div></li>
+<li>你应该总是从一个能正确运行的小规模程序开始，每做一步小的改动就立刻进行测试，这样的好处是总有一个正确的程序可以做参考：如果正确就继续编程；如果不正确，那么一定是刚才的小改动出了问题。 <b>TODO</b> <span class="underline">这个描述与测试驱动开发（TDD）有什么区别和联系，同时和本书上第 5 章第 2 节讲的增量式开发有什么不同呢？</span></li>
+<li>当我们已经编写了一个 <code>hello.c</code> 的源文件之后，调用 <code>gcc hello.c</code> 会在当前目录下生成一个 <code>a.out</code> 的可执行文件，这里的 <code>a.out</code> 是什么含义？这个可执行文件又是如何生成的？ <br />
+<code>a.out</code> 是 <code>Assembler output</code> 的缩写，实际上一个 C 程序要先被编译器翻译成汇编程序，再被汇编器翻译成机器指令，最后还要经过链接器的处理才能够成为可执行文件。 <br />
+<span class="underline">参见 <code>CSAPP</code> ，具体过程及对应的操作如下</span> ( <b>TODO</b> )：
+<ol class="org-ol">
+<li>预处理阶段（preprocessing phase）</li>
+<li>编译阶段（compilation phase）</li>
+<li>汇编阶段（assembly phase）</li>
+<li>链接阶段（linking phase）</li>
+</ol></li>
+<li>一个好的习惯是打开 <code>gcc</code> 的 <code>-Wall</code> 选项，让 <code>gcc</code> 提示所有的警告信息，不管是严重的还是不严重的，然后把这些问题从代码中全部消灭。另外，为了之后的调试，也要加入 <code>-g</code> 选项。</li>
+<li>有些 C 代码中的注释是使用 <code>/**/</code> 来包含的，也有些是使用 <code>//</code> ，这两种添加注释的方法有什么区别？  <br />
+<code>/* */</code> 是较常见的 C 程序中添加注释的方法，注释可以换行，但不能嵌套使用的； <code>//</code> 两个斜线（slash）表示从这里直到该行末尾的所有字符都属于注释，这种注释不能换行，也不能穿插在一行代码中间。这是 C++ 借鉴的语法，在 <code>C99</code> 中被标准化，使用这些特性须谨慎，因为不是所有的 C 编译器都能很好地支持 <code>C99</code> 标准，使用 <code>C89</code> 的特性是比较保险的。</li>
+<li>这上面提到的 <code>C99</code> / <code>C89</code> 都是些什么啊，C 标准又是什么意思？ <br />
+C 语言的发展历史大致上分为三个阶段： <code>Old Style C</code> 、 <code>C89</code> 和 <code>C99</code> 。Ken Thompson 和 Dennis Ritchie 最初发明 C 语言时有很多语法和现在最常用的写法并不一样，但为了向后兼容性（Backward Compatibility），这些语法仍然在 <code>C89</code> 和 <code>C99</code> 中保留下来了，本书（即， <i><a href="http://akaedu.github.io/book/">Linux C编程一站式学习</a></i> ）不详细讲 <code>Old Style C</code> ，但在必要的地方会加以说明。 <code>C89</code> 是最早的 C 语言规范，于 1989 年提出，1990 年首先由ANSI（美国国家标准委员会，American National Standards Institute）推出，后来被接纳为 ISO 国际标准（ISO/IEC 9899:1990），因而有时也称为 <code>C90</code> ，最经典的 C 语言教材 <i><a href="https://book.douban.com/subject/1139336/">C 程序设计语言</a></i> <code>K&amp;R</code> 就是基于这个版本的， <code>C89</code> 是目前最广泛采用的 C 语言标准，大多数编译器都完全支持 <code>C89</code> 。 <code>C99</code> 标准（ISO/IEC 9899:1999）是在 1999 年推出的，加入了许多新特性，但目前仍没有得到广泛支持，在 <code>C99</code> 推出之后相当长的一段时间里，连 <code>gcc</code> 也没有完全实现 <code>C99</code> 的所有特性。</li>
+<li><code>#include</code> 必须单独占一行</li>
+<li>一般来说，应避免使用以下划线开头的标识符，以下划线开头的标识符只要不和 C 语言的关键字冲突的都是合法的，但是往往被编译器用作一些功能扩展，C 语言库的实现也定义了很多以下划线开头的名字，很容易造成名字冲突，所以除非你对编译器和 C 语言库特别清楚，一般应避免使用这种标识符。</li>
+<li>定义（definition）和声明（declaration）之间的关系是：如果一个声明同时也要求分配存储空间，则称为定义。</li>
+<li>什么是赋值（assignment）？什么是初始化（initialization）？ <br />
+定义一个变量，就是分配一块存储空间并给它命名；给一个变量赋值，就是把一个值存到了这块存储空间中。变量的定义和赋值也可以在一步完成，称为变量的初始化。 <b>注意</b> ，初始化是一种特殊的变量定义语句，而不是一种赋值语句。 <br />
+就目前来看，先定义一个变量再给它赋值和定义这个变量的同时给它初始化所达到的效果是一样的，事实上 C 语言的很多语法规则既适用于赋值也适用于初始化，但它们之间也存在不同，注意 <b>总结</b> <span class="underline">赋值和初始化的相同之处和不同之处。</span></li>
+<li>在计算机中不同类型的变量所占的存储空间大小是不同的，变量的最小存储单位是字节（Byte），在 C 语言中 <code>char</code> 型变量的存储空间是一个字节，其他类型的变量占多少个字节在不同的平台上有不同的规定。</li>
+<li><p>
+等号有一个和加减乘除不同的特性，如果一个表达式中出现多个等号，不是从左到右计算而是从右到左计算，例如： <br />
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #0086b3;">int</span> <span style="color: #597400;">total_minute</span>, <span style="color: #da005c;">total</span>;
+<span style="color: #da005c;">total</span> = <span style="color: #597400;">total_minute</span> = <span style="color: #497700;">hour</span> * <span style="color: #0086b3;">60</span> + <span style="color: #bf3d00;">minute</span>;
+</pre>
+</div>
+<p>
+计算顺序是先算 <code>hour * 60 + minute</code> 得到一个结果，然后算右边的等号，就是把 <code>hour * 60 + minute</code> 的结果赋值给 <code>total_minute</code> ，这个结果同时也是整个表达式 <code>total_minute = hour * 60 + minute</code> 的返回值（ C 语言规定等号运算符的计算结果就是等号左边被赋予的那个值），在算左边的等号，把这个值赋值给变量 <code>total</code> 。由此，我们总结，加减乘除运算是左结合，而等号运算是右结合的。
+</p></li>
+<li>我们使用 <code>printf</code> 函数，并不关心其返回值（事实上它也有返回值，表示实际打印的字符数），而是利用它所产生的副作用（side effect）——打印。 <b>C 语言的函数可以有副作用</b> 。</li>
+<li><p>
+<code>main</code> 函数也是合乎 C 语言语法的函数，其特殊之处在于执行程序时它自动被系统调用，除了名字特殊之外， <code>main</code> 函数和别的函数没有区别。 <code>main</code> 函数的返回值是返回给操作系统看的，因为 <code>main</code> 函数是被操作系统调用的，通常程序执行成功就返回 0，在执行过程中出错就返回一个非零值。例如我们将 <code>main</code> 函数的 <code>return</code> 语句改为 <code>return 4;</code> 再执行它，执行结束之后可以在 <code>Shell</code> 中看到它的退出状态：
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">$ <span style="color: #007cec;">./helloworld</span>
+$ <span style="color: #008126;">echo</span> $<span style="color: #d5007b;">?</span>
+<span style="color: #0086b3;">4</span>
+</pre>
+</div>
+<p>
+<code>$?</code> 是 <code>Shell</code> 中的一个特殊变量，表示上一个运行结束的程序的退出状态。
+</p></li>
+<li>其实系统在调用 <code>main</code> 函数时是有传参数的， <code>main</code> 函数的最标准的形式为 <code>int main(int argc, int *argv[])</code> 。C 标准也规定了 <code>int main(void)</code> 这种形式，如果不使用系统传进来的两个参数也可以写成这种形式。但除了这两种形式之外，以其他形式定义的 <code>main</code> 函数都是错误的或者是不可移植的。</li>
+<li><p>
+什么是函数原型（prototype）？ <br />
+比如 <code>void threeline(void)</code> 这一行，声明了一个函数的名字、参数类型和个数、返回值类型，这就称为函数原型。在代码中可以单独写一个函数原型，后面加 <code>;</code> 结束，而不写函数体，例如： <br />
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #0086b3;">void</span> <span style="color: #5259e1;">threeline</span><span style="color: #969896;">(</span><span style="color: #0086b3;">void</span><span style="color: #969896;">)</span>;
+</pre>
+</div>
+<p>
+这种只能叫函数声明而不能叫函数定义，只有带函数体的声明才是定义。如上所述，只有分配存储空间的变量声明才叫变量定义，其实函数也是一样，编译器只有见到函数定义才会生成指令，而指令在程序运行时当然也是要占存储空间的。那么没有函数体的函数声明有什么用呢？它为编译器提供了有用信息，编译器在处理代码的过程中，只有见到函数原型（不管带不带函数体）之后才知道这个函数的名字、参数类型和返回值，然后在碰到函数调用时才知道怎么生成相应的指令，所以函数原型必须出现在函数调用之前，这也是遵循了“先声明后使用”的原则。
+</p></li>
+<li><p>
+如果在调用函数之前没有声明该函数，它会怎么样呢？例如： 
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #a71d5d;">#include</span> <span style="color: #969896;">&lt;</span><span style="color: #183691;">stdio.h</span><span style="color: #969896;">&gt;</span>
+<span style="color: #0086b3;">int</span> <span style="color: #d5062f;">main</span><span style="color: #969896;">(</span><span style="color: #0086b3;">void</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+  <span style="color: #9e5a00;">printf</span><span style="color: #0086b3;">(</span><span style="color: #183691;">"print three lines\n"</span><span style="color: #0086b3;">)</span>;
+  <span style="color: #5259e1;">threeline</span><span style="color: #0086b3;">()</span>;
+  <span style="color: #0085a3;">return</span> <span style="color: #0086b3;">0</span>;
+<span style="color: #969896;">}</span>
+
+<span style="color: #0086b3;">void</span> <span style="color: #5259e1;">threeline</span><span style="color: #969896;">()</span> <span style="color: #969896;">{</span>
+  <span style="color: #9e5a00;">printf</span><span style="color: #0086b3;">(</span><span style="color: #183691;">"\n"</span><span style="color: #0086b3;">)</span>;
+  <span style="color: #9e5a00;">printf</span><span style="color: #0086b3;">(</span><span style="color: #183691;">"\n"</span><span style="color: #0086b3;">)</span>;
+  <span style="color: #9e5a00;">printf</span><span style="color: #0086b3;">(</span><span style="color: #183691;">"\n"</span><span style="color: #0086b3;">)</span>;
+<span style="color: #969896;">}</span>
+</pre>
+</div>
+<p>
+以上代码，在声明 <code>threeline</code> 函数之前，就在 <code>main</code> 中调用，编译时会给出警告：
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #0083d0;">test_math.c:5:3:</span> <span style="color: #0062e9;">warning:</span> <span style="color: #806900;">implicit</span> <span style="color: #007d00;">declaration</span> <span style="color: #da004f;">of</span> <span style="color: #c83106;">function</span> <span style="color: #183691;">'threeline'</span> <span style="color: #d9006b;">is</span>
+        <span style="color: #da0058;">invalid</span><span style="color: #a71d5d;"> </span><span style="color: #7a6b00;">in</span> <span style="color: #985d00;">C99</span> <span style="color: #969896;">[</span><span style="color: #9c3dc4;">-Wimplicit-function-declaration</span><span style="color: #969896;">]</span>
+   <span style="color: #5259e1;">threeline</span><span style="color: #969896;">()</span>;
+   <span style="color: #257b00;">^</span>
+<span style="color: #007f00;">test_math.c:9:6:</span> <span style="color: #cf008a;">error:</span> <span style="color: #d8003c;">conflicting</span> <span style="color: #aa5200;">types</span> <span style="color: #0082da;">for</span> <span style="color: #183691;">'threeline'</span>
+<span style="color: #b04d00;">void</span> <span style="color: #5259e1;">threeline</span><span style="color: #969896;">()</span> <span style="color: #969896;">{</span>
+     <span style="color: #257b00;">^</span>
+<span style="color: #0083d0;">test_math.c:5:3:</span> <span style="color: #da005e;">note:</span> <span style="color: #d4007c;">previous</span> <span style="color: #806900;">implicit</span> <span style="color: #007d00;">declaration</span> <span style="color: #d9006b;">is</span> <span style="color: #0073f2;">here</span>
+  <span style="color: #5259e1;">threeline</span><span style="color: #0086b3;">()</span>;
+  <span style="color: #257b00;">^</span>
+<span style="color: #0086b3;">1</span> <span style="color: #008598;">warning</span> <span style="color: #007bee;">and</span> <span style="color: #0086b3;">1</span> <span style="color: #bc4100;">error</span> <span style="color: #0085a7;">generated.</span>
+</pre>
+</div>
+<p>
+这里涉及到的规则称为函数的隐式声明（implicit declaration），在 <code>main</code> 函数中调用 <code>threeline</code> 时并没有声明它，则编译器认为此出隐式声明了 <code>int threeline(void);</code> ，然后为这个调用生成相应的指令，隐式声明的参数类型和个数根据函数调用代码来确定，隐式声明的返回值类型总是 <code>int</code> 。然后编译器接着往下看，看到 <code>threeline</code> 函数的原型为 <code>void threeline(void);</code> ，和先前的隐式声明的返回值类型不符，所以才会有这个警告。  <i>/
+注意区分以下两个概念：  /</i>
+</p>
+<ul class="org-ul">
+<li>如果调用函数时参数列表为空，并且缺少函数原型，则编译器根据隐式声明规则认为参数类型是 <code>void</code> ；</li>
+<li>如果声明函数时参数列表为空，则这个声明属于 <code>Old Style C</code> 语法，不算函数原型，编译器认为参数类型和个数没有明确指出。</li>
+</ul></li>
+<li>函数是表达式的一种，我们说“任何表达式都有一个返回值”，而这里函数 <code>threeline</code> 又说没有返回值，那么表达式 <code>threeline()</code> 不就没有值了吗？这不就产生了矛盾了么？ <br />
+这正是设计 <code>void</code> 关键字的原因：让没有返回值的函数调用有一个 <code>void</code> 值。然后再规定，表达式的计算结果可以是 <code>void</code> 值，但表达式不能使用 <code>void</code> 值做计算。也就是说，如果一个表达式的值为 <code>void</code> ，就不能把它当作另一个表达式的一部分来用。从而兼顾语法上的一致（任何表达式都有值，如果一个表达式实在没有值就说它有 <code>void</code> 值）和语义上的不矛盾（ <code>void</code> 值是虚构出来的，不能做计算）。
+<b>TODO</b> <span class="underline">应该整理一篇 <i>关于 <code>void</code> 关键字</i> 的博文。</span></li>
+<li><p>
+C 语言传递参数的方式为 <code>Call by Value</code> 。在调用函数时，每个参数都需要得到一个值，函数定义中有几个 <code>Parameter</code> ，在调用中就需要传入几个 <code>Argument</code> ，不能多也不能少，每个参数的类型也必须对应上。但是为什么我们调用 <code>printf</code> 函数时传的 <code>Argument</code> 数目是变化的，有时一个有时两个甚至更多个？这是因为 C 语言规定了一种特殊的参数列表格式，例如 <code>printf</code> 的原型是这样的：
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #0086b3;">int</span> <span style="color: #9e5a00;">printf</span><span style="color: #969896;">(</span><span style="color: #d31229;">const</span> <span style="color: #0086b3;">char</span>* <span style="color: #008341;">format</span>, ...<span style="color: #969896;">)</span>;
+</pre>
+</div>
+<p>
+第一个参数是 <code>const char*</code> 类型的，后面的 <code>...</code> 可以代表 0 个或任意多个参数，这些参数的类型也是不确定的，这称为可变参数（variable arugment）。由此，任何函数的定义既规定了返回值的类型，也规定了参数的类型和个数，即使像 <code>printf</code> 这样规定为“不确定”也是一种明确的规定，调用函数就要严格遵守这些规定，通常我们说函数提供了一个接口（interface），调用函数就是使用这个接口，使用的前提是必须和接口保持一致。 <b>TODO</b> <span class="underline">自己实现的 <code>printf</code> 函数</span>
+</p></li>
+<li><p>
+局部变量和全局变量 <br />
+在函数中定义的变量称为局部变量（local variable），由于形参相当于函数中定义的变量，所以形参也相当于局部变量。每次调用函数时局部变量都表示为不同的存储空间。局部变量是在每次函数调用时分配存储空间，每次函数返回时释放存储空间的。 <br />
+与局部变量的概念相对应的是全局变量（global variable），全局变量定义在所有的函数体之外，它们在整个程序开始之前分配存储空间，在程序结束时释放存储空间，所有函数都可以通过全局变量名访问它们。全局变量在整个程序的所有函数中都可以访问，所以在整个程序运行过程中全局变量被读写的顺序从源代码中看不出来（源代码的书写顺序并不能反映函数的调用顺序），出现了 Bug 往往就是因为在某个不起眼的地方对全局变量的读写顺序不正确，如果代码规模很大，这种错误是很难找出来的。另一方面，对于局部变量的访问不仅局限在一个函数内部，而且局限在依次函数调用之中，从函数的源代码也很容易看出访问的先后顺序是怎样的，所以比较容易找到 Bug。因此，虽然全局变量用起来很方便，但一定要慎用，能用函数传参代替的就不要用全局变量。 <br />
+在 C 语言中，每个标识符都有特定的作用于（scope），全局变量是定义在所有函数体之外的标识符，它的作用域从定义的位置开始知道源文件结束。而局部变量的作用域仅限于其定义的函数中。局部变量可以用任意类型相符的表达式来初始化，而全局变量只能用常量表达式来初始化。全局变量的初识值要求保存在编译生成的目标代码中，所以必须在编译时就能计算出来。为了方便编译器实现这一限制，C 语言从语法上规定了全局变量只能用常量表达式来初始化。因此，下面这种全局变量初始化是不合法的：
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #0086b3;">int</span> <span style="color: #bf3d00;">minute</span> = <span style="color: #0086b3;">360</span>;
+<span style="color: #0086b3;">int</span> <span style="color: #497700;">hour</span> = <span style="color: #bf3d00;">minute</span> / <span style="color: #0086b3;">60</span>;
+</pre>
+</div>
+<p>
+虽然在编译时也可以计算出 <code>hour</code> 的初识值，但 <code>minute / 60</code> 不是常量表达式，不符合语法规定。 <br />
+如果全局变量在定义时不初始化，则初识值是 0，也就是说，整型的就是 <code>0</code> ，字符型的就是 <code>'\0'</code> ，浮点型的就是 <code>0.0</code> 。如果局部变量在定义时不初始化，则初识值是不确定的，所以，局部变量在使用前一定要先赋值，不管是通过初始化还是赋值运算符，如果读取一个不确定的值来使用肯定会引入 Bug。至于，证明“局部变量的存储空间在每次函数调用时分配，在函数返回时释放”将在 <a href="https://aprilwith.me/2017/02/25/c-faq-part-three/">C FAQ（三）：局部变量的内存分配</a> 中讨论到。
+</p></li>
+<li>语句块中也可以定义局部变量，就像在函数体中定义局部变量一样。每次进入语句块时为此局部变量分配存储空间，每次退出语句块时释放其存储空间。单独使用语句块通常是为了定义一些比函数的局部变量更“局部”的变量。</li>
+<li>C 语言中的 <code>switch</code> 语句，规定各个 <code>case</code> 的常量表达式必须互不相同。 <code>case</code> 后面跟的必须是常量表达式，原因也与之前描述的相同，因为这个值必须在编译时计算出来。因此，C 语言规定 <code>case</code> 后面跟的常量表达式的值必须是可以精确比较的整型或字符型（ <code>char</code> 型本质上就是整数的一种表示）。</li>
+<li>返回布尔值的函数是一类非常有用的函数，在程序中通常充当控制表达式，函数名通常带有 <code>is</code> 或 <code>if</code> 等表示判断的词，这类函数也叫做谓词（predicate）。</li>
+<li><p>
+对程序中所有可能的情况分析得不够全面将会导致漏掉一些必需的代码路径，例如：
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #0086b3;">int</span> <span style="color: #ad4f00;">absolute_value</span><span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #c63400;">x</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+  <span style="color: #0083d2;">if</span> <span style="color: #0086b3;">(</span><span style="color: #c63400;">x</span> &lt; <span style="color: #0086b3;">0</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
+    <span style="color: #0085a3;">return</span> -<span style="color: #c63400;">x</span>;
+  <span style="color: #0086b3;">}</span> <span style="color: #0084c9;">else</span> <span style="color: #0083d2;">if</span> <span style="color: #0086b3;">(</span><span style="color: #c63400;">x</span> &gt; <span style="color: #0086b3;">0</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
+    <span style="color: #0085a3;">return</span> <span style="color: #c63400;">x</span>;
+  <span style="color: #0086b3;">}</span>
+<span style="color: #969896;">}</span>
+</pre>
+</div>
+<p>
+这个函数被定义为返回 <code>int</code> ，就应该在任何情况下都返回 <code>int</code> ，但是上面的代码片段在 <code>x=0</code> 时安静地退出了函数，什么也不返回，C 语言对于这种情况会返回什么结果是未定义的（undefined），通常返回不确定的值，并且在不同的平台和环境下返回值会很不一样。
+</p></li>
+<li>递归和循环是等价的，这个可以参考 <a href="https://book.douban.com/subject/1148282/">计算机程序的构造与解释</a> 第一章（特别注意是要完成练习题）。</li>
+<li>函数 A 调用函数 B，B 又调用 A，两个函数都要用到对方，把哪个函数定义在前面也不对，那怎么办呢？ <b>TODO</b></li>
+<li><p>
+<code>do/while</code> 语句的格式是：
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #d60035;">do</span> <span style="color: #969896;">{</span>
+  <span style="color: #1f7b00;">&#35821;&#21477;</span>;
+<span style="color: #969896;">}</span> <span style="color: #c73204;">while</span><span style="color: #969896;">(</span><span style="color: #407800;">&#25511;&#21046;&#34920;&#36798;&#24335;</span><span style="color: #969896;">)</span>;
+</pre>
+</div>
+<p>
+注意 <code>do/while</code> 这种形式在 <code>while(控制表达式)</code> 后面一定要加 <code>;</code> 号，否则编译器无法判断这是一个 <code>do/while</code> 循环的结尾还是另一个 <code>while</code> 循环的开头。
+</p></li>
+<li><p>
+<code>for</code> 语句的格式是：
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #0082da;">for</span> <span style="color: #969896;">(</span><span style="color: #6b6f00;">&#25511;&#21046;&#34920;&#36798;&#24335;1</span>; <span style="color: #0081dc;">&#25511;&#21046;&#34920;&#36798;&#24335;2</span>; <span style="color: #008579;">&#25511;&#21046;&#34920;&#36798;&#24335;3</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+  <span style="color: #1f7b00;">&#35821;&#21477;</span>;
+<span style="color: #969896;">}</span>
+</pre>
+</div>
+<p>
+如果不考虑语句中包含 <code>continue</code> 语句的情况，这个 <code>for</code> 循环等价于下列的 <code>while</code> 循环：
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #6b6f00;">&#25511;&#21046;&#34920;&#36798;&#24335;1</span>;
+<span style="color: #c73204;">while</span> <span style="color: #969896;">(</span><span style="color: #0081dc;">&#25511;&#21046;&#34920;&#36798;&#24335;2</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+  <span style="color: #1f7b00;">&#35821;&#21477;</span>;
+  <span style="color: #008579;">&#25511;&#21046;&#34920;&#36798;&#24335;3</span>;
+<span style="color: #969896;">}</span>
+</pre>
+</div>
+<p>
+从这个等价形式来看，控制表达式 1 和 3 都可以为空，但控制表达式 2 是必不可少的，例如， <code>for(;1;){...}</code> 死循环。C 语言规定，如果控制表达式 2 为空，则当作控制表达式 2 的值为真，因此，死循环也可以写成 <code>for(;;){...}</code> 。 <br />
+<code>C99</code> 引入一种新的 <code>for</code> 循环，规定控制表达式 1 的位置可以有变量定义（ <code>int i = 1;</code> ）。一般推荐在进入 <code>for</code> 循环之前声明变量（ <code>int i;</code> ），在控制表达式 1 的位置再进行赋值（ <code>i = 1</code> ）。
+</p></li>
+<li>C 标准库和 <code>glibc</code> <br />
+C 标准主要由两部分组成，一部分描述 C 的语法，另一部分描述 C 标准库。C 标准库定义了一组标准头文件，每个头文件中包含一些相关的函数、变量、类型声明和宏定义。要在一个平台上支持 C 语言，不仅要实现 C 编译器，还要实现 C 标准库，这样的实现才算符合 C 标准。不符合 C 标准的实现也是存在的，例如很多单片机的 C 语言开发工具中只有 C 编译器而没有完整的 C 标准库。 <br />
+在 Linux 平台上最广泛使用的 C 函数库是 <code>glibc</code> ，其中包括 C 标准库的实现，也包括所有的系统函数。几乎所有的 C 程序都要调用 <code>glibc</code> 的库函数，所以 <code>glibc</code> 是 Linux 平台 C 程序运行的基础。 <code>glibc</code> 提供一组头文件和一组库文件，最基本最常用的 C 标准库函数和系统调用函数在 <code>libc.so</code> 库中，几乎所有的 C 程序的运行都依赖于 <code>libc.so</code> 。 <br />
+<code>glibc</code> 并不是 Linux 平台上唯一的基础 C 函数库，也有人在开发别的 C 函数库，比如适用于嵌入式系统的 <code>uClibc</code> 。</li>
+<li><p>
+<code>man page</code> <br />
+<code>man page</code> 是 Linux 开发最常用的参考手册，由很多页面组成，每个页面描述一个主题，这些页面被组织成若干个 Section。FHS（Filesystem Hierarchy Standard）标准规定了 <code>man page</code> 各 Section 的含义，如下表示： <br />
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">Section</th>
+<th scope="col" class="org-left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">用户命令，例如 <code>ls(1)</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">系统调用，例如 <code>_exit(2)</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">库函数，例如 <code>printf(3)</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">特殊文件，例如 <code>null(4)</code> 描述了设备文件 <code>/dev/null</code> 和 <code>/dev/zero</code> 的作用，这个页面也叫 <code>zero(4)</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">系统配置文件的格式，例如 <code>passwd(5)</code> 描述了系统配置文件 <code>/etc/passwd</code> 的格式</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">游戏</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-right">7</td>
+<td class="org-left">其他杂项，例如 <code>bash-builtins(7)</code> 描述了 <code>bash</code> 的各种内建命令</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-right">8</td>
+<td class="org-left">系统管理命令，例如 <code>ifconfig(8)</code></td>
+</tr>
+</tbody>
+</table>
+<p>
+注意区分用户命令和系统管理命令，用户命令通常位于 <code>/bin</code> 和 <code>/usr/bin</code> 目录，系统管理命令通常位于 <code>/sbin</code> 和 <code>/usr/sbin</code> 目录，一般用户可以执行用户命令，而执行系统管理命令需要 root 权限。<br />
+<code>man page</code> 中有些页面有重名，比如敲 <code>man printf</code> 命令看到的并不是 C 函数 <code>printf</code> ，而是位于第 1 个 Section 的命令 <code>printf</code> ，要查看位于第 3 个 Section 的 <code>printf</code> 函数应敲 <code>man 3 printf</code> ，也可以敲 <code>man -k printf</code> 命令搜索哪些页面的主题包含 <code>printf</code> 关键字。
+</p></li>
+<li><a href="https://en.wikipedia.org/wiki/Duff%27s_device">达夫设备</a> 是一段很有意思的代码，正是利用了“ <code>switch</code> 的语句块和循环结构的语句块没有本质区别”这一点实现了一个巧妙的代码优化。</li>
+</ul>
+</div>
+<div id="postamble" class="status">
+<div id="sitemap"><a href="https://aprilwith.me/index.html">Other posts</a></div>
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+              /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+              var disqus_shortname = 'bastibe';
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+              <noscript>Please enable JavaScript to view the
+                  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</body>
+</html>

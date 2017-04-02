@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-04-02 Sun 14:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>C FAQ（四）：C 语言与汇编语言</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="qiaoin" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="css/site.css"/>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<div class="header">
+              <a href="https://aprilwith.me">自在随心</a> | <a href="http://github.com/qiaoin">Github</a>
+          </div>
+</div>
+<div id="content">
+<h1 class="title">C FAQ（四）：C 语言与汇编语言</h1>
+<p>
+要彻底弄明白 C 语言的原理，就必须深入到指令一层去理解。本文就是为了理清晰 C 语言与汇编语言之间的关系，做到了然于心。主要参考 <a href="http://akaedu.github.io/book/">Linux C编程一站式学习</a> 第 17、18 章，以及 <a href="https://book.douban.com/subject/1230413/">深入理解计算机系统</a> 第 3 章。
+</p>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgd80e878">一个最简单的汇编程序</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd80e878" class="outline-2">
+<h2 id="orgd80e878">一个最简单的汇编程序</h2>
+<div class="outline-text-2" id="text-orgd80e878">
+<div class="org-src-container">
+<pre class="src src-ASM"># exits and return a status code back to the Linux kernel
+  .section .data
+  .section .text
+  .globl _start
+_start:
+  movl $1, %eax
+  movl $16, %ebx
+  int $0x80
+</pre>
+</div>
+
+<p>
+将这个程序保存为 <code>hello.s</code> （汇编程序通常以 <code>.s</code> 作为文件名后缀，也有要求使用 <code>.S</code> 的，后面再解释），用汇编器 <code>as</code> 把汇编程序中的助记符翻译成机器指令，生成目标文件 <code>hello.o</code> ：
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">$ <span style="color: #0084c2;">as</span> <span style="color: #00800f;">hello.s</span> <span style="color: #756c00;">-o</span> <span style="color: #c03c00;">hello.o</span>
+</pre>
+</div>
+<p>
+然后用链接器（Linker） <code>ld</code> 将目标文件 <code>hello.o</code> 链接成可执行文件 <code>hello</code> ：
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">$ <span style="color: #a05900;">ld</span> <span style="color: #c03c00;">hello.o</span> <span style="color: #756c00;">-o</span> <span style="color: #796b00;">hello</span>
+</pre>
+</div>
+<p>
+为什么用汇编器翻译成机器指令了还不行，还要有一个链接的步骤呢？链接主要有两个作用：
+</p>
+<ol class="org-ol">
+<li>修改目标文件中的信息，对地址做重定位 <b>TODO 什么是重定位呢？</b></li>
+<li>把多个目标文件合并成一个可执行文件 <b>TODO 这又是什么意思呢？</b></li>
+</ol>
+
+<p>
+现在执行这个程序，它只做了一件事就是退出，退出状态为 16，可以使用 Shell 中的特殊变量 <code>$?</code> 得到上一条命令的退出状态：
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">$ <span style="color: #008574;">./hello</span>
+$ <span style="color: #008126;">echo</span> $<span style="color: #d5007b;">?</span>
+<span style="color: #0086b3;">16</span>
+</pre>
+</div>
+
+<p>
+下面逐行分析这个汇编程序。 <code>#</code> 表示单行注释。
+</p>
+<div class="org-src-container">
+<pre class="src src-ASM">.section .data
+</pre>
+</div>
+<p>
+汇编程序中以 <code>.</code> 开头的名称不是指令的助记符，不会被翻译成机器指令，而是给汇编器一些特殊指示，称为汇编指示（Assembler Directive）或伪指令（Pseudo-operation），由于它不是真正的指令所以加个“伪”字。 <code>.section</code> 指示把代码划分成若干个段（Section），程序被操作系统加载执行时，每个段被加载到不同的地址，操作系统对不同的页面设置不同的读、写、执行权限。 <code>.data</code> 段保存程序的数据，是可读可写的，相当于 C 程序中的全局变量。这里因为没有定义数据，所以 <code>.data</code> 段是空的。
+</p>
+<div class="org-src-container">
+<pre class="src src-ASM">.section .text
+</pre>
+</div>
+<p>
+<code>.text</code> 段保存代码，是只读和可执行的，后面那些指令都属于 <code>.text</code> 段。
+</p>
+<div class="org-src-container">
+<pre class="src src-ASM">.globl _start
+</pre>
+</div>
+<p>
+<code>_start</code> 是一个符号（symbol），符号在汇编程序中代表一个地址，可以用在指令中，汇编程序经过汇编器的处理之后，所有的符号都被替换成它所代表的地址值。在 C 语言中我们通过变量名来访问一个变量，其实就是读写从某个地址开始的内存单元，我们通过函数名调用一个函数，其实就是跳转到该函数第一条指令所在的地址，所以变量名和函数名都是符号，本质上是代表内存地址的。
+</p>
+
+<p>
+<code>.globl</code> 指示告诉汇编器， <code>_start</code> 这个符号要被链接器用到，所以要在目标文件的符号表中标记它是一个全局符号（ <b>TODO</b> ）。 <code>_start</code> 就像 C 程序中的 <code>main</code> 函数一样特殊，是整个程序的入口，链接器在链接时会查找目标文件中的 <code>_start</code> 符号代表的地址，把它设置为整个程序的入口地址，所以每个汇编程序都要提供一个 <code>_start</code> 符号并用 <code>.globl</code> 声明（名字不一定要为 <code>_start</code> ，只是需要有一个 <code>.globl</code> 声明的入口地址 <b>TODO 不知道这个描述是否准确？待考证</b> ）。如果一个符号没有用 <code>.globl</code> 声明，就表示这个符号不会被编译器用到。
+</p>
+<div class="org-src-container">
+<pre class="src src-ASM">_start:
+</pre>
+</div>
+<p>
+这里定义了 <code>_start</code> 符号，汇编器在翻译汇编程序时会计算每个数据对象和每条指令的地址，当看到这样一个符号定义时，就把它后面一条指令的地址作为这个符号所代表的地址。而 <code>_start</code> 这个符号又比较特殊，它所代表的地址是整个程序的入口地址，所以下一条指令 <code>movl $1, %eax</code> 就成了程序中第一条被执行的指令。
+</p>
+<div class="org-src-container">
+<pre class="src src-ASM">movl $1, %eax
+</pre>
+</div>
+<p>
+这是一条数据传送指令，这条指令要求 CPU 内部产生一个数字 1 并保存到 <code>eax</code> 寄存器中。 <code>mov</code> 的后缀 <code>l</code> 表示 <code>long</code> ，说明是 32 位的传送指令。这条指令不要求 CPU 读内存，1 这个数是在 CPU 内部产生的，称为立即数。在汇编程序中，立即数前面要加 <code>$</code> ，寄存器名前面要加 <code>%</code> ，以便跟符号名区分开来。这里使用的是 x86 汇编的 AT&amp;T 语法，第一个操作数总是源操作数，第二个操作数总是目的操作数（与 intel 语法相对比）。
+</p>
+<div class="org-src-container">
+<pre class="src src-ASM">movl $16, %ebx
+</pre>
+</div>
+<p>
+和上一条指令类似，生成一个立即数 16 并保存到 <code>ebx</code> 寄存器中。
+</p>
+<div class="org-src-container">
+<pre class="src src-ASM">int $0x80
+</pre>
+</div>
+<p>
+前两条指令都是为这条指令做准备的，执行这条指令时发生以下动作：
+</p>
+<ol class="org-ol">
+<li><code>int</code> 指令称为软中断指令，可以用这条指令故意产生一个异常，然后 CPU 从用户模式切换到特权模式，之后跳转到内核代码中去执行异常处理程序。</li>
+<li><code>int</code> 指令中的立即数 <code>0x80</code> 是一个参数，在异常处理程序中要根据这个参数来决定如何处理，在 Linux 内核中 <code>int $0x80</code> 这种异常称为系统调用（system call）。内核提供了很多系统服务供用户程序使用，但这些系统服务不能像库函数那样调用，需要通过系统调用切换 CPU 模式，经由异常处理程序进入内核，用户程序只能通过寄存器传入几个参数，之后就要按照内核设计好的代码路线走，这样可以保证系统服务被安全地调用。在调用结束之后，CPU 再切换回用户模式，继续执行 <code>int $0x80</code> 的下一条指令，在用户程序看来就像函数调用和函数返回一样。</li>
+<li><code>eax</code> 和 <code>ebx</code> 的值是传递给系统调用的两个参数。 <code>eax</code> 的值是系统调用号，Linux 的各种系统调用都是由 <code>int $0x80</code> 指令引发的，内核需要通过 <code>eax</code> 判断用户要调哪个系统调用， <code>_exit</code> 的系统调用号是 1。 <code>ebx</code> 的值是传给 <code>_exit</code> 的参数，表示退出状态（status code）。大多数系统调用完成之后会返回用户空间继续执行后面的指令，而 <code>_exit</code> 系统调用比较特殊，它会终止掉当前进程，而不是返回用户空间继续执行。</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<div id="sitemap"><a href="https://aprilwith.me/index.html">Other posts</a></div>
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+              /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+              var disqus_shortname = 'bastibe';
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+              <noscript>Please enable JavaScript to view the
+                  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</body>
+</html>

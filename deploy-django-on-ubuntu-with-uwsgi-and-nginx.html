@@ -1,0 +1,724 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-04-02 Sun 14:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>使用uWSGI和Nginx在Ubuntu上部署Django成功</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="qiaoin" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="css/site.css"/>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<div class="header">
+              <a href="https://aprilwith.me">自在随心</a> | <a href="http://github.com/qiaoin">Github</a>
+          </div>
+</div>
+<div id="content">
+<h1 class="title">使用uWSGI和Nginx在Ubuntu上部署Django成功</h1>
+<p>
+这两天在捣鼓服务器上部署 <code>Django</code> ，遂感觉自己对一些很简单的网络知识实在是欠缺，最终运行成功，将自己的过程记录在此，希望对后来人能有帮助，于自己，也是“立此存照”了。
+</p>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org72e8ccf">python环境搭建</a>
+<ul>
+<li><a href="#orgd9d4170">安装uWSGI</a></li>
+<li><a href="#org84da0d7">安装Django</a></li>
+</ul>
+</li>
+<li><a href="#org94d33e9">Nginx 搭建</a>
+<ul>
+<li><a href="#orgce7e09e">安装 Nginx</a></li>
+<li><a href="#org21a18eb">配置Nginx</a></li>
+<li><a href="#org8f16c92">部署static文件</a></li>
+<li><a href="#orge753a2c">测试 Nginx 是否部署成功</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org72e8ccf" class="outline-2">
+<h2 id="org72e8ccf">python环境搭建</h2>
+<div class="outline-text-2" id="text-org72e8ccf">
+<p>
+伴随着机器学习、深度学习的热潮， <code>Python</code> 的使用也是越来越火热，对于 <code>Python</code> 开发环境的搭建，个人重点推荐的方式是使用 <code>Anaconda</code> 进行 <code>Python</code> 环境和包的管理，但在
+<a href="https://www.continuum.io/downloads">官网</a> 上所提供的下载实在是太大了，原因就是它会预先给你下载很多乱七八糟的包，而这些包可能我们不怎么会用到，毕竟程序员大都有强迫症，这些用不到的包还要占据我的磁盘空间；在官网上
+还提供了 <a href="http://conda.pydata.org/miniconda.html">Miniconda</a> 的链接，40M左右，这个就很方便了。
+</p>
+
+<p>
+主要参考了 <a href="http://www.jianshu.com/p/2f3be7781451">Anaconda使用总结</a> ，首先按照参考配置使用国内镜像源，然后创建一个新的环境：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #00833e;">conda</span> <span style="color: #c90095;">create</span> <span style="color: #ca2d0d;">-n</span> <span style="color: #cd2617;">aprilwith.me</span> <span style="color: #008578;">python</span>=<span style="color: #0086b3;">3.5</span>
+</pre>
+</div>
+
+<p>
+其后进入这个新建的环境进行开发即可：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #a71d5d;">source</span> <span style="color: #008119;">activate</span> <span style="color: #cd2617;">aprilwith.me</span>  <span style="color: #969896;"># </span><span style="color: #969896;">&#36825;&#37324;&#23601;&#26159;&#26032;&#24314;&#29615;&#22659;&#30340;&#21517;&#23383;</span>
+</pre>
+</div>
+
+<p>
+除了以上两个命令，还将要使用到的命令有：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #00833e;">conda</span> <span style="color: #cd008d;">list</span>  <span style="color: #969896;"># </span><span style="color: #969896;">&#21015;&#20986;&#24403;&#21069;&#29615;&#22659;&#19979;&#25152;&#23433;&#35013;&#30340;packages</span>
+<span style="color: #00833e;">conda</span> <span style="color: #d8003c;">install</span> <span style="color: #969896;">[</span><span style="color: #0085ab;">package-name</span><span style="color: #969896;">]</span>  <span style="color: #969896;"># </span><span style="color: #969896;">&#23433;&#35013;package&#65292;&#20854;&#20250;&#21435;&#20320;&#25152;&#35774;&#32622;&#30340;&#38236;&#20687;&#28304;&#19978;&#21435;&#25214;</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">&#24403;&#28982;&#22914;&#26524;&#26576;&#20010;package&#20165;&#26377;pip&#28304;&#65288;&#22914;&#20197;&#19979;&#23558;&#35201;&#20351;&#29992;&#21040;&#30340;uWSGI&#65289;</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">&#37027;&#25105;&#20204;&#20063;&#21487;&#20197;&#20351;&#29992;pip&#23433;&#35013;&#65288;&#19981;&#38656;&#35201;&#21306;&#20998;pip&#21644;pip3&#65289;</span>
+<span style="color: #c92e0b;">pip</span> <span style="color: #cd008d;">list</span>  <span style="color: #969896;"># </span><span style="color: #969896;">&#20165;&#21015;&#20986;&#24403;&#21069;&#29615;&#22659;&#19979;&#20351;&#29992;pip&#23433;&#35013;&#30340;packages</span>
+<span style="color: #c92e0b;">pip</span> <span style="color: #d8003c;">install</span> <span style="color: #969896;">[</span><span style="color: #0085ab;">package-name</span><span style="color: #969896;">]</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">&#24403;&#20320;&#20351;&#29992;`conda list`&#20986;&#24403;&#21069;&#29615;&#22659;&#19979;&#25152;&#23433;&#35013;&#30340;&#25152;&#26377;packages&#26102;&#65292;</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">&#23427;&#20250;&#21578;&#35785;&#20320;&#36825;&#20010;package&#26159;&#20351;&#29992;&#20160;&#20040;&#23433;&#35013;&#30340;&#65292;&#25512;&#33616;&#39318;&#20808;&#20351;&#29992;`conda install [package-name]`</span>
+
+<span style="color: #969896;"># </span><span style="color: #969896;">&#36864;&#20986;&#24403;&#21069;&#29615;&#22659;</span>
+<span style="color: #a71d5d;">source</span> <span style="color: #a735bc;">deactivate</span> <span style="color: #cd2617;">aprilwith.me</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgd9d4170" class="outline-3">
+<h3 id="orgd9d4170">安装uWSGI</h3>
+<div class="outline-text-3" id="text-orgd9d4170">
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #c92e0b;">pip</span> <span style="color: #d8003c;">install</span> <span style="color: #00834b;">uWSGI</span>  
+<span style="color: #969896;"># </span><span style="color: #969896;">&#36825;&#37324;&#38656;&#35201;&#26159;&#24050;&#32463;`source`&#36827;&#20837;&#20102;&#26032;&#24314;&#29615;&#22659;&#65292;&#23601;&#20250;&#20986;&#29616;&#21069;&#32512; (aprilwith.me)</span>
+</pre>
+</div>
+
+<p>
+提示，安装 <code>uWSGI</code> 需要 <code>C++</code> 编译器的支持，所以在安装之前确保已存在 <code>g++</code> 。
+</p>
+
+<p>
+测试 <code>uWSGI</code> 是否正常，新建 <code>test_uwsgi.py</code> 文件：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #969896;"># </span><span style="color: #969896;">test_uwsgi.py</span>
+<span style="color: #2f7a00;">def</span> <span style="color: #0076f2;">application</span><span style="color: #969896;">(</span><span style="color: #007e00;">env</span>, <span style="color: #d11a24;">start_response</span><span style="color: #969896;">)</span>:
+    <span style="color: #d11a24;">start_response</span><span style="color: #969896;">(</span><span style="color: #183691;">'200 OK'</span>, <span style="color: #0086b3;">[</span><span style="color: #969896;">(</span><span style="color: #183691;">'Content-Type'</span>, <span style="color: #183691;">'text/html'</span><span style="color: #969896;">)</span><span style="color: #0086b3;">]</span><span style="color: #969896;">)</span>
+    <span style="color: #0085a3;">return</span> <span style="color: #969896;">[</span><span style="color: #00859a;">b</span><span style="color: #183691;">'Hello, this websit is https://aprilwith.me'</span><span style="color: #969896;">]</span>  <span style="color: #969896;"># </span><span style="color: #969896;">python3</span>
+    <span style="color: #969896;"># </span><span style="color: #969896;">return ['Hello, this websit is https://aprilwith.me']  # python2</span>
+</pre>
+</div>
+
+<p>
+然后，运行 <code>uWSGI</code> （在当前工作目录下）
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #325ee6;">uwsgi</span> <span style="color: #b823ac;">--http</span> <span style="color: #ab5000;">:8000</span> <span style="color: #007ee9;">--wsgi-file</span> <span style="color: #0071f2;">test_uwsgi.py</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">--http : 8000 [&#20351;&#29992;http&#21327;&#35758;&#65292;8000&#31471;&#21475;]</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">--wsgi-file test_uwsgi.py [&#25351;&#23450;&#21152;&#36733;&#25991;&#20214;]</span>
+</pre>
+</div>
+
+<p>
+通过 <code>http://aprilwith.me:8000</code> 进行访问，浏览器应该会返回“Hello, this websit is 「 <a href="https://aprilwith.me">https://aprilwith.me</a> 」” ，
+说明 <code>web-client &lt;--&gt;  uWSGI &lt;--&gt; python</code> 运行通畅。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org84da0d7" class="outline-3">
+<h3 id="org84da0d7">安装Django</h3>
+<div class="outline-text-3" id="text-org84da0d7">
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #00833e;">conda</span> <span style="color: #d8003c;">install</span> <span style="color: #6d6f00;">django</span>
+</pre>
+</div>
+
+<p>
+这里推荐 <a href="http://www.runoob.com/django/django-tutorial.html">菜鸟Django教程</a> ，虽然有些东西可以版本有些老了，但也没什么问题。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #00859e;">aprilewith.me</span><span style="color: #969896;">)</span> $ <span style="color: #b94400;">django-admin.py</span> <span style="color: #0080e2;">startproject</span> <span style="color: #cb2a12;">myapp</span>
+<span style="color: #969896;">(</span><span style="color: #00859e;">aprilewith.me</span><span style="color: #969896;">)</span> $ <span style="color: #cf0089;">cd</span> <span style="color: #cb2a12;">myapp</span>
+<span style="color: #969896;">(</span><span style="color: #00859e;">aprilewith.me</span><span style="color: #969896;">)</span> $ <span style="color: #da0050;">tree</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">.</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">|-- myapp</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">|   |-- __init__.py  // &#19968;&#20010;&#31354;&#25991;&#20214;&#65292;&#21578;&#35785;Python&#35813;&#30446;&#24405;&#26159;&#19968;&#20010;Python&#21253;</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">|   |-- settings.py  // &#37197;&#32622;&#25991;&#20214;</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">|   |-- urls.py      // &#27880;&#20876;`url`</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">|   |-- wsgi.py      // &#19968;&#20010;WSGI&#20860;&#23481;&#30340;Web&#26381;&#21153;&#22120;&#30340;&#20837;&#21475;&#65292;&#20197;&#20415;&#36816;&#34892;&#20320;&#30340;&#39033;&#30446;</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">|-- manage.py  //&#23454;&#29992;&#30340;&#21629;&#20196;&#34892;&#24037;&#20855;&#65292;&#21487;&#35753;&#20320;&#20197;&#21508;&#31181;&#26041;&#24335;&#19982;&#35813;Django&#39033;&#30446;&#36827;&#34892;&#20132;&#20114;</span>
+</pre>
+</div>
+
+<p>
+首先确保安装的 <code>Django</code> 本身没有什么问题：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #00859e;">aprilewith.me</span><span style="color: #969896;">)</span> $ <span style="color: #008578;">python</span> <span style="color: #c33800;">manage.py</span> <span style="color: #007fe5;">runserver</span> <span style="color: #0086b3;">0.0.0.0:8001</span>
+</pre>
+</div>
+
+<p>
+如果一切正常，再使用 <code>uWSGI</code> 将 <code>Django</code> 运行起来：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #00859e;">aprilewith.me</span><span style="color: #969896;">)</span> $ <span style="color: #325ee6;">uwsgi</span> <span style="color: #b823ac;">--http</span> <span style="color: #ab5000;">:8000</span> <span style="color: #007ee9;">--wsgi-file</span> <span style="color: #d70036;">myapp/wsgi.py</span>
+</pre>
+</div>
+
+<p>
+<code>Django</code> 项目启动起来，说明 <code>web-client &lt;--&gt;  uWSGI &lt;--&gt; Django</code> 运行通畅。
+</p>
+
+<p>
+我们可以将以上运行命令参数均写入一个 <code>YAML</code> 格式的配置文件中，新建 <code>test_uwsgi.ini</code> 文件：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span style="color: #969896;"># </span><span style="color: #969896;">test_uwsgi.ini</span>
+[uwsgi]
+<span style="color: #969896;"># </span><span style="color: #969896;">Django-related settings</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">the base directory (full path)</span>
+chdir  = /home/aprilwith/myapp
+<span style="color: #969896;"># </span><span style="color: #969896;">Django's wsgi file</span>
+wsgi-file = /home/aprilwith/myapp/myapp/wsgi.py
+
+<span style="color: #969896;"># </span><span style="color: #969896;">Process-related settings</span>
+master = true
+processes = 4
+
+http = :8000  <span style="color: #969896;"># </span><span style="color: #969896;">&#29305;&#21035;&#38656;&#35201;&#27880;&#24847;&#36825;&#37324;&#65281;</span>
+chmod-socket = 666
+vacuum = true
+</pre>
+</div>
+
+<p>
+需要特别注意的是 <code>http = :8000</code> ，其实就是根据上面那个完整的命令来的，我受了下面在配置 <code>Nginx</code> 的影响，一直将其写做 <code>socket = :8000</code> ，
+网上也有很多博客是这样写的，这样在运行的时候是有点问题的（具体两种方式的原因，有空再捣鼓）。
+</p>
+
+<p>
+然后运行命令简化为：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #00859e;">aprilewith.me</span><span style="color: #969896;">)</span> $ <span style="color: #325ee6;">uwsgi</span> <span style="color: #006df1;">test_uwsgi.ini</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org94d33e9" class="outline-2">
+<h2 id="org94d33e9">Nginx 搭建</h2>
+<div class="outline-text-2" id="text-org94d33e9">
+</div><div id="outline-container-orgce7e09e" class="outline-3">
+<h3 id="orgce7e09e">安装 Nginx</h3>
+<div class="outline-text-3" id="text-orgce7e09e">
+<p>
+安装步骤主要参考 <a href="http://www.jianshu.com/p/d5114a2a2052">Centos下 Nginx安装与配置</a> ，最后，打开浏览器访问此机器的IP，如果浏览器出现"Welcome to nginx!" 则表示 <code>Nginx</code> 已经安装并运行成功。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org21a18eb" class="outline-3">
+<h3 id="org21a18eb">配置Nginx</h3>
+<div class="outline-text-3" id="text-org21a18eb">
+<ul class="org-ul">
+<li>将 <code>uwsgi_params</code> 文件拷贝到项目文件夹下。 <code>uwsgi_params</code> 文件在 <code>/usr/local/nginx/</code> 目录下，也可以从 <a href="https://github.com/nginx/nginx/blob/master/conf/uwsgi_params">这里</a> 下载;</li>
+<li>在项目文件夹下创建文件 <code>myapp_nginx.conf</code> ，添加以下内容：</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #969896;"># </span><span style="color: #969896;">myapp_nginx.conf</span>
+
+<span style="color: #969896;"># </span><span style="color: #969896;">the upstream component nginx needs to connect to</span>
+<span style="color: #0080e4;">upstream</span> <span style="color: #6d6f00;">django</span> <span style="color: #969896;">{</span>
+    <span style="color: #969896;"># </span><span style="color: #969896;">connect to this socket</span>
+    <span style="color: #da0061;">server</span>    <span style="color: #c92e0c;">unix:///home/aprilwith/myapp/myapp.sock</span>;
+    <span style="color: #969896;"># </span><span style="color: #969896;">take care of `///`</span>
+<span style="color: #969896;">}</span>
+
+<span style="color: #da0061;">server</span> <span style="color: #969896;">{</span>
+    <span style="color: #969896;"># </span><span style="color: #969896;">the port your site will be served on</span>
+    <span style="color: #0068ee;">listen</span>     <span style="color: #0086b3;">8000</span>;
+    <span style="color: #d30080;">server_name</span>        <span style="color: #0086b3;">[</span><span style="color: #317a00;">ip-address</span><span style="color: #0086b3;">]</span>;  <span style="color: #969896;"># </span><span style="color: #969896;">your ip address here</span>
+    <span style="color: #8947cf;">charset</span>            <span style="color: #008015;">utf-8</span>;
+
+    <span style="color: #969896;"># </span><span style="color: #969896;">Max upload size</span>
+    <span style="color: #008458;">client_max_body_size</span> <span style="color: #0086b3;">80M</span>;
+
+    <span style="color: #969896;"># </span><span style="color: #969896;">Django media</span>
+    <span style="color: #007fe5;">location</span> <span style="color: #c017a3;">/media</span> <span style="color: #0086b3;">{</span>
+        <span style="color: #a71d5d;">alias</span> <span style="color: #0071f2;">/home/aprilwith/myapp/media</span>;
+    <span style="color: #0086b3;">}</span>
+
+    <span style="color: #007fe5;">location</span> <span style="color: #0085a4;">/static</span> <span style="color: #0086b3;">{</span>
+        <span style="color: #a71d5d;">alias</span> <span style="color: #0075f2;">/home/aprilwith/myapp/static</span>;
+    <span style="color: #0086b3;">}</span>
+
+    <span style="color: #969896;"># </span><span style="color: #969896;">Finally, send all non-media requests to the Django server</span>
+    <span style="color: #007fe5;">location</span> <span style="color: #d8006e;">/</span> <span style="color: #0086b3;">{</span>
+        <span style="color: #6e6f00;">uwsgi_pass</span> <span style="color: #6d6f00;">django</span>;
+        <span style="color: #008599;">include</span>    <span style="color: #00822c;">/home/aprilwith/myapp/uwsgi_params</span>;
+    <span style="color: #0086b3;">}</span>
+<span style="color: #969896;">}</span>
+</pre>
+</div>
+<p>
+这个 <code>configuration</code> 文件告诉 <code>Nginx</code> 从文件系统中拉起 <code>media</code> 和 <code>static</code> 文件作为服务，同时相应 <code>Django</code> 的请求。
+</p>
+<ul class="org-ul">
+<li>相应的，我们需要对 <code>Djang</code> `项目目录下对 <code>.ini</code> 文件进行修改（新建一个 <code>uwsgi.ini</code> 文件）：</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-yaml">[uwsgi]
+<span style="color: #969896;"># </span><span style="color: #969896;">Django-related settings</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">the base directory (full path)</span>
+chdir  = /home/aprilwith/myapp
+<span style="color: #969896;"># </span><span style="color: #969896;">Django's wsgi file</span>
+wsgi-file = /home/aprilwith/myapp/myapp/wsgi.py
+
+<span style="color: #969896;"># </span><span style="color: #969896;">Process-related settings</span>
+master = true
+processes = 4
+
+socket = /home/aprilwith/myapp/myapp.sock
+chmod-socket = 666
+vacuum = true
+</pre>
+</div>
+
+<p>
+参考 <a href="http://www.jianshu.com/p/e6ff4a28ab5a">基于nginx和uWSGI在Ubuntu上部署Django</a> ，这里需要建立文件链接，而 <code>/usr/local/nginx/</code> 目录下没有 <code>sites-enabled</code> ， <code>Stackoverflow</code> 上给出的
+<a href="http://stackoverflow.com/questions/17413526/nginx-missing-sites-available-directory">解决方案</a> 为：
+</p>
+
+<blockquote>
+<p>
+do the following:
+</p>
+
+<ol class="org-ol">
+<li>Locate your nginx.conf file. Likely at /usr/local/nginx/conf/nginx.conf;</li>
+<li>Find the http block;</li>
+<li>Somewhere in the http block, write include /usr/local/nginx/conf/conf.d/*.conf; This tells nginx to pull in any files in the conf.d directory that end in .conf; (I know: it's weird that a directory can have a . in it.)</li>
+<li>Create the conf.d directory if it doesn't already exist (per the path in step 3); Be sure to give it the right permissions/ownership. Likely root or www-data;</li>
+<li>Move or copy your separate config files (just like you have in /usr/local/nginx/sites-available) into the directory conf.d;</li>
+<li>Reload or restart nginx.</li>
+</ol>
+</blockquote>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #cf0089;">cd</span> <span style="color: #af4e00;">/usr/local/nginx</span>
+<span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #da005c;">mkdir</span> <span style="color: #c43700;">conf.d</span>
+<span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #cf0089;">cd</span> <span style="color: #c43700;">conf.d</span>
+<span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #377900;">cp</span> <span style="color: #007ced;">/home/aprilwith/myapp/myapp_nginx.conf</span> <span style="color: #006cf0;">.</span>
+<span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #c92f09;">emacs</span> <span style="color: #b22bb3;">../conf/nginx.conf</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">adding blew into the http block of `/usr/local/nginx/conf/nginx.conf`</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">include /usr/local/nginx/conf.d/*.conf;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8f16c92" class="outline-3">
+<h3 id="org8f16c92">部署static文件</h3>
+<div class="outline-text-3" id="text-org8f16c92">
+<p>
+在你的 <code>Django</code> 项目的 <code>settings.py</code> 文件最后添加下面一行代码：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #007deb;">STATIC_ROOT</span> = <span style="color: #007aef;">os</span>.<span style="color: #6854dc;">path</span>.<span style="color: #0085a5;">join</span><span style="color: #969896;">(</span><span style="color: #0083cf;">BASE_DIR</span>, <span style="color: #183691;">"static/"</span><span style="color: #969896;">)</span>
+</pre>
+</div>
+
+<p>
+然后运行：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #008578;">python</span> <span style="color: #c33800;">manage.py</span> <span style="color: #0082db;">collectstatic</span>
+</pre>
+</div>
+
+<p>
+这样就会在你的 <code>Django</code> 项目下新建一个 <code>static</code> 目录，=media= 目录我们自己创建就好。
+</p>
+
+<p>
+另外，我们需要设置 <code>ALLOWED_HOSTS</code> ，让其能够被任意主机访问：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #4d5ae2;">ALLOWED_HOSTS</span> = <span style="color: #969896;">[</span><span style="color: #183691;">'*'</span><span style="color: #969896;">]</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge753a2c" class="outline-3">
+<h3 id="orge753a2c">测试 Nginx 是否部署成功</h3>
+<div class="outline-text-3" id="text-orge753a2c">
+<p>
+首先关闭 <code>Nginx</code> 服务
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">$ <span style="color: #00822c;">/usr/local/nginx/sbin/nginx</span> <span style="color: #0085ac;">-s</span> <span style="color: #985d00;">stop</span>
+</pre>
+</div>
+
+<p>
+然后测试配置信息是否有错误
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">$ <span style="color: #00822c;">/usr/local/nginx/sbin/nginx</span> <span style="color: #d10086;">-t</span>
+</pre>
+</div>
+
+<p>
+执行结果中显示配置是否正确。
+</p>
+
+<p>
+对于 <code>static</code> 的检查，直接访问 <code>http://aprilwith.me:8000/admin</code> 就能够看到 <code>Django</code> 提供的 <code>admin</code> 页面。
+</p>
+
+<p>
+对于 <code>media</code> 的检查，在目录中提交图片 <code>hello.png</code> ，然后在浏览器中访问 <code>http://aprilwith.me:8000/media/hello.png</code> 。
+</p>
+
+<p>
+这两个检查仅在启动 <code>Nginx</code> 服务之后就可以执行，那对于我们在 <code>Django</code> 项目目录下所配置的 <code>.ini</code> 文件，应该如何检测了？
+这里我们的方法就是写一个 <code>Post</code> 表单提交，参考自上面提到的菜鸟教程 。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #969896;"># </span><span style="color: #969896;">-*- coding: utf-8 -*-</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">myapp/myapp/search.py</span>
+
+<span style="color: #da0048;">from</span> <span style="color: #6d6f00;">django</span>.<span style="color: #00811d;">shortcuts</span> <span style="color: #c63400;">import</span> <span style="color: #0072f2;">render</span>
+<span style="color: #da0048;">from</span> <span style="color: #6d6f00;">django</span>.<span style="color: #d8006c;">template</span>.<span style="color: #876500;">context_processors</span> <span style="color: #c63400;">import</span> <span style="color: #00856c;">csrf</span>
+
+<span style="color: #2f7a00;">def</span> <span style="color: #d8003e;">search_post</span><span style="color: #969896;">(</span><span style="color: #008004;">request</span><span style="color: #969896;">)</span>:
+    <span style="color: #00859d;">ctx</span> = <span style="color: #969896;">{}</span>
+    <span style="color: #00859d;">ctx</span>.<span style="color: #b84500;">update</span><span style="color: #969896;">(</span><span style="color: #00856c;">csrf</span><span style="color: #0086b3;">(</span><span style="color: #008004;">request</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>
+    <span style="color: #0083d2;">if</span> <span style="color: #008004;">request</span>.<span style="color: #b02db5;">POST</span>:
+        <span style="color: #00859d;">ctx</span><span style="color: #969896;">[</span><span style="color: #183691;">'rlt'</span><span style="color: #969896;">]</span> = <span style="color: #008004;">request</span>.<span style="color: #b02db5;">POST</span><span style="color: #969896;">[</span><span style="color: #183691;">'q'</span><span style="color: #969896;">]</span>
+    <span style="color: #0085a3;">return</span> <span style="color: #0072f2;">render</span><span style="color: #969896;">(</span><span style="color: #008004;">request</span>, <span style="color: #183691;">"post.html"</span>, <span style="color: #00859d;">ctx</span><span style="color: #969896;">)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #969896;"># </span><span style="color: #969896;">myapp/myapp/urls.py</span>
+<span style="color: #da0048;">from</span> <span style="color: #6d6f00;">django</span>.<span style="color: #0083d4;">conf</span>.<span style="color: #9641c8;">urls</span> <span style="color: #c63400;">import</span> <span style="color: #8a47ce;">url</span>
+<span style="color: #da0048;">from</span> <span style="color: #6d6f00;">django</span>.<span style="color: #0064eb;">contrib</span> <span style="color: #c63400;">import</span> <span style="color: #0081dd;">admin</span>
+<span style="color: #da0048;">from</span> <span style="color: #cb2a12;">myapp</span>.<span style="color: #008588;">search</span> <span style="color: #c63400;">import</span> <span style="color: #d8003e;">search_post</span>  <span style="color: #969896;"># </span><span style="color: #969896;">&#24403;&#28982;&#38656;&#35201;&#23548;&#20837;</span>
+
+<span style="color: #6b53db;">urlpatterns</span> = <span style="color: #969896;">[</span>
+    <span style="color: #8a47ce;">url</span><span style="color: #0086b3;">(</span><span style="color: #006ff1;">r</span><span style="color: #183691;">'^admin/'</span>, <span style="color: #0081dd;">admin</span>.<span style="color: #9f5900;">site</span>.<span style="color: #9641c8;">urls</span><span style="color: #0086b3;">)</span>,
+    <span style="color: #8a47ce;">url</span><span style="color: #0086b3;">(</span><span style="color: #006ff1;">r</span><span style="color: #183691;">'^search-post/'</span>, <span style="color: #d8003e;">search_post</span><span style="color: #0086b3;">)</span>,  <span style="color: #969896;"># </span><span style="color: #969896;">&#28155;&#21152;&#36825;&#19968;&#27573;</span>
+<span style="color: #969896;">]</span>
+</pre>
+</div>
+
+<p>
+将 <code>settings.py</code> 中的 <code>TEMPLATES</code> 字段设置为 “'DIRS': [BASE<sub>DIR</sub>+"/templates"],”，对应的在 <code>/home/aprilwith/myapp</code> 目录下
+要新建 <code>templates/</code> 目录，以来保存 <code>html</code> 文件。这里在 <code>templates/</code> 目录下添加：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #795da3;">html</span>&gt;
+  &lt;<span style="color: #795da3;">head</span>&gt;
+    &lt;<span style="color: #795da3;">meta</span> <span style="color: #333333;">charset</span>=<span style="color: #183691;">"utf-8"</span> /&gt;
+    &lt;<span style="color: #795da3;">title</span>&gt;<span style="font-weight: bold; text-decoration: underline;">CJR</span>&lt;/<span style="color: #795da3;">title</span>&gt;
+  &lt;/<span style="color: #795da3;">head</span>&gt;
+  &lt;<span style="color: #795da3;">body</span>&gt;
+    &lt;<span style="color: #795da3;">form</span> <span style="color: #333333;">action</span>=<span style="color: #183691;">"/search-post/"</span> <span style="color: #333333;">method</span>=<span style="color: #183691;">"post"</span>&gt;
+      {% raw %}
+      {% csrf_token %}
+      {% endraw %}
+      &lt;<span style="color: #795da3;">input</span> <span style="color: #333333;">type</span>=<span style="color: #183691;">"text"</span> <span style="color: #333333;">name</span>=<span style="color: #183691;">"q"</span>&gt;
+      &lt;<span style="color: #795da3;">input</span> <span style="color: #333333;">type</span>=<span style="color: #183691;">"submit"</span> <span style="color: #333333;">value</span>=<span style="color: #183691;">"Submit"</span>&gt;
+    &lt;/<span style="color: #795da3;">form</span>&gt;
+
+    &lt;<span style="color: #795da3;">p</span>&gt;
+      {% raw %}
+      {{ rlt }}
+      {% endraw %}
+    &lt;/<span style="color: #795da3;">p</span>&gt;
+  &lt;/<span style="color: #795da3;">body</span>&gt;
+&lt;/<span style="color: #795da3;">html</span>&gt;
+</pre>
+</div>
+
+<p>
+其后运行：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #325ee6;">uwsgi</span> <span style="color: #0085b4;">--ini</span> <span style="color: #854ad1;">uwsgi.ini</span>
+</pre>
+</div>
+
+<p>
+在浏览器中访问 <code>http://aprilwith.me:8000/search-post/</code> 就看到我们写的提交表单的界面了。
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<div id="sitemap"><a href="https://aprilwith.me/index.html">Other posts</a></div>
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+              /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+              var disqus_shortname = 'bastibe';
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+              <noscript>Please enable JavaScript to view the
+                  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</body>
+</html>

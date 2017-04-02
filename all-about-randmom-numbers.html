@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-04-02 Sun 14:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>随机数——僭越之罪</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="qiaoin" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="css/site.css"/>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="preamble" class="status">
+<div class="header">
+              <a href="https://aprilwith.me">自在随心</a> | <a href="http://github.com/qiaoin">Github</a>
+          </div>
+</div>
+<div id="content">
+<h1 class="title">随机数——僭越之罪</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org0dc2b10">在Java中使用随机数</a></li>
+<li><a href="#orgc3acf0c">TAOCP中线性同余法摘记</a>
+<ul>
+<li><a href="#orgc48f424">3.2.1 线性同余法 P8</a></li>
+<li><a href="#orge2cdd0c">3.2.1.2 乘数的选择 定理A P15</a></li>
+<li><a href="#org9a345d3">3.6 小结 P163</a></li>
+</ul>
+</li>
+<li><a href="#org20a4b1c">从 Java 源代码看线性同余法</a></li>
+</ul>
+</div>
+</div>
+<p>
+相较于用物理方法生成随机数，冯・诺依曼承认：“当然，任何考虑用算术方法生成随机数的人都犯了僭越之罪。因为，正如已经被多次指出的，
+不存在一个随机数这样的东西——有的只是生成随机数的方法，而一种严格的算术方法显然不属于其中之一。”
+</p>
+
+<p>
+一直都想看看计算机是如何生成随机数这种东西的，Java 中的 <code>random</code> 方法的工作原理又是什么，前几天又看了一遍《信息简史》上第十二章对随机性的描述，遂先挖个坑，一定填好。
+</p>
+
+<p>
+其实大家应该也注意到了，我们在手机上播放音乐歌单（假如此歌单有 32 首歌，歌曲名顺次索引为 0 到 31，将此顺序称为 A 序），将播放模式设置为随机，
+歌单是随机开始放了（假定播放顺序是 2，12，15，27，4，3，9，……，即首先播放歌单第 2 首，然后第 12 首，……，将此顺序称为 B 序），
+但一段时间过后就会进入循环（以 B 序进入循环播放）。A 序为顺序递增序列，非随机序列，或者说我们可以很容易的知道播放完第 15 首歌之后，
+下一首要播放的是第 16 首歌，这是可以预测的；B 序，称为随机序列，我们无法确定播放完此刻的这首歌之后，后一首将要播放的是哪一首歌，
+可以这样理解，A 序在音乐未开始播放的时候，这个序列我们就可以写出来，而 B 序，像上面的 2，12，15，27，4，3，9，……，
+我们只能是在音乐已经播放到这首歌时候，我们才能写下在其前面已经播放过的歌曲从而得到 B 序。更严格意义上的说，在音乐播放器中随机所产生的 B 序应称为伪随机序列，
+正如上面所言，在经过一段时间之后音乐的播放会以 B 序开始循环播放。
+</p>
+
+<p>
+在之前，玩炉石开卡包拼人品，总是开出一蓝四白，于是开始怀疑这玩的不是同一个游戏，终于弃坑，现在想想，暴雪这个随机数生成程序的实现也许随机性不是很好。当然，这只是猜想。
+</p>
+
+<div id="outline-container-org0dc2b10" class="outline-2">
+<h2 id="org0dc2b10">在Java中使用随机数</h2>
+<div class="outline-text-2" id="text-org0dc2b10">
+<p>
+在Java中使用随机数只需调用：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #0086b3;">double</span> <span style="color: #0085b0;">m</span> = <span style="color: #007f00;">Math</span>.<span style="color: #ce231b;">random</span><span style="color: #969896;">()</span>;
+</pre>
+</div>
+
+<p>
+<code>Math.random()</code> 方法返回一个 \([0.0, 1.0)\) 的 <code>double</code> 值。 <code>java.lang.Math.random()</code> 的实现如下：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #007f00;">public</span> <span style="color: #00845b;">static</span> <span style="color: #0086b3;">double</span> <span style="color: #ce231b;">random</span><span style="color: #969896;">()</span> <span style="color: #969896;">{</span>
+    <span style="color: #0085a3;">return</span> <span style="color: #ca0094;">RandomNumberGeneratorHolder</span>.<span style="color: #d90040;">randomNumberGenerator</span>.<span style="color: #da005a;">nextDouble</span><span style="color: #0086b3;">()</span>;
+<span style="color: #969896;">}</span>
+</pre>
+</div>
+
+<p>
+其中 <code>RandomNumberGeneratorHolder</code> 为 <code>java.lang.Math</code> 类中的一静态内部类（这里使用内部类的好处在下面说明），其实现如下：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #4e5ae2;">private</span> <span style="color: #00845b;">static</span> <span style="color: #0069ee;">final</span> <span style="color: #cd008e;">class</span> <span style="color: #0086b3;">RandomNumberGeneratorHolder</span> <span style="color: #969896;">{</span>
+    <span style="color: #00845b;">static</span> <span style="color: #0069ee;">final</span> <span style="color: #0086b3;">Random</span> <span style="color: #d90040;">randomNumberGenerator</span> = <span style="color: #d90067;">new</span> <span style="color: #0086b3;">Random</span><span style="color: #0086b3;">()</span>;
+<span style="color: #969896;">}</span>
+</pre>
+</div>
+
+<p>
+<code>RandomNumberGeneratorHolder</code> 类包含一个静态属性，其引用指向 <code>java.util.Random</code> 类的一个实例，那么设置这个静态内部类，
+引用 JavaAPI 文档中 <code>java.lang.Math.random()</code> 方法的说法：
+</p>
+
+<blockquote>
+<p>
+When this method is <b>first</b> called, it creates a single new pseudorandom-number generator, 
+exactly as if by the expression. This new pseudorandom-number generator is used thereafter for 
+<b>all</b> calls to this method and is used nowhere else.
+</p>
+</blockquote>
+
+<p>
+就是说，仅会在第一次调用 <code>java.lang.Math.random()</code> 方法的时候会创建一个新的伪随机数生成器的对象实例，此后的所有对 <code>random()</code> 方法
+的调用都会使用这个生成器，不会重新再 <code>new</code> 一个新的对象。
+</p>
+
+<p>
+可以知道， <code>java.lang.Math.random()</code> 方法实际上使用了 <code>java.util.Random</code> 这个类所实现的 <code>nextDouble()</code> 方法。这就是 Java 中常用的随机数生成类了，如下：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #969896;">/* </span><span style="color: #969896;">1.&#21019;&#24314;Random&#23545;&#35937;&#65292;&#25552;&#20379;&#20004;&#20010;&#26500;&#36896;&#26041;&#27861; */</span>
+<span style="color: #0086b3;">Random</span> <span style="color: #ce231b;">random</span> = <span style="color: #d90067;">new</span> <span style="color: #0086b3;">Random</span><span style="color: #969896;">()</span>;      <span style="color: #969896;">// </span><span style="color: #969896;">&#40664;&#35748;&#26500;&#36896;&#26041;&#27861;</span>
+<span style="color: #969896;">//</span><span style="color: #969896;">Random random = new Random(1000);  // &#25351;&#23450;&#31181;&#23376;&#25968;&#23383;</span>
+<span style="color: #969896;">/* </span><span style="color: #969896;">2.&#36890;&#36807;Random&#23454;&#20363;&#33719;&#21462;&#25152;&#38656;&#35201;&#30340;&#38543;&#26426;&#25968;&#65292;&#25552;&#20379;&#22810;&#31181;&#31867;&#22411;&#30340;&#38543;&#26426;&#25968;&#31867;&#22411;&#65306;boolean&#65292;byte&#65292;int&#65292;long&#65292;float&#65292;double */</span>
+<span style="color: #969896;">// </span><span style="color: #969896;">&#24471;&#21040;&#19968;&#20010;int&#31867;&#22411;&#38543;&#26426;&#25968;&#65292;&#22914;&#19979;&#65307;</span>
+<span style="color: #0086b3;">int</span> <span style="color: #0076f2;">n</span> = <span style="color: #ce231b;">random</span>.<span style="color: #d21627;">nextInt</span><span style="color: #969896;">()</span>;
+<span style="color: #969896;">// </span><span style="color: #969896;">&#24471;&#21040;&#19968;&#20010;[0, 1000)int&#31867;&#22411;&#30340;&#38543;&#26426;&#25968;&#65292;&#22914;&#19979;&#65307;</span>
+<span style="color: #0086b3;">int</span> <span style="color: #0085b0;">m</span> = <span style="color: #ce231b;">random</span>.<span style="color: #d21627;">nextInt</span><span style="color: #969896;">(</span><span style="color: #0086b3;">1000</span><span style="color: #969896;">)</span>;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc3acf0c" class="outline-2">
+<h2 id="orgc3acf0c">TAOCP中线性同余法摘记</h2>
+<div class="outline-text-2" id="text-orgc3acf0c">
+<p>
+最近花时间过了一下 TAOCP 第二卷的随机数一章，数学证明太多，我也仅是想知道随机数的产生，也可以算是目的已经达到了，
+下面将书上这一章关于线性同余法的介绍摘录如下（ TAOCP 第二卷，半数值算法，第三版，国防工业出版社）。
+</p>
+</div>
+
+<div id="outline-container-orgc48f424" class="outline-3">
+<h3 id="orgc48f424">3.2.1 线性同余法 P8</h3>
+<div class="outline-text-3" id="text-orgc48f424">
+<p>
+当今使用的最流行的随机数生成程序是 D.H.Lehmer 1949年介绍过的方案的特殊情况。我们选择 4 个魔术整数：
+</p>
+
+<ul class="org-ul">
+<li>\(m\) ，模数； \(0 < m\) ；</li>
+<li>\(a\) ，乘数； \(0 \leq a < m\) ；</li>
+<li>\(c\) ，增量； \(0 \leq c < m\) ；</li>
+<li>\(X_0\) ，开始值或种子； \(0 \leq X_0 < m\) 。</li>
+</ul>
+
+<p>
+然后通过置
+</p>
+
+<p>
+\[ X_{n+1} = (aX_n + c) \text{ mod } m，n \geq 0 \]
+</p>
+
+<p>
+而得到所求的随机数序列 \(\{X_n\}​\) 。这个序列称做线性同余序列。对 \(m​\) 求余有点像确定转动的轮盘上球的落点。
+</p>
+
+<p>
+例如，当 \(m=10\) 和 \(X_0=a=c=7\) 时，得到的序列是 7，6，9，0，7，6，9，0，…… 如此例所示，对于 \(m\) ，\(a\) ，\(c\) 和 \(X_0\) 的所有选择，这个序列并不总是“随机”的。
+</p>
+
+<p>
+这个例子说明了同余序列总是进入一个循环的事实，亦即，它最终必定在 \(n\) 个数之间无休止地重复循环。这个性质对于具有一般形式 \(X_{n+1}=f(X_n)\)
+的任何序列都是共同的，这里 \(f\) 把一个有限集合转换成它自身。这种重复的循环称为周期，上述例子有一个长度为 4 的周期。一个有用的序列当然应有相当长的周期。
+</p>
+
+<p>
+\(c=0\) 的特殊情况值得明确指出，因为 \(c=0\) 时数的生成过程比 \(c \neq 0\) 时要稍微快些。我们后面看到，\(c=0\) 的限制缩短了这个序列的周期长度，
+但是它仍有可能得到一个相当长的周期。Lehmer 原来的生成方法只有 \(c=0\) 的情况，尽管他提出了 \(c \neq 0\) 的可能性。取 \(c \neq 0\) 来得到更长的周期的想法
+是分别由 Thomson 和 Rotenberg 提出来的。许多作者用术语 <b>乘同余法</b> 和 <b>混合同余法</b> 来分别表示 \(c=0\) 和 \(c \neq 0\) 的线性同余法。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge2cdd0c" class="outline-3">
+<h3 id="orge2cdd0c">3.2.1.2 乘数的选择 定理A P15</h3>
+<div class="outline-text-3" id="text-orge2cdd0c">
+<p>
+由 \(m\) ， \(a\) ， \(c\) 和 \(X_0\) 所定义的线性同余序列有周期长度 \(m\) 当且仅当
+</p>
+
+<ol class="org-ol">
+<li>\(c\) 与 \(m\) 互素；</li>
+<li>对于整除 \(m\) 的每个素数 \(p\) ， \(a-1\) 是 \(p\) 的倍数；</li>
+<li>如果 \(m\) 是 4 的倍数，则 \(a-1\) 也是 4 的倍数。</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org9a345d3" class="outline-3">
+<h3 id="org9a345d3">3.6 小结 P163</h3>
+<div class="outline-text-3" id="text-org9a345d3">
+<p>
+在这一章中我们叙述了相当大量的课题：怎样生成随机数，怎样检验它们，怎样在应用中修正它们，以及怎样推导关于它们的理论等。
+也许在许多读者的心目中，主要的问题是：“什么是整个理论的结果？什么是在我的程序中可以使用的简单而良好的生成程序，以便有一个可靠的随机数的来源？”
+</p>
+
+<p>
+这一章中的详细研究表明，下列过程给出了对于大多数计算机的机器语言来说是“最好”和“最简单”的随机数生成程序：
+在程序的开头，把一个整型变量 \(X\) 置为某个值 \(X_0\) 。变量 \(X\) 仅用于随机数生成的目的。每当程序要求一个新的随机数时，
+即置 \(X \leftarrow (aX + c) \text{ mod } m\) ，并且使用 \(X\) 的新值作为随机值。应该适当地选择 \(X_0\) ，\(a\) ， \(c\) 和 \(m\) ，
+而且按下列原则明智地使用随机数：
+</p>
+
+<ol class="org-ol">
+<li>“种子”数 \(X_0\) 可以任意地选择。如果这个程序运行若干次，而且每次都希望有不同的随机数来源，则置 \(X_0\) 为上次赋予运行中由 \(X\) 得到的最后值；或者（如果更方便的话）置 \(X_0\) 为当前的日期和时间。如果这个程序以后可能要以同样的随机数重新运行（例如当调试时），而又不知道 \(X_0\) 的值是什么，就应该打印出来看看。</li>
+<li>数 \(m\) 应是大的，比如说至少是 \(2^{30}\) 。取计算机字的大小可能是方便的，因为这会使 \((aX + c) ~ \text{mod} ~ m\) 的计算十分高效。3.2.1.1小节更详细地讨论了 \(m\) 的选择。\((aX + c) ~ \text{mod} ~ m\) 的计算必须精确，不带舍去误差。</li>
+<li>如果 \(m\) 是 2 的一个乘方（即如果正使用一台二进制计算机），则可挑选 \(a\) 使得 \(a ~ \text{mod} ~ 8 = 5\) 。如果 \(m\) 是 10 的一个乘方（即如果正使用一台十进制计算机），则可选择 \(a\) 使得 \(a ~ \text{mod} ~ 200 = 21\) 。\(a\) 的这一选择和以下给出的 \(c\) 的选择一起，保证了这个随机数生成程序在它开始重复以前，产生 \(X\) 的全部 \(m\) 个可能的不同值（见3.2.1.2小节）以及保证了高的“效能”（见3.2.1.3小节）。</li>
+<li>乘数 \(a\) 选择在 .01m 和 .99m 之间是可取的，而且它的二进表示或十进表示数字不应有一个简单的正规的模式。 通过选择某些像 \(a=3141592621\) 这样的任意常数（它同时满足（3）中的两个条件），几乎总能得到相当好的乘数。如果要广泛使用这个随机数生成程序，当然应该做进一步的检验；例如，当使用欧几里得算法来求 \(a\) 和 \(m\) 的 \(gcd\) （见3.3.3小节）时，不应有太大的商。在乘数被认为真正合格之前它应通过谱检验（3.3.4小节）和3.3.2小节的若干检验。</li>
+<li>当 \(a\) 是一个好的乘数时，除了当 \(m\) 是计算机的字的大小时不能和 \(m\) 有公因子外，\(c\) 的值是无所谓的。因此我们可以选择 \(c=1\) 或 \(c=a\) 。许多人已经把 \(c=0\) 和 \(m=2^e\) （ \(e\) 表示任意的整指数）放在一起使用，但它们牺牲两位精度和一半的种子值，却只不过节省了几纳秒的运行时间。</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org20a4b1c" class="outline-2">
+<h2 id="org20a4b1c">从 Java 源代码看线性同余法</h2>
+<div class="outline-text-2" id="text-org20a4b1c">
+<p>
+如上所述，Java 中两种生成随机数的方法，均是在使用 <code>java.util.Random</code> 这个类所提供的方法。为了方便描述，将上面使用随机数的代码（依次编号为0，1，2，3）拷贝在下面：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #969896;">/* </span><span style="color: #969896;">1.&#21019;&#24314;Random&#23545;&#35937;&#65292;&#25552;&#20379;&#20004;&#20010;&#26500;&#36896;&#26041;&#27861; */</span>
+<span style="color: #0086b3;">Random</span> <span style="color: #ce231b;">random</span> = <span style="color: #d90067;">new</span> <span style="color: #0086b3;">Random</span><span style="color: #969896;">()</span>;        <span style="color: #969896;">// </span><span style="color: #969896;">&#40664;&#35748;&#26500;&#36896;&#26041;&#27861;     *********&#65288;0&#65289;</span>
+<span style="color: #969896;">//</span><span style="color: #969896;">Random random = new Random(1000);  // &#25351;&#23450;&#31181;&#23376;&#25968;&#23383;     *********&#65288;1&#65289;</span>
+<span style="color: #969896;">/* </span><span style="color: #969896;">2.&#36890;&#36807;Random&#23454;&#20363;&#33719;&#21462;&#25152;&#38656;&#35201;&#30340;&#38543;&#26426;&#25968;&#65292;&#25552;&#20379;&#22810;&#31181;&#31867;&#22411;&#30340;&#38543;&#26426;&#25968;&#31867;&#22411;&#65306;boolean&#65292;byte&#65292;int&#65292;long&#65292;float&#65292;double */</span>
+<span style="color: #969896;">// </span><span style="color: #969896;">&#24471;&#21040;&#19968;&#20010;int&#31867;&#22411;&#38543;&#26426;&#25968;&#65292;&#22914;&#19979;&#65307;</span>
+<span style="color: #0086b3;">int</span> <span style="color: #0076f2;">n</span> = <span style="color: #ce231b;">random</span>.<span style="color: #d21627;">nextInt</span><span style="color: #969896;">()</span>;            <span style="color: #969896;">//                 </span><span style="color: #969896;">*********&#65288;2&#65289;</span>
+<span style="color: #969896;">// </span><span style="color: #969896;">&#24471;&#21040;&#19968;&#20010;[0, 1000)int&#31867;&#22411;&#30340;&#38543;&#26426;&#25968;&#65292;&#22914;&#19979;&#65307;</span>
+<span style="color: #0086b3;">int</span> <span style="color: #0085b0;">m</span> = <span style="color: #ce231b;">random</span>.<span style="color: #d21627;">nextInt</span><span style="color: #969896;">(</span><span style="color: #0086b3;">1000</span><span style="color: #969896;">)</span>;        <span style="color: #969896;">//                 </span><span style="color: #969896;">*********&#65288;3&#65289;</span>
+</pre>
+</div>
+
+<p>
+好了，那现在我们就来看看 Java 是如何生成随机数的。
+</p>
+
+<p>
+在 eclipse 中输入 <code>import java.util.Random;</code> 导入这个 <code>Random</code> 类，按住 <code>command</code> 将光标移至 <code>Random</code> ，跳转查看其源代码实现（这句话其实多余，使用过 eclipse 都知道如何查看）。
+</p>
+
+<p>
+这个类的开始描述如下：
+</p>
+
+<blockquote>
+<p>
+An instance of this class is used to generate a stream of <b>pseudorandom</b> numbers. The class uses a <b>48-bit</b> seed, which is modified using a <b>linear congruential formula</b>. (See Donald Knuth, <i>The Art of Computer Programming, Volume 2</i> , Section 3.2.1.)
+</p>
+</blockquote>
+
+<p>
+就是说，这个 <code>java.util.Random</code> 类的实例用以生成一系列伪随机数，其使用 48 位种子，修改自线性同余公式，具体参考可查看第二节 <b>TAOCP 中线性同余法摘记</b> 。
+</p>
+
+<p>
+以下为 <code>java.util.Random</code> 类两个构造方法和几个其他的辅助方法，以获得 48 位种子，即 \(X_0\) 。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #007f00;">public</span> <span style="color: #896500;">Random</span><span style="color: #969896;">()</span> <span style="color: #969896;">{</span>
+    <span style="color: #da0046;">this</span><span style="color: #0086b3;">(</span><span style="color: #5658e0;">seedUniquifier</span><span style="color: #969896;">()</span> ^ <span style="color: #008012;">System</span>.<span style="color: #7b6a00;">nanoTime</span><span style="color: #969896;">()</span><span style="color: #0086b3;">)</span>;
+<span style="color: #969896;">}</span>
+
+<span style="color: #4e5ae2;">private</span> <span style="color: #00845b;">static</span> <span style="color: #0086b3;">long</span> <span style="color: #5658e0;">seedUniquifier</span><span style="color: #969896;">()</span> <span style="color: #969896;">{</span>
+    <span style="color: #969896;">// </span><span style="color: #969896;">L'Ecuyer, "Tables of Linear Congruential Generators of</span>
+    <span style="color: #969896;">// </span><span style="color: #969896;">Different Sizes and Good Lattice Structure", 1999</span>
+    <span style="color: #0082da;">for</span> <span style="color: #0086b3;">(</span>;;<span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
+        <span style="color: #0086b3;">long</span> <span style="color: #6953db;">current</span> = <span style="color: #5658e0;">seedUniquifier</span>.<span style="color: #607200;">get</span><span style="color: #969896;">()</span>;
+        <span style="color: #0086b3;">long</span> <span style="color: #985d00;">next</span> = <span style="color: #6953db;">current</span> * <span style="color: #0086b3;">181783497276652981L</span>;
+        <span style="color: #0083d2;">if</span> <span style="color: #969896;">(</span><span style="color: #5658e0;">seedUniquifier</span>.<span style="color: #00857d;">compareAndSet</span><span style="color: #795da3;">(</span><span style="color: #6953db;">current</span>, <span style="color: #985d00;">next</span><span style="color: #795da3;">)</span><span style="color: #969896;">)</span>
+            <span style="color: #0085a3;">return</span> <span style="color: #985d00;">next</span>;
+    <span style="color: #0086b3;">}</span>
+<span style="color: #969896;">}</span>
+
+<span style="color: #4e5ae2;">private</span> <span style="color: #00845b;">static</span> <span style="color: #0069ee;">final</span> <span style="color: #0086b3;">AtomicLong</span> <span style="color: #5658e0;">seedUniquifier</span> = <span style="color: #d90067;">new</span> <span style="color: #0086b3;">AtomicLong</span><span style="color: #969896;">(</span><span style="color: #0086b3;">8682522807148012L</span><span style="color: #969896;">)</span>;
+
+<span style="color: #007f00;">public</span> <span style="color: #896500;">Random</span><span style="color: #969896;">(</span><span style="color: #0086b3;">long</span> <span style="color: #007ced;">seed</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+    <span style="color: #0083d2;">if</span> <span style="color: #0086b3;">(</span><span style="color: #0083ce;">getClass</span><span style="color: #969896;">()</span> == <span style="color: #896500;">Random</span>.<span style="color: #cd008e;">class</span><span style="color: #0086b3;">)</span>
+        <span style="color: #da0046;">this</span>.<span style="color: #007ced;">seed</span> = <span style="color: #d90067;">new</span> <span style="color: #0086b3;">AtomicLong</span><span style="color: #0086b3;">(</span><span style="color: #0085a6;">initialScramble</span><span style="color: #969896;">(</span><span style="color: #007ced;">seed</span><span style="color: #969896;">)</span><span style="color: #0086b3;">)</span>;
+    <span style="color: #0084c9;">else</span> <span style="color: #0086b3;">{</span>
+        <span style="color: #969896;">// </span><span style="color: #969896;">subclass might have overriden setSeed</span>
+        <span style="color: #da0046;">this</span>.<span style="color: #007ced;">seed</span> = <span style="color: #d90067;">new</span> <span style="color: #0086b3;">AtomicLong</span><span style="color: #969896;">()</span>;
+        <span style="color: #3b7900;">setSeed</span><span style="color: #969896;">(</span><span style="color: #007ced;">seed</span><span style="color: #969896;">)</span>;
+    <span style="color: #0086b3;">}</span>
+<span style="color: #969896;">}</span>
+
+<span style="color: #4e5ae2;">private</span> <span style="color: #00845b;">static</span> <span style="color: #0086b3;">long</span> <span style="color: #0085a6;">initialScramble</span><span style="color: #969896;">(</span><span style="color: #0086b3;">long</span> <span style="color: #007ced;">seed</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+    <span style="color: #0085a3;">return</span> <span style="color: #0086b3;">(</span><span style="color: #007ced;">seed</span> ^ <span style="color: #796b00;">multiplier</span><span style="color: #0086b3;">)</span> &amp; <span style="color: #0085ac;">mask</span>;
+<span style="color: #969896;">}</span>
+</pre>
+</div>
+
+<p>
+首先看看这个无参数的构造方法，使用 <code>System.nanoTime()</code> 方法来得到一个纳米级的时间量，参与 48 位种子的构成， <code>seedUniquifier()</code> 方法
+将以初始值（8682522807148012L）不断乘以某一特定值（181783497276652981L），直至某一次相乘前后结果相同，以进一步增加随机性
+（但随机性该如何衡量呢？如信息简史里说到的使用其所包含的信息量，亦即描述计算出这个数的算法的长度；或者如 TAOCP 里说到的 \(𝓧^2\) 检验、
+谱检验等等，这些还没有很多了解，以后补充。）。到这里，已经至少进行了三次随机了：
+</p>
+
+<ol class="org-ol">
+<li>使用一个长整数作为“初始种子值”，系统默认为 8682522807148012L；</li>
+<li>不断与某一特定值——181783497276652981L——相乘，直至某一次相乘前后结果相同；</li>
+<li>所得到的值与 <code>System.nanoTime()</code> 方法返回的值进行异或运算，得到最终的种子，即 \(X_0\) 。</li>
+</ol>
+
+<p>
+另外一个构造方法是直接提供了 \(X_0\) 的值。
+</p>
+
+<p>
+接下来，我们来看看（2）对应的 <code>nextInt()</code> 方法，实现如下：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #007f00;">public</span> <span style="color: #0086b3;">int</span> <span style="color: #d21627;">nextInt</span><span style="color: #969896;">()</span> <span style="color: #969896;">{</span>
+    <span style="color: #0085a3;">return</span> <span style="color: #985d00;">next</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">32</span><span style="color: #0086b3;">)</span>;
+<span style="color: #969896;">}</span>
+</pre>
+</div>
+
+<p>
+代码很简洁，直接调用 <code>next(int bits)</code> 方法， <code>next(int bits)</code> 方法实现如下：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #008580;">protected</span> <span style="color: #0086b3;">int</span> <span style="color: #985d00;">next</span><span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #008466;">bits</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+    <span style="color: #0086b3;">long</span> <span style="color: #008468;">oldseed</span>, <span style="color: #007fe5;">nextseed</span>;
+    <span style="color: #0086b3;">AtomicLong</span> <span style="color: #007ced;">seed</span> = <span style="color: #da0046;">this</span>.<span style="color: #007ced;">seed</span>;
+    <span style="color: #d60035;">do</span> <span style="color: #0086b3;">{</span>
+        <span style="color: #008468;">oldseed</span> = <span style="color: #007ced;">seed</span>.<span style="color: #607200;">get</span><span style="color: #969896;">()</span>;
+        <span style="color: #007fe5;">nextseed</span> = <span style="color: #969896;">(</span><span style="color: #008468;">oldseed</span> * <span style="color: #796b00;">multiplier</span> + <span style="color: #bd4000;">addend</span><span style="color: #969896;">)</span> &amp; <span style="color: #0085ac;">mask</span>;
+    <span style="color: #0086b3;">}</span> <span style="color: #c73204;">while</span> <span style="color: #0086b3;">(</span><span style="color: #a71d5d;">!</span><span style="color: #007ced;">seed</span>.<span style="color: #00857d;">compareAndSet</span><span style="color: #969896;">(</span><span style="color: #008468;">oldseed</span>, <span style="color: #007fe5;">nextseed</span><span style="color: #969896;">)</span><span style="color: #0086b3;">)</span>;
+    <span style="color: #0085a3;">return</span> <span style="color: #0086b3;">(</span><span style="color: #0086b3;">int</span><span style="color: #0086b3;">)(</span><span style="color: #007fe5;">nextseed</span> &gt;&gt;&gt; <span style="color: #969896;">(</span><span style="color: #0086b3;">48</span> - <span style="color: #008466;">bits</span><span style="color: #969896;">)</span><span style="color: #0086b3;">)</span>;
+<span style="color: #969896;">}</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #007fe5;">nextseed</span> = <span style="color: #969896;">(</span><span style="color: #008468;">oldseed</span> * <span style="color: #796b00;">multiplier</span> + <span style="color: #bd4000;">addend</span><span style="color: #969896;">)</span> &amp; <span style="color: #0085ac;">mask</span>;
+</pre>
+</div>
+
+<p>
+与 \(X_{n+1} = (aX_n + c) \text{ mod } m，n \geq 0\) 形式几乎类似。其实，这就是线性同余法，就是这关键的一行代码，如文档所说只是稍微 <code>modified</code> 了一下。
+</p>
+
+<p>
+不急，我们先来看看这几个参数的声明：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #4e5ae2;">private</span> <span style="color: #0069ee;">final</span> <span style="color: #0086b3;">AtomicLong</span> <span style="color: #007ced;">seed</span>;
+<span style="color: #4e5ae2;">private</span> <span style="color: #00845b;">static</span> <span style="color: #0069ee;">final</span> <span style="color: #0086b3;">long</span> <span style="color: #796b00;">multiplier</span> = <span style="color: #0086b3;">0x5DEECE66DL</span>;
+<span style="color: #4e5ae2;">private</span> <span style="color: #00845b;">static</span> <span style="color: #0069ee;">final</span> <span style="color: #0086b3;">long</span> <span style="color: #bd4000;">addend</span> = <span style="color: #0086b3;">0xBL</span>;
+<span style="color: #4e5ae2;">private</span> <span style="color: #00845b;">static</span> <span style="color: #0069ee;">final</span> <span style="color: #0086b3;">long</span> <span style="color: #0085ac;">mask</span> = <span style="color: #969896;">(</span><span style="color: #0086b3;">1L</span> &lt;&lt; <span style="color: #0086b3;">48</span><span style="color: #969896;">)</span> - <span style="color: #0086b3;">1</span>;
+</pre>
+</div>
+
+<p>
+<code>seed</code> 就是初始种子，这个已经计算出来了（无参数或有参数的构造方法），对应公式中的 \(X_0\) ， <code>multiplier</code> 也就是乘数，对应公式中的 \(a\) ，
+ <code>addend</code> 对应公式中的 \(c\) ， <code>mask</code> 是什么呢，怎么与 <code>mod</code> 对应上呢？其实 \(b \text{ mod } 2^{48}\) 与 <code>b &amp; (1L &lt;&lt; 48) - 1</code> 是等价的。
+这两个式子都是为了达到同一个目的（二进制表示）：
+</p>
+
+<ol class="org-ol">
+<li>将第 48 位及比 48 位高的各位数值置为 0；</li>
+<li>低 47 位保持原值不变。 <br /></li>
+</ol>
+<p>
+<b>注</b> ： <code>mod</code> 取余， <code>a mod b</code> ，假设 <code>a = n * b + c</code> ，则 <code>a mod b = c</code> ； <code>&amp;</code> 异或运算， <code>a &amp; 0 = a</code> ， <code>a &amp; 1 = 0</code> 。
+</p>
+
+<p>
+（3）对应的 <code>nextInt(int bound)</code> 是一个更常用的方法，实现如下：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #007f00;">public</span> <span style="color: #0086b3;">int</span> <span style="color: #d21627;">nextInt</span><span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #8f6200;">bound</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+    <span style="color: #0083d2;">if</span> <span style="color: #0086b3;">(</span><span style="color: #8f6200;">bound</span> &lt;= <span style="color: #0086b3;">0</span><span style="color: #0086b3;">)</span>
+        <span style="color: #0069ee;">throw</span> <span style="color: #d90067;">new</span> <span style="color: #0086b3;">IllegalArgumentException</span><span style="color: #0086b3;">(</span><span style="color: #6e6e00;">BadBound</span><span style="color: #0086b3;">)</span>;
+    <span style="color: #0086b3;">int</span> <span style="color: #006ff1;">r</span> = <span style="color: #985d00;">next</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">31</span><span style="color: #0086b3;">)</span>;
+    <span style="color: #0086b3;">int</span> <span style="color: #0085b0;">m</span> = <span style="color: #8f6200;">bound</span> - <span style="color: #0086b3;">1</span>;
+    <span style="color: #0083d2;">if</span> <span style="color: #0086b3;">(</span><span style="color: #969896;">(</span><span style="color: #8f6200;">bound</span> &amp; <span style="color: #0085b0;">m</span><span style="color: #969896;">)</span> == <span style="color: #0086b3;">0</span><span style="color: #0086b3;">)</span>  <span style="color: #969896;">// </span><span style="color: #969896;">i.e., bound is a power of 2</span>
+        <span style="color: #006ff1;">r</span> = <span style="color: #0086b3;">(</span><span style="color: #0086b3;">int</span><span style="color: #0086b3;">)(</span><span style="color: #969896;">(</span><span style="color: #8f6200;">bound</span> * <span style="color: #795da3;">(</span><span style="color: #0086b3;">long</span><span style="color: #795da3;">)</span><span style="color: #006ff1;">r</span><span style="color: #969896;">)</span> &gt;&gt; <span style="color: #0086b3;">31</span><span style="color: #0086b3;">)</span>;
+    <span style="color: #0084c9;">else</span> <span style="color: #0086b3;">{</span>
+        <span style="color: #0082da;">for</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #0080e2;">u</span> = <span style="color: #006ff1;">r</span>;
+             <span style="color: #0080e2;">u</span> - <span style="color: #795da3;">(</span><span style="color: #006ff1;">r</span> = <span style="color: #0080e2;">u</span> % <span style="color: #8f6200;">bound</span><span style="color: #795da3;">)</span> + <span style="color: #0085b0;">m</span> &lt; <span style="color: #0086b3;">0</span>;
+             <span style="color: #0080e2;">u</span> = <span style="color: #985d00;">next</span><span style="color: #795da3;">(</span><span style="color: #0086b3;">31</span><span style="color: #795da3;">)</span><span style="color: #969896;">)</span>
+             ;
+    <span style="color: #0086b3;">}</span>
+    <span style="color: #0085a3;">return</span> <span style="color: #006ff1;">r</span>;
+<span style="color: #969896;">}</span>
+</pre>
+</div>
+
+<p>
+该函数进行的工作是把 31 位的原始随机范围 <code>next(31)</code> 的结果 \([0, 2^{31})\) 映射到 \([0, bound)\) 范围之内。但是，如果不经过特殊处理会出现概率不均匀。
+考虑下面这个例子，设已有一组均匀的随机整数，范围为 \([0, 100)\) ，现在想由这一组均匀随机数得到另一组范围为 \([0, 25)\) 的随机数。由于 100 是 25 的倍数，
+可以很简单的将之前那组均匀随机数划分为 \([0, 25)\) 、 \([26, 50)\) 、 \([51, 75)\) 、 \([75, 100)\) ，这四组随机数也是均匀的，或者将之前的每个随机数除以 4 得到
+一组新的随机数，仍旧是均匀的。但如果要得到一组范围为 \([0, 30)\) 的随机数，就会出现问题了，因为 30 不能被 100 整除，所以余下的第四组是不均匀的： \([0, 30)\) 、
+\([31, 60)\) 、 \([61, 90)\) 、 \([91, 100)\) ，所以在实际产生的结果中，产生 \([0, 10)\) 范围内的随机数的概率要比 \([21, 30)\) 高出一些。JavaJDK 的做法就是，
+如果将 31 位随机结果映射到 \([0, bound)\) 范围内时，若 <code>next(31)</code> 产生的数字是最后面不均匀的那一部分，就直接舍弃，重新生成随机数。
+所以以上代码中的 <code>for</code> 循环部分就是来处理这个问题的。
+</p>
+
+<ol class="org-ol">
+<li>当 <code>bound</code> 是 2 的整次幂（ <code>bound is a power of 2</code> ）时，很显然， <code>bound</code> 能够被 \(2^{31}\) 整除，就能够直接映射；</li>
+<li>当 <code>bound</code> 不是 2 的整次幂（ <code>else</code> ）时，就会出现上面例子中出现的不均匀问题，因此要进行特殊处理，以获得不为 0 的返回值。</li>
+</ol>
+
+<p>
+是如何的特殊处理呢？其实就是以下这个 <code>for</code> 循环：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #0082da;">for</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #0080e2;">u</span> = <span style="color: #985d00;">next</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">31</span><span style="color: #0086b3;">)</span>; <span style="color: #0080e2;">u</span> - <span style="color: #006ff1;">r</span> + <span style="color: #0086b3;">(</span><span style="color: #8f6200;">bound</span> - <span style="color: #0086b3;">1</span><span style="color: #0086b3;">)</span> &lt; <span style="color: #0086b3;">0</span>; <span style="color: #0080e2;">u</span> = <span style="color: #985d00;">next</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">31</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>
+    <span style="color: #006ff1;">r</span> = <span style="color: #0080e2;">u</span> % <span style="color: #8f6200;">bound</span>;
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="http://7xrxoi.com1.z0.glb.clouddn.com/random.jpg" alt="random.jpg" />
+</p>
+</div>
+
+<p>
+参考：
+</p>
+<ol class="org-ol">
+<li><a href="http://t1174779123.iteye.com/blog/2036709">解密随机数生成器</a></li>
+<li><a href="http://blog.csdn.net/ultrani/article/details/7818082">Java 随机数比较和分析</a></li>
+<li><a href="http://www.yangyong.me/jdk%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%BB%8Ejava-util-random%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E7%BA%BF%E6%80%A7%E5%90%8C%E4%BD%99%E7%AE%97%E6%B3%95/">jdk源码分析——从java.util.random源码分析线性同余算法</a></li>
+<li><a href="https://www.random.org/randomness/">Introduction to Randomness and Random Numbers</a></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<div id="sitemap"><a href="https://aprilwith.me/index.html">Other posts</a></div>
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+              /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+              var disqus_shortname = 'bastibe';
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+              <noscript>Please enable JavaScript to view the
+                  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</body>
+</html>

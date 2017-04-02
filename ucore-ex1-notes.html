@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-04-02 Sun 14:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>uCore实验1笔记整理</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="qiaoin" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="css/site.css"/>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="preamble" class="status">
+<div class="header">
+              <a href="https://aprilwith.me">自在随心</a> | <a href="http://github.com/qiaoin">Github</a>
+          </div>
+</div>
+<div id="content">
+<h1 class="title">uCore实验1笔记整理</h1>
+<p>
+之前学过操作系统课程，一直感觉学了却没有怎么理解透一些概念，就开始跟着 <a href="https://www.xuetangx.com/courses/TsinghuaX/30240243X/2015_T1/about">学堂在线上的操作系统课程</a> 重新学习计算机最为基础的知识，重头戏就是这堂课安排的八个实验，这里就是一些笔记整理了。
+</p>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org7059b8f">实验准备</a>
+<ul>
+<li><a href="#org7e6050c">计算机是如何启动的？</a></li>
+<li><a href="#org6b5fc82">bootloader 启动过程</a></li>
+</ul>
+</li>
+<li><a href="#org29f82bd">源代码分析</a>
+<ul>
+<li><a href="#orgcb53dd5">bootasm.S</a></li>
+<li><a href="#org407aae5">bootmain.c</a></li>
+</ul>
+</li>
+<li><a href="#org253d2a0">练习题</a></li>
+<li><a href="#org4759de0">参考资料</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org7059b8f" class="outline-2">
+<h2 id="org7059b8f">实验准备</h2>
+<div class="outline-text-2" id="text-org7059b8f">
+</div><div id="outline-container-org7e6050c" class="outline-3">
+<h3 id="org7e6050c">计算机是如何启动的？</h3>
+<div class="outline-text-3" id="text-org7e6050c">
+<p>
+以 Intel 80386 为例，计算机加电后，CPU 从物理地址 0xFFFFFFF0（由初始化的 CS：EIP 确定，此时 CS 和 IP 的值分别是 0xF000 和 0xFFF0 ）开始执行。
+在 0xFFFFFFF0 这里只是存放了一条跳转指令，通过跳转指令跳到 BIOS 例行程序起始点。BIOS 做完计算机硬件自检和初始化后，会选择一个启动设备
+（例如软盘、硬盘、光盘等），并且读取该设备的第一扇区(即主引导扇区或启动扇区)到内存一个特定的地址 0x7c00 处，然后 CPU 控制权会转移到那个地址继续执行。
+至此 BIOS 的初始化工作做完了，进一步的工作交给了 uCore 的 bootloader 。
+</p>
+
+<p>
+<b>简单来说，就是</b> 
+</p>
+
+<p>
+加电 &#x2013;&gt; CPU 执行内存地址为 0xFFFFFFF0 的指令(一条跳转指令) &#x2013;&gt; 跳到 BIOS 程序起始点，执行 BIOS 程序(功能:计算机硬件自检和初始化)，
+自检等完成后 &#x2013;&gt; 选择一启动设备，并读取第一扇区(主引导扇区)到内存的 0x7c00 处 &#x2013;&gt; BIOS 所有工作完成后, CPU 执行内存的 0x7c00 中的程序，即 bootloader。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6b5fc82" class="outline-3">
+<h3 id="org6b5fc82">bootloader 启动过程</h3>
+<div class="outline-text-3" id="text-org6b5fc82">
+<p>
+BIOS 将通过读取硬盘主引导扇区到内存，并转跳到对应内存中的位置执行 bootloader 。 bootloader 完成的工作包括：
+</p>
+<ul class="org-ul">
+<li>打开 A20 地址线，设置 CR0 ，切换到保护模式，启用分段机制； ( <b>DONE</b> )</li>
+<li>读磁盘中 ELF 执行文件格式的 uCore 操作系统（跟在 MBR 后面的扇区）到内存，置于内存中固定位置； ( <b>TODO</b> )</li>
+<li>显示字符串信息； ( <b>TODO</b> )</li>
+<li>把控制权交给 uCore 操作系统，就是将 CS:EIP 的值指向操作系统内核所在内存中的起始点。 ( <b>TODO</b> )</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org29f82bd" class="outline-2">
+<h2 id="org29f82bd">源代码分析</h2>
+<div class="outline-text-2" id="text-org29f82bd">
+<p>
+bootloader 工作的实现文件在 lab1 中的 boot 目录下，包含以下三个文件：
+</p>
+<ul class="org-ul">
+<li>bootasm.S —— 定义并实现了 bootloader 最先执行的函数 <code>start</code> ，此函数进行了一定的初始化，完成了从实模式到保护模式的转换，并调用 bootmain.c 中的 <code>bootmain</code> 函数；</li>
+<li>bootmain.c —— 定义并实现了 <code>bootmain</code> 函数，实现了通过屏幕、串口和并口显示字符串。 <code>bootmain</code> 函数加载 uCore 操作系统到内存，然后跳转到 uCore 的入口处执行；</li>
+<li>asm.h —— 是 bootasm.S 汇编文件所需要的头文件，主要是一些与 x86 保护模式的段访问方式相关的宏定义。</li>
+</ul>
+</div>
+
+<div id="outline-container-orgcb53dd5" class="outline-3">
+<h3 id="orgcb53dd5">bootasm.S</h3>
+<div class="outline-text-3" id="text-orgcb53dd5">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #a71d5d;"># start</span> <span style="color: #008575;">address</span> <span style="color: #cc0090;">should</span> <span style="color: #b84500;">be</span> <span style="color: #0086b3;">0</span>:<span style="color: #00857d;">7c00</span>, <span style="color: #7a6b00;">in</span> <span style="color: #0086b3;">real</span> <span style="color: #007d00;">mode</span>, <span style="color: #b627af;">the</span> <span style="color: #008582;">beginning</span> <span style="color: #008575;">address</span> <span style="color: #da004f;">of</span> <span style="color: #b627af;">the</span> <span style="color: #0086b3;">running</span> <span style="color: #007fe5;">bootloader</span>
+.<span style="color: #008346;">globl</span> <span style="color: #d10084;">start</span>
+<span style="color: #d10084;">start</span>:
+.<span style="color: #c03c00;">code16</span>                                             # <span style="color: #0067ed;">Assemble</span> <span style="color: #0082da;">for</span> <span style="color: #0086b3;">16</span>-<span style="color: #9b5c00;">bit</span> <span style="color: #007d00;">mode</span>
+    <span style="color: #008460;">cli</span>                                             # <span style="color: #da004d;">Disable</span> <span style="color: #945f00;">interrupts</span>
+    <span style="color: #0068ed;">cld</span>                                             # <span style="color: #497700;">String</span> <span style="color: #0084c4;">operations</span> <span style="color: #0064eb;">increment</span>
+
+<span style="color: #a71d5d;">    # Set</span> <span style="color: #00822b;">up</span> <span style="color: #b627af;">the</span> <span style="color: #00845e;">important</span> <span style="color: #da0049;">data</span> <span style="color: #da0064;">segment</span> <span style="color: #0064eb;">registers</span> <span style="color: #969896;">(</span><span style="color: #008452;">DS</span>, <span style="color: #c63400;">ES</span>, <span style="color: #2f7a00;">SS</span>, <span style="color: #0071f2;">set</span> <span style="color: #5e57de;">all</span> <span style="color: #da0055;">three</span> <span style="color: #0086b3;">to</span> <span style="color: #0085ba;">zero</span><span style="color: #969896;">)</span>.
+    <span style="color: #0081dd;">xorw</span> %<span style="color: #af2eb5;">ax</span>, %<span style="color: #af2eb5;">ax</span>                                   # <span style="color: #008462;">Segment</span> <span style="color: #0085a7;">number</span> <span style="color: #0085ba;">zero</span>
+    <span style="color: #bd3f00;">movw</span> %<span style="color: #af2eb5;">ax</span>, %<span style="color: #6f52da;">ds</span>                                   # -&gt; <span style="color: #8f6200;">Data</span> <span style="color: #008462;">Segment</span>
+    <span style="color: #bd3f00;">movw</span> %<span style="color: #af2eb5;">ax</span>, %<span style="color: #d01c22;">es</span>                                   # -&gt; <span style="color: #d90045;">Extra</span> <span style="color: #008462;">Segment</span>
+    <span style="color: #bd3f00;">movw</span> %<span style="color: #af2eb5;">ax</span>, %<span style="color: #b12cb3;">ss</span>                                   # -&gt; <span style="color: #0073f2;">Stack</span> <span style="color: #008462;">Segment</span>
+</pre>
+</div>
+
+<p>
+<code>.code16</code> 表示为 16 位的实模式， <code>cli</code> 表示屏蔽系统中断， <code>cld</code> 置 <code>DF</code> （Direction Flag）标识位为 0，表示内存地址向高地址增加，之后清空 <code>DS</code> 、 <code>ES</code> 、 <code>SS</code> 等
+段寄存器中的内容为 0。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #a71d5d;">    # Enable</span> <span style="color: #c90095;">A20</span>:
+<span style="color: #a71d5d;">    #  For</span> <span style="color: #6c6f00;">backwards</span> <span style="color: #ce241a;">compatibility</span> <span style="color: #d70074;">with</span> <span style="color: #b627af;">the</span> <span style="color: #375ee5;">earliest</span> <span style="color: #bc4100;">PCs</span>, <span style="color: #cd2617;">physical</span>
+<span style="color: #a71d5d;">    #  address</span> <span style="color: #be1ba6;">line</span> <span style="color: #0086b3;">20</span> <span style="color: #d9006b;">is</span> <span style="color: #bf19a4;">tied</span> <span style="color: #9144cb;">low</span>, <span style="color: #008236;">so</span> <span style="color: #da005d;">that</span> <span style="color: #a65500;">addresses</span> <span style="color: #0086b3;">higher</span> <span style="color: #008126;">than</span>
+<span style="color: #a71d5d;">    #  1MB</span> <span style="color: #bb1fa9;">wrap</span> <span style="color: #8b6400;">around</span> <span style="color: #d21527;">to</span> <span style="color: #0085ba;">zero</span> <span style="color: #0074f2;">by</span> <span style="color: #007bee;">default</span>. <span style="color: #0085ad;">This</span> <span style="color: #d40d2c;">code</span> <span style="color: #7d4dd4;">undoes</span> <span style="color: #da0046;">this</span>.
+<span style="color: #0086b3;">seta20</span>.<span style="color: #0086b3;">1</span>:
+    <span style="color: #bc1da7;">inb</span> <span style="color: #3d7800;">$0x64</span>, %<span style="color: #cb0091;">al</span>                                  # <span style="color: #527500;">Wait</span> <span style="color: #0082da;">for</span> <span style="color: #0085bc;">not</span> <span style="color: #007aef;">busy</span><span style="color: #969896;">(</span><span style="color: #0086b3;">8042</span> <span style="color: #0072f2;">input</span> <span style="color: #da004e;">buffer</span> <span style="color: #d8003c;">empty</span><span style="color: #969896;">)</span>.
+    <span style="color: #9d5a00;">testb</span> <span style="color: #0084c4;">$0x2</span>, %<span style="color: #cb0091;">al</span>
+    <span style="color: #da0046;">jnz</span> <span style="color: #c6059a;">seta20</span>.<span style="color: #0086b3;">1</span>
+
+    <span style="color: #ca0093;">movb</span> <span style="color: #0084ca;">$0xd1</span>, %<span style="color: #cb0091;">al</span>                                 # <span style="color: #0086b3;">0xd1</span> -&gt; <span style="color: #736d00;">port</span> <span style="color: #0086b3;">0x64</span>
+    <span style="color: #8d6300;">outb</span> %<span style="color: #cb0091;">al</span>, <span style="color: #3d7800;">$0x64</span>                                 # <span style="color: #0086b3;">0xd1</span> <span style="color: #d90045;">means</span>: <span style="color: #007fe7;">write</span> <span style="color: #da0049;">data</span> <span style="color: #d21527;">to</span> <span style="color: #0086b3;">8042</span><span style="color: #333333;">'</span><span style="color: #183691;">s P2 port</span>
+
+<span style="color: #183691;">seta20.2:</span>
+<span style="color: #183691;">    inb $0x64, %al                                  # Wait for not busy(8042 input buffer empty).</span>
+<span style="color: #183691;">    testb $0x2, %al</span>
+<span style="color: #183691;">    jnz seta20.2</span>
+
+<span style="color: #183691;">    movb $0xdf, %al                                 # 0xdf -&gt; port 0x60</span>
+<span style="color: #183691;">    outb %al, $0x60                                 # 0xdf = 11011111, means set P2'</span><span style="color: #00858c;">s</span> <span style="color: #c90095;">A20</span> <span style="color: #9b5c00;">bit</span><span style="color: #969896;">(</span><span style="color: #b627af;">the</span> <span style="color: #0086b3;">1</span> <span style="color: #9b5c00;">bit</span><span style="color: #969896;">)</span> <span style="color: #d21527;">to</span> <span style="color: #0086b3;">1</span>
+</pre>
+</div>
+
+<p>
+参考 <a href="http://wenku.baidu.com/link?url=lYymm6H96EYJDLbaIRNDqMFPQ6Waq5ORVkE0iu-091ZQVntDyMQ4Glb2te2f8FhQ0gn63PgvJ9ymZXaRXX1WG3JsZ3F0U_oVJnoTj3WiQre">激活A20地址线详解</a> ，下面给出详细解释。
+</p>
+
+<p>
+Intel 推出 x86 架构已近 30 年，刚开始推出的 8086 处理器是一款 16 位的处理器，它标识着 x86 架构的诞生，这种 16 位处理器的数据总线是 16 位的，而地址总线是 20 位的，最多可以寻址 1M 的地址空间。这里就一个为难的问题了，20 根地址总线，所以可以访问的地址是 \(2^{20}\) = 1M ，但由于是 16 位地址模式，能够表示的地址范围是 0-64K，为了在 8086 下能够访问 1M 内存，Intel 采取了分段的模式，即 16 位段基地址，16 位偏移。但这个方式有一个问题，其最大的访问空间为 0xFFFF : 0xFFFF = 0x10FFEF = 1M + 64K - 16Bytes ，8086 只有 20 根地址线，如果访问 100000h - 10FFEFh 之间的内存单元，则必须有第 21 根地址线。因此，设置的机制为，当程序员给出超过 1M（100000h - 10FFEFh）的地址时，系统不会认为其访问越界而产生异常，而是自动重新从 0 开始计算。之后的 80286 处理器也是 16 位，但地址总线有 24 位，而且从 80286 开始 CPU 演变出两种工作模式：实模式和保护模式。在实模式下，80286 和其后续系统所表现的行为应该和 8086 所表现的完全一样（向后兼容），但是，80286 芯片却存在一个 Bug：如果程序员访问 100000h - 10FFEFh 之间的内存单元，系统会实际访问这块内存，而不是重新从 0 开始。为了解决这个问题，IBM 使用键盘控制器上剩余的一些输出线来管理第 21 根地址线，即 A20 Gate。如果 A20 Gate 被打开, 则当程序员给出 100000h - 10FFEFh 之间的地址时，系统将真正访问这块内存区域；如果 A20 Gate 被禁止，则当程序员给出 100000h - 10FFEFh 之间的地址的时候,系统仍然使 用 8086 的方式。
+</p>
+
+<p>
+从 80286 开始，系统出现了一种新的机制，被称为保护模式。那为什么进入保护模式一定要打开 A20 呢，它对保护模式有什么影响？如果 A20 Gate 被禁止，对于 80286 来说，其地址为 24bit，其地址表示为 EFFFFF；对于 80386 极其随后的 32-bit 芯片来说，其地址表示为 FFEFFFFF。这种表示的意思是，如果 A20 Gate 被禁止，则其第 20-bit 在 CPU 做地址访问的时候是无效的，永远只能被作为 0；如果 A20 Gate 被打开，则其第 20-bit 是有效的，其值既可以为 0，也可以为 1。
+</p>
+
+<p>
+至此，我们跟踪历史，明晰了当从实模式切换至保护模式时需要将 A20 Gate 打开，接下来，就来讨论一下如何打开 A20 地址线。
+</p>
+
+<p>
+我们就直接根据源代码来解释，具体的参数含义可以查看百度文库链接。
+</p>
+
+<ul class="org-ul">
+<li><code>inb $0x64, %al</code></li>
+<li><code>testb $0x2, %al</code> 表示从 0x64 端口读取一个字节的数据存入 al 寄存器中，0x64 作为状态寄存器，保存了当前状态，判断读取的数据位 1（索引从 0 开始） 是否等于 1，如果为 1 则说明输入缓冲器满（0x60/64 口有给 8042 的数据）（注： <code>testb</code> 测试字节，与关系）；</li>
+<li><code>movb $oxd1, %al</code></li>
+<li><code>outb %al, $0x64</code> <code>dl</code> 表示写 8042 的输出端口 P2，将 al 的数据写入 0x64 端口；</li>
+<li><code>movb $0xdf, %al</code></li>
+<li><code>outb %al, $0x60</code> 0xdf = 11011111，写入 P2，A20 Gate 置为 1，至此就开通了 A20 地址线。</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #a71d5d;"># Switch</span> <span style="color: #da0048;">from</span> <span style="color: #007bee;">real</span> <span style="color: #d21527;">to</span> <span style="color: #008580;">protected</span> <span style="color: #007d00;">mode</span>, <span style="color: #da0064;">using</span> <span style="color: #00800f;">a</span> <span style="color: #0086b3;">bootstrap</span> <span style="color: #844ad1;">GDT</span>
+<span style="color: #a71d5d;"># and</span> <span style="color: #da0064;">segment</span> <span style="color: #2c7a00;">translation</span> <span style="color: #da005d;">that</span> <span style="color: #008574;">makes</span> <span style="color: #007fe6;">virtual</span> <span style="color: #a65500;">addresses</span>
+<span style="color: #a71d5d;"># identical</span> <span style="color: #d21527;">to</span> <span style="color: #cd2617;">physical</span> <span style="color: #a65500;">addresses</span>, <span style="color: #008236;">so</span> <span style="color: #0086b3;">that</span> <span style="color: #b627af;">the</span>
+<span style="color: #a71d5d;"># effective</span> <span style="color: #0079f0;">memory</span> <span style="color: #cd008e;">map</span> <span style="color: #0079f0;">does</span> <span style="color: #0085bc;">not</span> <span style="color: #0082dc;">change</span> <span style="color: #0084c7;">during</span> <span style="color: #b627af;">the</span> <span style="color: #0085a0;">switch</span>.
+<span style="color: #0086b3;">lgdt</span> <span style="color: #0071f2;">gdtdesc</span>
+</pre>
+</div>
+
+<p>
+将 GDT 表的首地址加载到 GDTR。（参考：<a href="http://www.techbulo.com/708.html">GDT,LDT,GDTR,LDTR 详解,包你理解透彻</a> ）
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #a71d5d;"># Bootstrap</span> <span style="color: #844ad1;">GDT</span>
+.<span style="color: #0074f2;">p2align</span> <span style="color: #0086b3;">2</span>                                          # <span style="color: #d40b2d;">force</span> <span style="color: #0086b3;">4</span> <span style="color: #0084c8;">byte</span> <span style="color: #008014;">alignment</span>
+<span style="color: #da0064;">gdt</span>:
+    <span style="color: #0082d7;">SEG_NULLASM</span>                                     # <span style="color: #008012;">null</span> <span style="color: #ba4300;">seg</span>
+    <span style="color: #826800;">SEG_ASM</span><span style="color: #969896;">(</span><span style="color: #7350d8;">STA_X</span>|<span style="color: #a65400;">STA_R</span>, <span style="color: #0086b3;">0x0</span>, <span style="color: #0086b3;">0xffffffff</span><span style="color: #969896;">)</span>           # <span style="color: #d40d2c;">code</span> <span style="color: #ba4300;">seg</span> <span style="color: #0082da;">for</span> <span style="color: #007fe5;">bootloader</span> <span style="color: #007bee;">and</span> <span style="color: #0082d7;">kernel</span>
+    <span style="color: #826800;">SEG_ASM</span><span style="color: #969896;">(</span><span style="color: #0085a4;">STA_W</span>, <span style="color: #0086b3;">0x0</span>, <span style="color: #0086b3;">0xffffffff</span><span style="color: #969896;">)</span>                 # <span style="color: #da0049;">data</span> <span style="color: #ba4300;">seg</span> <span style="color: #0082da;">for</span> <span style="color: #007fe5;">bootloader</span> <span style="color: #007bee;">and</span> <span style="color: #0082d7;">kernel</span>
+
+<span style="color: #0071f2;">gdtdesc</span>:
+    .<span style="color: #d90040;">word</span> <span style="color: #0086b3;">0x17</span>                                      # <span style="color: #8e6200;">sizeof</span><span style="color: #969896;">(</span><span style="color: #da0064;">gdt</span><span style="color: #969896;">)</span> - <span style="color: #0086b3;">1</span>
+    .<span style="color: #0086b3;">long</span> <span style="color: #da0064;">gdt</span>                                       # <span style="color: #008575;">address</span> <span style="color: #da0064;">gdt</span>
+</pre>
+</div>
+
+<p>
+<b>TODO</b> 解释这个 GDT 全局描述符表是如何建立的？
+</p>
+
+<p>
+定义 GDT 全局描述符表。首先我们可以看到 GDT 表的存放位置是 4 字节对齐的，也就是说 GDT 表的物理首地址是 4 的倍数。然后 gdt 标识了 3 个 GDT 表项，在这里 bootasm.S 程序使用了 SEG<sub>NULLASM</sub> 与 SEG<sub>ASM</sub>(type, base, lim)这两个宏，所谓的宏就是与函数类似的东西，只不过在编译的时候函数被编译成相应的可执行代码，而宏则会被编译成对应的常量。这两个宏定义在 boot/asm.h 中。
+</p>
+
+<p>
+其中， <code>SEG_NULLASM</code> 的定义为：
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #a71d5d;">#define</span> <span style="color: #0082d7;">SEG_NULLASM</span>                                             \
+    .<span style="color: #d90040;">word</span> <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>;                                                 \
+    .<span style="color: #0084c8;">byte</span> <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>
+</pre>
+</div>
+<p>
+其作用就是定义连续 8 个值为 0 的字节，这就表示一个空的 GDT 表项。
+</p>
+
+<p>
+而 <code>SEG_ASM</code> 的定义为：
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #a71d5d;">#define</span> <span style="color: #826800;">SEG_ASM</span><span style="color: #969896;">(</span><span style="color: #6c6f00;">type</span>,<span style="color: #007bee;">base</span>,<span style="color: #2b7a00;">lim</span><span style="color: #969896;">)</span>                                  \
+    .<span style="color: #d90040;">word</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">(</span><span style="color: #969896;">(</span><span style="color: #2b7a00;">lim</span><span style="color: #969896;">)</span> &gt;&gt; <span style="color: #0086b3;">12</span><span style="color: #0086b3;">)</span> &amp; <span style="color: #0086b3;">0xffff</span><span style="color: #969896;">)</span>, <span style="color: #969896;">(</span><span style="color: #0086b3;">(</span><span style="color: #007bee;">base</span><span style="color: #0086b3;">)</span> &amp; <span style="color: #0086b3;">0xffff</span><span style="color: #969896;">)</span>;          \
+    .<span style="color: #0084c8;">byte</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">(</span><span style="color: #969896;">(</span><span style="color: #007bee;">base</span><span style="color: #969896;">)</span> &gt;&gt; <span style="color: #0086b3;">16</span><span style="color: #0086b3;">)</span> &amp; <span style="color: #0086b3;">0xff</span><span style="color: #969896;">)</span>, <span style="color: #969896;">(</span><span style="color: #0086b3;">0x90</span> | <span style="color: #0086b3;">(</span><span style="color: #6c6f00;">type</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>,             \
+        <span style="color: #969896;">(</span><span style="color: #0086b3;">0xC0</span> | <span style="color: #0086b3;">(</span><span style="color: #969896;">(</span><span style="color: #795da3;">(</span><span style="color: #2b7a00;">lim</span><span style="color: #795da3;">)</span> &gt;&gt; <span style="color: #0086b3;">28</span><span style="color: #969896;">)</span> &amp; <span style="color: #0086b3;">0xf</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>, <span style="color: #969896;">(</span><span style="color: #0086b3;">(</span><span style="color: #969896;">(</span><span style="color: #007bee;">base</span><span style="color: #969896;">)</span> &gt;&gt; <span style="color: #0086b3;">24</span><span style="color: #0086b3;">)</span> &amp; <span style="color: #0086b3;">0xff</span><span style="color: #969896;">)</span>
+</pre>
+</div>
+<p>
+在这里，type 表示段属性，base 表示段基址，lim 则表示段长的界限，给出这三个参数就可以用这个宏来定义一个 GDT 表项。在这里段属性的参数也是通过宏的形式给出，下表给出了常用的一些宏，这些宏每个都代表表项中的一个 bit 位，同时也代表一种段的属性。
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 1:</span> 常用段属性的宏</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">宏</th>
+<th scope="col" class="org-right">值</th>
+<th scope="col" class="org-left">属性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>STA_X</code></td>
+<td class="org-right">0x8</td>
+<td class="org-left">可执行的段</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>STA_E</code></td>
+<td class="org-right">0x4</td>
+<td class="org-left">向下扩展(该属性仅限于非可执行段)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>STA_C</code></td>
+<td class="org-right">0x4</td>
+<td class="org-left">一致性的代码段(仅限于可执行段)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>STA_W</code></td>
+<td class="org-right">0x2</td>
+<td class="org-left">可写(仅限于非可执行段)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>STA_R</code></td>
+<td class="org-right">0x2</td>
+<td class="org-left">可读(仅限于可执行段)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>STA_A</code></td>
+<td class="org-right">0x1</td>
+<td class="org-left">可访问的</td>
+</tr>
+</tbody>
+</table>
+
+<div class="org-src-container">
+<pre class="src src-C">.<span style="color: #0071f2;">set</span> <span style="color: #008469;">CR0_PE_ON</span>,             <span style="color: #0086b3;">0x1</span>                     # <span style="color: #008580;">protected</span> <span style="color: #007d00;">mode</span> <span style="color: #00800d;">enable</span> <span style="color: #985d00;">flag</span>
+
+<span style="color: #0085a0;">movl</span> %<span style="color: #bc1ea8;">cr0</span>, %<span style="color: #a636bd;">eax</span>
+<span style="color: #876500;">orl</span> <span style="color: #0063ea;">$CR0_PE_ON</span>, %<span style="color: #a636bd;">eax</span>
+<span style="color: #0085a0;">movl</span> %<span style="color: #a636bd;">eax</span>, %<span style="color: #bc1ea8;">cr0</span>
+</pre>
+</div>
+<p>
+使能保护模式，将一个特定的寄存器，系统寄存器 <code>CR0</code> 其第 0 号位置成 1。这里的 <code>orl</code> 是“按位或”操作指令，常用来测试两个操作数是否同时为0，或者用来置位某些位，置位就是将一个位数据设置为 1。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #a71d5d;"># Jump</span> <span style="color: #d21527;">to</span> <span style="color: #985d00;">next</span> <span style="color: #00859b;">instruction</span>, <span style="color: #0086b3;">but</span> <span style="color: #7a6b00;">in</span> <span style="color: #0086b3;">32</span>-<span style="color: #9b5c00;">bit</span> <span style="color: #d40d2c;">code</span> <span style="color: #da0064;">segment</span>.
+<span style="color: #a71d5d;"># Switches</span> <span style="color: #d00087;">processor</span> <span style="color: #008450;">into</span> <span style="color: #0086b3;">32</span>-<span style="color: #9b5c00;">bit</span> <span style="color: #007d00;">mode</span>.
+<span style="color: #517500;">ljmp</span> <span style="color: #7d6a00;">$PROT_MODE_CSEG</span>, <span style="color: #007aef;">$protcseg</span>
+</pre>
+</div>
+
+<p>
+<b>TODO</b> 这里的长跳转指令是怎么回事？ <code>$PROT_MODE_CSEG</code> 是什么意思？
+</p>
+
+<p>
+最后，用一个跳转指令让系统开始使用 32 位的寻址模式。可以看到最后一句长跳转指令实际上是在系统进入保护模式后执行的。于是在这里 <code>$PROT_MODE_CSEG</code> ，代表的是段选择子，从前面的 GDT 表中可以看到基地址是 0x0，而偏移地址是 <code>$protcseg</code> ， <code>$protcseg</code> 实际上代表的是接下来指令的链接地址，也就是可执行程序在内存中的虚拟地址，只是刚好在这里编译生成的可执行程序 boot 的加载地址与链接地址是一致的，于是 <code>$protcseg</code> 就相当于指令在内存中存放位置的物理地址，所以这个长跳转可以成功的跳转到下一条指令的位置。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C">.<span style="color: #ab5100;">code32</span>                                             # <span style="color: #0067ed;">Assemble</span> <span style="color: #0082da;">for</span> <span style="color: #0086b3;">32</span>-<span style="color: #9b5c00;">bit</span> <span style="color: #007d00;">mode</span>
+<span style="color: #00822e;">protcseg</span>:
+<span style="color: #a71d5d;">    # Set</span> <span style="color: #00822b;">up</span> <span style="color: #b627af;">the</span> <span style="color: #008580;">protected</span>-<span style="color: #007d00;">mode</span> <span style="color: #da0049;">data</span> <span style="color: #da0064;">segment</span> <span style="color: #0064eb;">registers</span>
+    <span style="color: #bd3f00;">movw</span> <span style="color: #0067ed;">$PROT_MODE_DSEG</span>, %<span style="color: #af2eb5;">ax</span>                       # <span style="color: #da005f;">Our</span> <span style="color: #da0049;">data</span> <span style="color: #da0064;">segment</span> <span style="color: #bf18a3;">selector</span>
+    <span style="color: #bd3f00;">movw</span> %<span style="color: #af2eb5;">ax</span>, %<span style="color: #6f52da;">ds</span>                                   # -&gt; <span style="color: #008452;">DS</span>: <span style="color: #8f6200;">Data</span> <span style="color: #008462;">Segment</span>
+    <span style="color: #bd3f00;">movw</span> %<span style="color: #af2eb5;">ax</span>, %<span style="color: #d01c22;">es</span>                                   # -&gt; <span style="color: #c63400;">ES</span>: <span style="color: #d90045;">Extra</span> <span style="color: #008462;">Segment</span>
+    <span style="color: #bd3f00;">movw</span> %<span style="color: #af2eb5;">ax</span>, %<span style="color: #00857c;">fs</span>                                   # -&gt; <span style="color: #916100;">FS</span>
+    <span style="color: #bd3f00;">movw</span> %<span style="color: #af2eb5;">ax</span>, %<span style="color: #008571;">gs</span>                                   # -&gt; <span style="color: #0062e9;">GS</span>
+    <span style="color: #bd3f00;">movw</span> %<span style="color: #af2eb5;">ax</span>, %<span style="color: #b12cb3;">ss</span>                                   # -&gt; <span style="color: #2f7a00;">SS</span>: <span style="color: #0073f2;">Stack</span> <span style="color: #008462;">Segment</span>
+
+<span style="color: #a71d5d;">    # Set</span> <span style="color: #00822b;">up</span> <span style="color: #b627af;">the</span> <span style="color: #c53500;">stack</span> <span style="color: #008119;">pointer</span> <span style="color: #007bee;">and</span> <span style="color: #0072f2;">call</span> <span style="color: #008450;">into</span> <span style="color: #9c5b00;">C</span>. <span style="color: #bc4000;">The</span> <span style="color: #c53500;">stack</span> <span style="color: #0071f2;">region</span> <span style="color: #d9006b;">is</span> <span style="color: #da0048;">from</span> <span style="color: #0086b3;">0</span>--<span style="color: #d10084;">start</span><span style="color: #969896;">(</span><span style="color: #0086b3;">0x7c00</span><span style="color: #969896;">)</span>
+    <span style="color: #0085a0;">movl</span> <span style="color: #0085a1;">$0x0</span>, %<span style="color: #00833e;">ebp</span>
+    <span style="color: #0085a0;">movl</span> <span style="color: #a35700;">$start</span>, %<span style="color: #008461;">esp</span>
+    <span style="color: #0072f2;">call</span> <span style="color: #cf221c;">bootmain</span>
+</pre>
+</div>
+
+<p>
+<b>TODO</b> 同样的，这里的 <code>$PROT_MODE_DSEG</code> 是什么意思？
+</p>
+
+<p>
+在进入保护模式后，程序在重新对段寄存器进行了初始化后，设置栈的指针并转入 C 函数 <code>bootmain</code> 执行（ <code>ebp &lt;- 0</code> 、 <code>esp &lt;- 0x7c00</code>  栈 <i>从高地址向低地址顺序</i> 存放，有待进一步学习 <b>TODO</b> ）。可以看到，在 <code>call bootmain</code> 之后便是一个无限循环的跳转指令，之所以是无限循环就是这个函数调用永远都不会有返回的可能性，这句程序仅仅只是让整个代码看起来有完整性。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org407aae5" class="outline-3">
+<h3 id="org407aae5">bootmain.c</h3>
+<div class="outline-text-3" id="text-org407aae5">
+<p>
+bootloader 让 CPU 进入保护模式后，下一步的工作就是从硬盘上加载并运行 OS。考虑到实现的简单性，bootloader 的访问硬盘都是 LBA 模式
+的 PIO（Program IO）方式，即所有的 IO 操作是通过 CPU 访问硬盘的 IO 地址寄存器完成。
+</p>
+
+<p>
+ 一般主板有 2 个 IDE 通道，每个通道可以接 2 个 IDE 硬盘。访问第一个硬盘的扇区可设置 IO 地址寄存器 0x1f0-0x1f7 实现的，具体参数见下表。
+一般第一个 IDE 通道通过访问 IO 地址 0x1f0-0x1f7 来实现，第二个 IDE 通道通过访问 0x170-0x17f 实现。每个通道的主从盘的选择通过第 6 个
+IO偏移地址寄存器来设置。
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 2:</span> 磁盘 IO 地址和对应功能</caption>
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">IO 地址</th>
+<th scope="col" class="org-left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">0x1f0</td>
+<td class="org-left">读数据，当 0x1f7 不为忙状态时，可以读。</td>
+</tr>
+
+<tr>
+<td class="org-right">0x1f2</td>
+<td class="org-left">要读写的扇区数，每次读写前，你需要表明你要读写几个扇区。最小是 1 个扇区</td>
+</tr>
+
+<tr>
+<td class="org-right">0x1f3</td>
+<td class="org-left">如果是 LBA 模式，就是 LBA 参数的 0-7 位</td>
+</tr>
+
+<tr>
+<td class="org-right">0x1f4</td>
+<td class="org-left">如果是 LBA 模式，就是 LBA 参数的 8-15 位</td>
+</tr>
+
+<tr>
+<td class="org-right">0x1f5</td>
+<td class="org-left">如果是 LBA 模式，就是 LBA 参数的 16-23 位</td>
+</tr>
+
+<tr>
+<td class="org-right">0x1f6</td>
+<td class="org-left">第 0~3 位：如果是 LBA 模式就是 24-27 位；第 4 位：为 0 主盘；为 1 从盘</td>
+</tr>
+
+<tr>
+<td class="org-right">0x1f7</td>
+<td class="org-left">状态和命令寄存器。操作时先给命令，再读取，如果不是忙状态就从 0x1f0 端口读数据</td>
+</tr>
+</tbody>
+</table>
+<p>
+<b>备注</b> 第6位：为1=LBA模式；0 = CHS模式 第7位和第5位必须为1 
+</p>
+
+<p>
+当前 硬盘数据是储存到硬盘扇区中，一个扇区大小为 512 字节。读一个扇区的流程（可参看boot/bootmain.c中的readsect函数实现）大致如下：
+</p>
+<ol class="org-ol">
+<li>等待磁盘准备好；</li>
+<li>发出读取扇区的命令；</li>
+<li>等待磁盘准备好；</li>
+<li>把磁盘扇区数据读到指定内存。</li>
+</ol>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #969896;">/* </span><span style="color: #969896;">waitdisk - wait for disk ready </span><span style="color: #969896;">*/</span>
+<span style="color: #00845b;">static</span> <span style="color: #0086b3;">void</span>
+<span style="color: #008464;">waitdisk</span><span style="color: #969896;">(</span><span style="color: #0086b3;">void</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+    <span style="color: #c73204;">while</span> <span style="color: #0086b3;">(</span><span style="color: #969896;">(</span><span style="color: #bc1da7;">inb</span><span style="color: #795da3;">(</span><span style="color: #0086b3;">0x1F7</span><span style="color: #795da3;">)</span> &amp; <span style="color: #0086b3;">0xC0</span><span style="color: #969896;">)</span> != <span style="color: #0086b3;">0x40</span><span style="color: #0086b3;">)</span>
+        <span style="color: #969896;">/* </span><span style="color: #969896;">do nothing </span><span style="color: #969896;">*/</span>;
+<span style="color: #969896;">}</span>
+
+<span style="color: #969896;">/* </span><span style="color: #969896;">readsect - read a single sector at @secno into @dst </span><span style="color: #969896;">*/</span>
+<span style="color: #00845b;">static</span> <span style="color: #0086b3;">void</span>
+<span style="color: #c43600;">readsect</span><span style="color: #969896;">(</span><span style="color: #0086b3;">void</span> *<span style="color: #3e7800;">dst</span>, <span style="color: #0086b3;">uint32_t</span> <span style="color: #896500;">secno</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+    <span style="color: #969896;">// </span><span style="color: #969896;">wait for disk to be ready</span>
+    <span style="color: #008464;">waitdisk</span><span style="color: #0086b3;">()</span>;
+
+    <span style="color: #8d6300;">outb</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F2</span>, <span style="color: #0086b3;">1</span><span style="color: #0086b3;">)</span>;                         <span style="color: #969896;">// </span><span style="color: #969896;">count = 1</span>
+    <span style="color: #8d6300;">outb</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F3</span>, <span style="color: #896500;">secno</span> &amp; <span style="color: #0086b3;">0xFF</span><span style="color: #0086b3;">)</span>;
+    <span style="color: #8d6300;">outb</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F4</span>, <span style="color: #969896;">(</span><span style="color: #896500;">secno</span> &gt;&gt; <span style="color: #0086b3;">8</span><span style="color: #969896;">)</span> &amp; <span style="color: #0086b3;">0xFF</span><span style="color: #0086b3;">)</span>;
+    <span style="color: #8d6300;">outb</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F5</span>, <span style="color: #969896;">(</span><span style="color: #896500;">secno</span> &gt;&gt; <span style="color: #0086b3;">16</span><span style="color: #969896;">)</span> &amp; <span style="color: #0086b3;">0xFF</span><span style="color: #0086b3;">)</span>;
+    <span style="color: #8d6300;">outb</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F6</span>, <span style="color: #969896;">(</span><span style="color: #795da3;">(</span><span style="color: #896500;">secno</span> &gt;&gt; <span style="color: #0086b3;">24</span><span style="color: #795da3;">)</span> &amp; <span style="color: #0086b3;">0xF</span><span style="color: #969896;">)</span> | <span style="color: #0086b3;">0xE0</span><span style="color: #0086b3;">)</span>;
+    <span style="color: #8d6300;">outb</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F7</span>, <span style="color: #0086b3;">0x20</span><span style="color: #0086b3;">)</span>;                      <span style="color: #969896;">// </span><span style="color: #969896;">cmd 0x20 - read sectors</span>
+
+    <span style="color: #969896;">// </span><span style="color: #969896;">wait for disk to be ready</span>
+    <span style="color: #008464;">waitdisk</span><span style="color: #0086b3;">()</span>;
+
+    <span style="color: #969896;">// </span><span style="color: #969896;">read a sector</span>
+    <span style="color: #8d6300;">insl</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F0</span>, <span style="color: #3e7800;">dst</span>, <span style="color: #d50078;">SECTSIZE</span> / <span style="color: #0086b3;">4</span><span style="color: #0086b3;">)</span>;
+<span style="color: #969896;">}</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org253d2a0" class="outline-2">
+<h2 id="org253d2a0">练习题</h2>
+</div>
+
+<div id="outline-container-org4759de0" class="outline-2">
+<h2 id="org4759de0">参考资料</h2>
+<div class="outline-text-2" id="text-org4759de0">
+<ol class="org-ol">
+<li><a href="http://www.cnblogs.com/zslhg903/p/5781882.html">ucore lab1 bootloader学习笔记</a> 基本将原作者的全部内容给搬运了过来</li>
+<li><a href="https://www.gitbook.com/book/objectkuan/ucore-docs/details">ucore-os-docs</a> 这是学堂在线操作系统课程实验的提供的官方文档，有些讲解的不清晰的地方需要自己在网上查阅资料</li>
+<li><a href="http://grid.hust.edu.cn/zyshao/Teaching_Material/OSEngineering/Chapter1.pdf">第一章：概述</a> 第一节主要介绍了 8086 的实模式和保护模式，第二节讲解 Bochs 模拟器的使用（我们实验中使用 qeum 模拟器，遂可跳过）</li>
+<li><a href="http://grid.hust.edu.cn/zyshao/Teaching_Material/OSEngineering/Chapter2.pdf">第二章：AT&amp;T 汇编语言与 GCC 内联汇编</a> 前面讲解的比较清晰，后面 2.3 部分讲解的例子有些许混乱，我需要再仔细琢磨琢磨</li>
+<li><a href="http://grid.hust.edu.cn/zyshao/Teaching_Material/OSEngineering/Chapter3.pdf">第三章：系统的启动和初始化</a> 首先讲解了系统了初始化过程，巨细无遗，本文的很多部分都是参考这份文档来的；第二部分。。。 <b>TODO</b></li>
+<li><a href="http://stackoverflow.com/questions/9137947/assembler-jump-in-protected-mode-with-gdt">Assembler jump in Protected Mode with GDT</a></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<div id="sitemap"><a href="https://aprilwith.me/index.html">Other posts</a></div>
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+              /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+              var disqus_shortname = 'bastibe';
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+              <noscript>Please enable JavaScript to view the
+                  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</body>
+</html>
