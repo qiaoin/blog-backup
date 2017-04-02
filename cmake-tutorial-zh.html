@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-02 Sun 17:37 -->
+<!-- 2017-04-02 Sun 17:51 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>CMake Tutorial 翻译及整理</title>
@@ -244,22 +244,22 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org9f72bd0">Step1 Hello, CMake!</a>
+<li><a href="#org4725485">Step1 Hello, CMake!</a>
 <ul>
-<li><a href="#org3dbf3a8">添加版本号和配置文件</a></li>
+<li><a href="#orgcb493b7">添加版本号和配置文件</a></li>
 </ul>
 </li>
-<li><a href="#org671ff15">Step2 添加内库</a></li>
-<li><a href="#org7bae8ab">Step3 安装及测试</a>
+<li><a href="#org34133ae">Step2 添加内库</a></li>
+<li><a href="#org4e141b4">Step3 安装及测试</a>
 <ul>
-<li><a href="#org853c6de">安装</a></li>
-<li><a href="#orgf29da05">测试</a></li>
+<li><a href="#orga90a9be">安装</a></li>
+<li><a href="#org03418c2">测试</a></li>
 </ul>
 </li>
-<li><a href="#orgb36f272">Step4 添加系统自省检查</a></li>
-<li><a href="#org84d7463">Step5 添加生成器</a></li>
-<li><a href="#orgc553fa0">Step6 安装器</a></li>
-<li><a href="#org71f86cb">Step7</a></li>
+<li><a href="#orgb1a92a4">Step4 添加系统自省检查</a></li>
+<li><a href="#orgda24e55">Step5 添加生成器</a></li>
+<li><a href="#orgab4a728">Step6 安装器</a></li>
+<li><a href="#orga48c15a">Step7</a></li>
 </ul>
 </div>
 </div>
@@ -268,9 +268,9 @@ for the JavaScript code in this tag.
 下文为一个 step-by-step 的 CMake 使用入门教程，它包含了我们使用 CMake 来构建系统所需要使用的一些常用命令。我们在这个教程中所使用到的所有文件都可以在 <a href="https://gitlab.kitware.com/cmake/cmake/tree/master/Tests/Tutorial/">Tests/Tutorial</a> 文件夹下找到，对应每一步都有一个单独的文件夹。
 </p>
 
-<div id="outline-container-org9f72bd0" class="outline-2">
-<h2 id="org9f72bd0">Step1 Hello, CMake!</h2>
-<div class="outline-text-2" id="text-org9f72bd0">
+<div id="outline-container-org4725485" class="outline-2">
+<h2 id="org4725485">Step1 Hello, CMake!</h2>
+<div class="outline-text-2" id="text-org4725485">
 <p>
 我们从最为简单的一个项目开始着手，其包含一些源代码文件，用来产生最后的可执行文件。那么，在 <code>CMakeLists.txt</code> 文件中仅需包含三条语句就可以了：
 </p>
@@ -309,9 +309,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org3dbf3a8" class="outline-3">
-<h3 id="org3dbf3a8">添加版本号和配置文件</h3>
-<div class="outline-text-3" id="text-org3dbf3a8">
+<div id="outline-container-orgcb493b7" class="outline-3">
+<h3 id="orgcb493b7">添加版本号和配置文件</h3>
+<div class="outline-text-3" id="text-orgcb493b7">
 <p>
 接下来我们为这个项目添加第一个特性——版本号。虽然我们可以直接在源文件代码中写明，但使用 <code>CMake</code> 来实现可以提供更大的灵活性。修改之后的 <code>CMakeLists.txt</code> 如下：
 </p>
@@ -403,9 +403,9 @@ $ <span style="color: #d90068;">make</span>
 </div>
 
 
-<div id="outline-container-org671ff15" class="outline-2">
-<h2 id="org671ff15">Step2 添加内库</h2>
-<div class="outline-text-2" id="text-org671ff15">
+<div id="outline-container-org34133ae" class="outline-2">
+<h2 id="org34133ae">Step2 添加内库</h2>
+<div class="outline-text-2" id="text-org34133ae">
 <p>
 第二步，向项目中添加内库。这个内库包含我们自己实现的平方根计算函数，可以使用这个实现去替代 <code>#include &lt;math.h&gt;</code> 中的 <code>sqrt()</code> 。在本教程中，我们在项目主目录下新建 <code>MathFunctions</code> 文件夹用来存放内库。由此，项目结构如下：
 </p>
@@ -534,17 +534,17 @@ $ <span style="color: #d90068;">make</span>
 </div>
 
 
-<div id="outline-container-org7bae8ab" class="outline-2">
-<h2 id="org7bae8ab">Step3 安装及测试</h2>
-<div class="outline-text-2" id="text-org7bae8ab">
+<div id="outline-container-org4e141b4" class="outline-2">
+<h2 id="org4e141b4">Step3 安装及测试</h2>
+<div class="outline-text-2" id="text-org4e141b4">
 <p>
 接下来，我们为项目添加安装规则以及测试。
 </p>
 </div>
 
-<div id="outline-container-org853c6de" class="outline-3">
-<h3 id="org853c6de">安装</h3>
-<div class="outline-text-3" id="text-org853c6de">
+<div id="outline-container-orga90a9be" class="outline-3">
+<h3 id="orga90a9be">安装</h3>
+<div class="outline-text-3" id="text-orga90a9be">
 <p>
 安装很直截了当，在 <code>MathFunctions</code> 目录下的 <code>CMakeLists.txt</code> 中添加：
 </p>
@@ -625,9 +625,9 @@ $ <span style="color: #d90068;">make</span> <span style="color: #d8003c;">instal
 </div>
 </div>
 
-<div id="outline-container-orgf29da05" class="outline-3">
-<h3 id="orgf29da05">测试</h3>
-<div class="outline-text-3" id="text-orgf29da05">
+<div id="outline-container-org03418c2" class="outline-3">
+<h3 id="org03418c2">测试</h3>
+<div class="outline-text-3" id="text-org03418c2">
 <p>
 在项目的主目录下的 <code>CMakeLists.txt</code> 中添加一些基本测试用例去验证应用是否能够正确的运行：
 </p>
@@ -674,9 +674,9 @@ $ <span style="color: #d90068;">make</span> <span style="color: #d8003c;">instal
 </div>
 
 
-<div id="outline-container-orgb36f272" class="outline-2">
-<h2 id="orgb36f272">Step4 添加系统自省检查</h2>
-<div class="outline-text-2" id="text-orgb36f272">
+<div id="outline-container-orgb1a92a4" class="outline-2">
+<h2 id="orgb1a92a4">Step4 添加系统自省检查</h2>
+<div class="outline-text-2" id="text-orgb1a92a4">
 <p>
 系统自省（System Introspection），就是去检查要使用的某些特性在特定平台上是否有提供支持。在本教程中，我们要去检查目标平台上是否有提供 <code>log</code> 和 <code>exp</code> 函数支持。当然，这两个函数作为 <code>math.h</code> 中的函数，基本上所有的平台都会给出支持，这里为了举例的方便，假设大多数平台上未提供 <code>log</code> 和 <code>exp</code> 函数支持。若某一平台上有 <code>log</code> 和 <code>exp</code> 函数，就使用它们在 <code>mysqrt</code> 函数中计算平方根，否则使用迭代的方法去计算平方根。
 </p>
@@ -721,9 +721,9 @@ $ <span style="color: #d90068;">make</span> <span style="color: #d8003c;">instal
 </div>
 
 
-<div id="outline-container-org84d7463" class="outline-2">
-<h2 id="org84d7463">Step5 添加生成器</h2>
-<div class="outline-text-2" id="text-org84d7463">
+<div id="outline-container-orgda24e55" class="outline-2">
+<h2 id="orgda24e55">Step5 添加生成器</h2>
+<div class="outline-text-2" id="text-orgda24e55">
 <p>
 接下来，我们为项目添加一个生成器（Generator）。在本教程中，我们创建一个预先计算好的平方根表格，若输入数值（待计算其平方根）包含在预处理的表格中，直接查表即可得到其平方根；若不在表格中，就调用 <code>mysqrt()</code> 进行计算，这在大型项目中可以节省很多计算开销。首先，在 <code>MathFunctions</code> 文件夹下新建 <code>MakeTable.cxx</code> 源文件来生成这个预先计算好了的平方根表格。
 </p>
@@ -916,9 +916,9 @@ $ <span style="color: #d90068;">make</span> <span style="color: #d8003c;">instal
 </div>
 
 
-<div id="outline-container-orgc553fa0" class="outline-2">
-<h2 id="orgc553fa0">Step6 安装器</h2>
-<div class="outline-text-2" id="text-orgc553fa0">
+<div id="outline-container-orgab4a728" class="outline-2">
+<h2 id="orgab4a728">Step6 安装器</h2>
+<div class="outline-text-2" id="text-orgab4a728">
 <p>
 我们想要将项目给分发出去，为不同平台的用户提供二进制文件和源文件代码，这样用户就能够下载得到自己希望的 <code>distributions</code> 了。需要解释的是，在 <a href="https://aprilwith.me/2017/02/24/cmake-tutorial-zh/#sec-3-0-1">Step3</a> 中也执行了安装操作，将从源代码文件编译生成的可执行文件给安装到指定的 <code>bin</code> 目录下。而在本小节将要创建的项目分发不仅支持二进制安装，并且能够满足各大平台上包管理系统的特性。在这里，我们使用 <code>CMake</code> 提供的 <code>CPack</code> 工具去创建，需要在项目主目录下的 <code>CMakeLists.txt</code> 的末尾增加：
 </p>
@@ -952,9 +952,9 @@ $ <span style="color: #a934bb;">cpack</span> <span style="color: #0069ee;">--con
 </div>
 
 
-<div id="outline-container-org71f86cb" class="outline-2">
-<h2 id="org71f86cb">Step7</h2>
-<div class="outline-text-2" id="text-org71f86cb">
+<div id="outline-container-orga48c15a" class="outline-2">
+<h2 id="orga48c15a">Step7</h2>
+<div class="outline-text-2" id="text-orga48c15a">
 <p>
 <b>TODO</b> 现在还没有认识到这一步的具体作用的是什么，是为了数据可视化展示呢？还是什么？之后使用到了，有了心得体会，再来补充。
 </p>

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-02 Sun 17:38 -->
+<!-- 2017-04-02 Sun 17:51 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Org mode 学习笔记</title>
@@ -248,37 +248,37 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgfb06870">导入</a></li>
-<li><a href="#org53a2581">结构化文档</a>
+<li><a href="#orgf4fbe82">导入</a></li>
+<li><a href="#orgb3e3b75">结构化文档</a>
 <ul>
-<li><a href="#orgf64b05b">大纲</a></li>
-<li><a href="#org39c1ef5">标题</a></li>
-<li><a href="#org3c4c794">可见性</a></li>
-<li><a href="#org24ef7fd">移动</a></li>
-<li><a href="#orgc1afc28">结构化编辑</a></li>
-<li><a href="#orgaf4c19d">稀疏树结构</a></li>
-<li><a href="#org02b40a1">简单列表</a></li>
-<li><a href="#org9e53611">使用脚注</a></li>
+<li><a href="#org4aa6a4a">大纲</a></li>
+<li><a href="#orge369d1b">标题</a></li>
+<li><a href="#org8099dcc">可见性</a></li>
+<li><a href="#org0ed4b46">移动</a></li>
+<li><a href="#org78af68c">结构化编辑</a></li>
+<li><a href="#orgd255f04">稀疏树结构</a></li>
+<li><a href="#orgc3cb670">简单列表</a></li>
+<li><a href="#org4b7d423">使用脚注</a></li>
 </ul>
 </li>
-<li><a href="#orgf00837b">表格</a></li>
-<li><a href="#org68fbab4">超链接</a>
+<li><a href="#org9e12231">表格</a></li>
+<li><a href="#orgbf06ece">超链接</a>
 <ul>
-<li><a href="#orgf158509">链接格式</a></li>
-<li><a href="#orgc0b5e17">内部链接</a></li>
-<li><a href="#orgb48c0df">外部链接</a></li>
-<li><a href="#org2dd6559">对链接进行处理</a></li>
-<li><a href="#org676d8a2">指定跳转链接</a></li>
+<li><a href="#orgb029a42">链接格式</a></li>
+<li><a href="#orgdf534c3">内部链接</a></li>
+<li><a href="#org9282e1d">外部链接</a></li>
+<li><a href="#org8a4f14f">对链接进行处理</a></li>
+<li><a href="#org6272797">指定跳转链接</a></li>
 </ul>
 </li>
-<li><a href="#org05ca43a">总结 「Tips」</a></li>
+<li><a href="#orga92760b">总结 「Tips」</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgfb06870" class="outline-2">
-<h2 id="orgfb06870">导入</h2>
-<div class="outline-text-2" id="text-orgfb06870">
+<div id="outline-container-orgf4fbe82" class="outline-2">
+<h2 id="orgf4fbe82">导入</h2>
+<div class="outline-text-2" id="text-orgf4fbe82">
 <blockquote>
 <p>
 Org mode is for keeping notes, maintaining TODO lists, planning projects, and authoring documents with a fast and effective plain-text system.
@@ -305,71 +305,71 @@ Org mode is for keeping notes, maintaining TODO lists, planning projects, and au
 </div>
 
 
-<div id="outline-container-org53a2581" class="outline-2">
-<h2 id="org53a2581">结构化文档</h2>
-<div class="outline-text-2" id="text-org53a2581">
+<div id="outline-container-orgb3e3b75" class="outline-2">
+<h2 id="orgb3e3b75">结构化文档</h2>
+<div class="outline-text-2" id="text-orgb3e3b75">
 <p>
 Org 模式基于 Outline 模式，其提供灵活的命令对文档的结构进行编辑。
 </p>
 </div>
-<div id="outline-container-orgf64b05b" class="outline-3">
-<h3 id="orgf64b05b">大纲</h3>
-<div class="outline-text-3" id="text-orgf64b05b">
+<div id="outline-container-org4aa6a4a" class="outline-3">
+<h3 id="org4aa6a4a">大纲</h3>
+<div class="outline-text-3" id="text-org4aa6a4a">
 <p>
 Org 模式基于 Outline 模式进行实现。Outline 模式允许一个文档具有层次结构，这就有利于我们进行笔记或者想法的记录。通过折叠或者隐藏文档的其他部分内容，仅仅对文档的大体结构以及当前正在处理的部分进行显示，此之为文档的层次结构骨架。Org 模式极大程度上地简化了大纲的使用，我们能够通过一个命令 <code>org-cycle</code> （快捷键为 <code>TAB</code> ）来实现大纲的显示与隐藏。
 </p>
 </div>
 </div>
-<div id="outline-container-org39c1ef5" class="outline-3">
-<h3 id="org39c1ef5">标题</h3>
+<div id="outline-container-orge369d1b" class="outline-3">
+<h3 id="orge369d1b">标题</h3>
 </div>
 
-<div id="outline-container-org3c4c794" class="outline-3">
-<h3 id="org3c4c794">可见性</h3>
+<div id="outline-container-org8099dcc" class="outline-3">
+<h3 id="org8099dcc">可见性</h3>
 </div>
-<div id="outline-container-org24ef7fd" class="outline-3">
-<h3 id="org24ef7fd">移动</h3>
+<div id="outline-container-org0ed4b46" class="outline-3">
+<h3 id="org0ed4b46">移动</h3>
 </div>
-<div id="outline-container-orgc1afc28" class="outline-3">
-<h3 id="orgc1afc28">结构化编辑</h3>
+<div id="outline-container-org78af68c" class="outline-3">
+<h3 id="org78af68c">结构化编辑</h3>
 </div>
-<div id="outline-container-orgaf4c19d" class="outline-3">
-<h3 id="orgaf4c19d">稀疏树结构</h3>
+<div id="outline-container-orgd255f04" class="outline-3">
+<h3 id="orgd255f04">稀疏树结构</h3>
 </div>
-<div id="outline-container-org02b40a1" class="outline-3">
-<h3 id="org02b40a1">简单列表</h3>
+<div id="outline-container-orgc3cb670" class="outline-3">
+<h3 id="orgc3cb670">简单列表</h3>
 </div>
-<div id="outline-container-org9e53611" class="outline-3">
-<h3 id="org9e53611">使用脚注</h3>
-</div>
-</div>
-
-<div id="outline-container-orgf00837b" class="outline-2">
-<h2 id="orgf00837b">表格</h2>
-</div>
-
-<div id="outline-container-org68fbab4" class="outline-2">
-<h2 id="org68fbab4">超链接</h2>
-<div class="outline-text-2" id="text-org68fbab4">
-</div><div id="outline-container-orgf158509" class="outline-3">
-<h3 id="orgf158509">链接格式</h3>
-</div>
-<div id="outline-container-orgc0b5e17" class="outline-3">
-<h3 id="orgc0b5e17">内部链接</h3>
-</div>
-<div id="outline-container-orgb48c0df" class="outline-3">
-<h3 id="orgb48c0df">外部链接</h3>
-</div>
-<div id="outline-container-org2dd6559" class="outline-3">
-<h3 id="org2dd6559">对链接进行处理</h3>
-</div>
-<div id="outline-container-org676d8a2" class="outline-3">
-<h3 id="org676d8a2">指定跳转链接</h3>
+<div id="outline-container-org4b7d423" class="outline-3">
+<h3 id="org4b7d423">使用脚注</h3>
 </div>
 </div>
 
-<div id="outline-container-org05ca43a" class="outline-2">
-<h2 id="org05ca43a">总结 「Tips」</h2>
+<div id="outline-container-org9e12231" class="outline-2">
+<h2 id="org9e12231">表格</h2>
+</div>
+
+<div id="outline-container-orgbf06ece" class="outline-2">
+<h2 id="orgbf06ece">超链接</h2>
+<div class="outline-text-2" id="text-orgbf06ece">
+</div><div id="outline-container-orgb029a42" class="outline-3">
+<h3 id="orgb029a42">链接格式</h3>
+</div>
+<div id="outline-container-orgdf534c3" class="outline-3">
+<h3 id="orgdf534c3">内部链接</h3>
+</div>
+<div id="outline-container-org9282e1d" class="outline-3">
+<h3 id="org9282e1d">外部链接</h3>
+</div>
+<div id="outline-container-org8a4f14f" class="outline-3">
+<h3 id="org8a4f14f">对链接进行处理</h3>
+</div>
+<div id="outline-container-org6272797" class="outline-3">
+<h3 id="org6272797">指定跳转链接</h3>
+</div>
+</div>
+
+<div id="outline-container-orga92760b" class="outline-2">
+<h2 id="orga92760b">总结 「Tips」</h2>
 </div>
 </div>
 <div id="postamble" class="status">

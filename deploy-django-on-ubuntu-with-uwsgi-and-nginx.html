@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-02 Sun 17:38 -->
+<!-- 2017-04-02 Sun 17:51 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>使用uWSGI和Nginx在Ubuntu上部署Django成功</title>
@@ -244,27 +244,27 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgc5833ba">python环境搭建</a>
+<li><a href="#org9676a02">python环境搭建</a>
 <ul>
-<li><a href="#orgae430f6">安装uWSGI</a></li>
-<li><a href="#org83266d5">安装Django</a></li>
+<li><a href="#org965e2ac">安装uWSGI</a></li>
+<li><a href="#org1f12433">安装Django</a></li>
 </ul>
 </li>
-<li><a href="#org2554295">Nginx 搭建</a>
+<li><a href="#org7584567">Nginx 搭建</a>
 <ul>
-<li><a href="#org15e4739">安装 Nginx</a></li>
-<li><a href="#orgd763753">配置Nginx</a></li>
-<li><a href="#org83c6e29">部署static文件</a></li>
-<li><a href="#orgae5ad51">测试 Nginx 是否部署成功</a></li>
+<li><a href="#orgac003c3">安装 Nginx</a></li>
+<li><a href="#orgb648812">配置Nginx</a></li>
+<li><a href="#org9c4233a">部署static文件</a></li>
+<li><a href="#org9152b66">测试 Nginx 是否部署成功</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgc5833ba" class="outline-2">
-<h2 id="orgc5833ba">python环境搭建</h2>
-<div class="outline-text-2" id="text-orgc5833ba">
+<div id="outline-container-org9676a02" class="outline-2">
+<h2 id="org9676a02">python环境搭建</h2>
+<div class="outline-text-2" id="text-org9676a02">
 <p>
 伴随着机器学习、深度学习的热潮， <code>Python</code> 的使用也是越来越火热，对于 <code>Python</code> 开发环境的搭建，个人重点推荐的方式是使用 <code>Anaconda</code> 进行 <code>Python</code> 环境和包的管理，但在
 <a href="https://www.continuum.io/downloads">官网</a> 上所提供的下载实在是太大了，原因就是它会预先给你下载很多乱七八糟的包，而这些包可能我们不怎么会用到，毕竟程序员大都有强迫症，这些用不到的包还要占据我的磁盘空间；在官网上
@@ -309,9 +309,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgae430f6" class="outline-3">
-<h3 id="orgae430f6">安装uWSGI</h3>
-<div class="outline-text-3" id="text-orgae430f6">
+<div id="outline-container-org965e2ac" class="outline-3">
+<h3 id="org965e2ac">安装uWSGI</h3>
+<div class="outline-text-3" id="text-org965e2ac">
 <div class="org-src-container">
 <pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #c92e0b;">pip</span> <span style="color: #d8003c;">install</span> <span style="color: #00834b;">uWSGI</span>  
 <span style="color: #969896;"># </span><span style="color: #969896;">&#36825;&#37324;&#38656;&#35201;&#26159;&#24050;&#32463;`source`&#36827;&#20837;&#20102;&#26032;&#24314;&#29615;&#22659;&#65292;&#23601;&#20250;&#20986;&#29616;&#21069;&#32512; (aprilwith.me)</span>
@@ -353,9 +353,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org83266d5" class="outline-3">
-<h3 id="org83266d5">安装Django</h3>
-<div class="outline-text-3" id="text-org83266d5">
+<div id="outline-container-org1f12433" class="outline-3">
+<h3 id="org1f12433">安装Django</h3>
+<div class="outline-text-3" id="text-org1f12433">
 <div class="org-src-container">
 <pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #00833e;">conda</span> <span style="color: #d8003c;">install</span> <span style="color: #6d6f00;">django</span>
 </pre>
@@ -441,21 +441,21 @@ vacuum = true
 </div>
 </div>
 
-<div id="outline-container-org2554295" class="outline-2">
-<h2 id="org2554295">Nginx 搭建</h2>
-<div class="outline-text-2" id="text-org2554295">
-</div><div id="outline-container-org15e4739" class="outline-3">
-<h3 id="org15e4739">安装 Nginx</h3>
-<div class="outline-text-3" id="text-org15e4739">
+<div id="outline-container-org7584567" class="outline-2">
+<h2 id="org7584567">Nginx 搭建</h2>
+<div class="outline-text-2" id="text-org7584567">
+</div><div id="outline-container-orgac003c3" class="outline-3">
+<h3 id="orgac003c3">安装 Nginx</h3>
+<div class="outline-text-3" id="text-orgac003c3">
 <p>
 安装步骤主要参考 <a href="http://www.jianshu.com/p/d5114a2a2052">Centos下 Nginx安装与配置</a> ，最后，打开浏览器访问此机器的IP，如果浏览器出现"Welcome to nginx!" 则表示 <code>Nginx</code> 已经安装并运行成功。
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgd763753" class="outline-3">
-<h3 id="orgd763753">配置Nginx</h3>
-<div class="outline-text-3" id="text-orgd763753">
+<div id="outline-container-orgb648812" class="outline-3">
+<h3 id="orgb648812">配置Nginx</h3>
+<div class="outline-text-3" id="text-orgb648812">
 <ul class="org-ul">
 <li>将 <code>uwsgi_params</code> 文件拷贝到项目文件夹下。 <code>uwsgi_params</code> 文件在 <code>/usr/local/nginx/</code> 目录下，也可以从 <a href="https://github.com/nginx/nginx/blob/master/conf/uwsgi_params">这里</a> 下载;</li>
 <li>在项目文件夹下创建文件 <code>myapp_nginx.conf</code> ，添加以下内容：</li>
@@ -553,9 +553,9 @@ do the following:
 </div>
 </div>
 
-<div id="outline-container-org83c6e29" class="outline-3">
-<h3 id="org83c6e29">部署static文件</h3>
-<div class="outline-text-3" id="text-org83c6e29">
+<div id="outline-container-org9c4233a" class="outline-3">
+<h3 id="org9c4233a">部署static文件</h3>
+<div class="outline-text-3" id="text-org9c4233a">
 <p>
 在你的 <code>Django</code> 项目的 <code>settings.py</code> 文件最后添加下面一行代码：
 </p>
@@ -589,9 +589,9 @@ do the following:
 </div>
 </div>
 
-<div id="outline-container-orgae5ad51" class="outline-3">
-<h3 id="orgae5ad51">测试 Nginx 是否部署成功</h3>
-<div class="outline-text-3" id="text-orgae5ad51">
+<div id="outline-container-org9152b66" class="outline-3">
+<h3 id="org9152b66">测试 Nginx 是否部署成功</h3>
+<div class="outline-text-3" id="text-org9152b66">
 <p>
 首先关闭 <code>Nginx</code> 服务
 </p>
