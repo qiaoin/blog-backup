@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-02 Sun 18:18 -->
+<!-- 2017-04-02 Sun 18:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>二机制炸弹实验</title>
@@ -181,6 +181,9 @@
 </style>
 <link rel="stylesheet" type="text/css" href="css/site.css"/>
 <link rel="icon" href="favicon.ico">
+         <script type="text/javascript" async
+           src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?...">
+         </script>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -244,24 +247,24 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orga6ca12b">准备</a></li>
-<li><a href="#orgaf82e73">首先是尝试</a></li>
-<li><a href="#org37d56ff"><code>phase_1</code></a></li>
-<li><a href="#org37935c8"><code>phase_2</code></a></li>
-<li><a href="#orgc3bfbe6"><code>phase_3</code></a></li>
-<li><a href="#orgb8804e3"><code>phase_4</code></a></li>
-<li><a href="#org4e54a27"><code>phase_5</code></a></li>
-<li><a href="#org41ade31"><code>phase_6</code></a></li>
-<li><a href="#org1c7a6d6"><code>secret_phase</code></a></li>
-<li><a href="#orgb60a763">总结</a></li>
-<li><a href="#org4654750">参考资料</a></li>
+<li><a href="#orga3dd470">准备</a></li>
+<li><a href="#org26bafed">首先是尝试</a></li>
+<li><a href="#org73bf6d4"><code>phase_1</code></a></li>
+<li><a href="#orgbc04787"><code>phase_2</code></a></li>
+<li><a href="#orgb9d43ca"><code>phase_3</code></a></li>
+<li><a href="#org0827546"><code>phase_4</code></a></li>
+<li><a href="#orgc7d63a3"><code>phase_5</code></a></li>
+<li><a href="#orgc04f073"><code>phase_6</code></a></li>
+<li><a href="#org0708c3a"><code>secret_phase</code></a></li>
+<li><a href="#org55cbb62">总结</a></li>
+<li><a href="#org311eb70">参考资料</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orga6ca12b" class="outline-2">
-<h2 id="orga6ca12b">准备</h2>
-<div class="outline-text-2" id="text-orga6ca12b">
+<div id="outline-container-orga3dd470" class="outline-2">
+<h2 id="orga3dd470">准备</h2>
+<div class="outline-text-2" id="text-orga3dd470">
 <ul class="org-ul">
 <li>目标：
 <ul class="org-ul">
@@ -324,9 +327,9 @@ Here are some hints for what to think about at each stage:
 </div>
 
 
-<div id="outline-container-orgaf82e73" class="outline-2">
-<h2 id="orgaf82e73">首先是尝试</h2>
-<div class="outline-text-2" id="text-orgaf82e73">
+<div id="outline-container-org26bafed" class="outline-2">
+<h2 id="org26bafed">首先是尝试</h2>
+<div class="outline-text-2" id="text-org26bafed">
 <ul class="org-ul">
 <li>使用 <code>objdump -t bomb &gt; system.txt</code> 输出 <code>bomb</code> 中的所有符号置 <code>symbol.txt</code> 文件；</li>
 <li>使用 <code>strings -t x bomb &gt; strigs.txt</code> 输出 <code>bomb</code> 中所有的可打印字符置 <code>stings.txt</code> 文件；</li>
@@ -340,9 +343,9 @@ Here are some hints for what to think about at each stage:
 </div>
 
 
-<div id="outline-container-org37d56ff" class="outline-2">
-<h2 id="org37d56ff"><code>phase_1</code></h2>
-<div class="outline-text-2" id="text-org37d56ff">
+<div id="outline-container-org73bf6d4" class="outline-2">
+<h2 id="org73bf6d4"><code>phase_1</code></h2>
+<div class="outline-text-2" id="text-org73bf6d4">
 <p>
 在 <code>objdump-d.txt</code> 文件中，关于 <code>phase_1</code> 的汇编代码如下（删除了其中的机器代码表示，并且如同 CSAPP chapter3 的做法在每行汇编之后添加注释）：
 </p>
@@ -448,9 +451,9 @@ Here are some hints for what to think about at each stage:
 </div>
 
 
-<div id="outline-container-org37935c8" class="outline-2">
-<h2 id="org37935c8"><code>phase_2</code></h2>
-<div class="outline-text-2" id="text-org37935c8">
+<div id="outline-container-orgbc04787" class="outline-2">
+<h2 id="orgbc04787"><code>phase_2</code></h2>
+<div class="outline-text-2" id="text-orgbc04787">
 <p>
 <code>rdi</code> 始终保持着待比较字符串的首地址，而且作为多个函数的第一个传入参数。
 </p>
@@ -617,9 +620,9 @@ Here are some hints for what to think about at each stage:
 </div>
 
 
-<div id="outline-container-orgc3bfbe6" class="outline-2">
-<h2 id="orgc3bfbe6"><code>phase_3</code></h2>
-<div class="outline-text-2" id="text-orgc3bfbe6">
+<div id="outline-container-orgb9d43ca" class="outline-2">
+<h2 id="orgb9d43ca"><code>phase_3</code></h2>
+<div class="outline-text-2" id="text-orgb9d43ca">
 <p>
 有了之前两个 <code>phase</code> 的基础，这个就比较简单了（具体知识点，例如跳转表，可参考 CSAPP chapter3 3.6.8 switch 语句 P159）
 </p>
@@ -686,9 +689,9 @@ Here are some hints for what to think about at each stage:
 </div>
 
 
-<div id="outline-container-orgb8804e3" class="outline-2">
-<h2 id="orgb8804e3"><code>phase_4</code></h2>
-<div class="outline-text-2" id="text-orgb8804e3">
+<div id="outline-container-org0827546" class="outline-2">
+<h2 id="org0827546"><code>phase_4</code></h2>
+<div class="outline-text-2" id="text-org0827546">
 <div class="org-src-container">
 <pre class="src src-ASM">000000000040100c &lt;phase_4&gt;:
   40100c:	sub    $0x18,%rsp                     ;; 分配栈帧
@@ -785,9 +788,9 @@ Here are some hints for what to think about at each stage:
 </div>
 
 
-<div id="outline-container-org4e54a27" class="outline-2">
-<h2 id="org4e54a27"><code>phase_5</code></h2>
-<div class="outline-text-2" id="text-org4e54a27">
+<div id="outline-container-orgc7d63a3" class="outline-2">
+<h2 id="orgc7d63a3"><code>phase_5</code></h2>
+<div class="outline-text-2" id="text-orgc7d63a3">
 <p>
 将 <code>phase_5</code> 的汇编代码来进行分析：
 </p>
@@ -890,9 +893,9 @@ Here are some hints for what to think about at each stage:
 </div>
 
 
-<div id="outline-container-org41ade31" class="outline-2">
-<h2 id="org41ade31"><code>phase_6</code></h2>
-<div class="outline-text-2" id="text-org41ade31">
+<div id="outline-container-orgc04f073" class="outline-2">
+<h2 id="orgc04f073"><code>phase_6</code></h2>
+<div class="outline-text-2" id="text-orgc04f073">
 <div class="org-src-container">
 <pre class="src src-ASM">00000000004010f4 &lt;phase_6&gt;:
   4010f4:	push   %r14
@@ -1050,9 +1053,9 @@ Here are some hints for what to think about at each stage:
 </div>
 
 
-<div id="outline-container-org1c7a6d6" class="outline-2">
-<h2 id="org1c7a6d6"><code>secret_phase</code></h2>
-<div class="outline-text-2" id="text-org1c7a6d6">
+<div id="outline-container-org0708c3a" class="outline-2">
+<h2 id="org0708c3a"><code>secret_phase</code></h2>
+<div class="outline-text-2" id="text-org0708c3a">
 <div class="org-src-container">
 <pre class="src src-ASM">0000000000401242 &lt;secret_phse&gt;:
   401242:	push   %rbx
@@ -1174,14 +1177,14 @@ Here are some hints for what to think about at each stage:
 </div>
 
 
-<div id="outline-container-orgb60a763" class="outline-2">
-<h2 id="orgb60a763">总结</h2>
+<div id="outline-container-org55cbb62" class="outline-2">
+<h2 id="org55cbb62">总结</h2>
 </div>
 
 
-<div id="outline-container-org4654750" class="outline-2">
-<h2 id="org4654750">参考资料</h2>
-<div class="outline-text-2" id="text-org4654750">
+<div id="outline-container-org311eb70" class="outline-2">
+<h2 id="org311eb70">参考资料</h2>
+<div class="outline-text-2" id="text-org311eb70">
 <ul class="org-ul">
 <li><a href="https://courses.cs.washington.edu/courses/cse351/16sp/lab-2.html">CSE 351 Lab2</a></li>
 <li><a href="http://stackoverflow.com/questions/12813962/sar-command-in-x86-assembly-with-one-parameter">SAR command in x86 assembly with one parameter</a></li>
