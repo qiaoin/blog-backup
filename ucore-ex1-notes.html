@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-02 Sun 14:05 -->
+<!-- 2017-04-02 Sun 16:18 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>uCore实验1笔记整理</title>
@@ -265,30 +265,30 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org7059b8f">实验准备</a>
+<li><a href="#orgfce4516">实验准备</a>
 <ul>
-<li><a href="#org7e6050c">计算机是如何启动的？</a></li>
-<li><a href="#org6b5fc82">bootloader 启动过程</a></li>
+<li><a href="#orgf82fc5c">计算机是如何启动的？</a></li>
+<li><a href="#org0d4ca1d">bootloader 启动过程</a></li>
 </ul>
 </li>
-<li><a href="#org29f82bd">源代码分析</a>
+<li><a href="#org7fa7e03">源代码分析</a>
 <ul>
-<li><a href="#orgcb53dd5">bootasm.S</a></li>
-<li><a href="#org407aae5">bootmain.c</a></li>
+<li><a href="#org692eaf2">bootasm.S</a></li>
+<li><a href="#orga1bdef4">bootmain.c</a></li>
 </ul>
 </li>
-<li><a href="#org253d2a0">练习题</a></li>
-<li><a href="#org4759de0">参考资料</a></li>
+<li><a href="#org7017d68">练习题</a></li>
+<li><a href="#org9d7659a">参考资料</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org7059b8f" class="outline-2">
-<h2 id="org7059b8f">实验准备</h2>
-<div class="outline-text-2" id="text-org7059b8f">
-</div><div id="outline-container-org7e6050c" class="outline-3">
-<h3 id="org7e6050c">计算机是如何启动的？</h3>
-<div class="outline-text-3" id="text-org7e6050c">
+<div id="outline-container-orgfce4516" class="outline-2">
+<h2 id="orgfce4516">实验准备</h2>
+<div class="outline-text-2" id="text-orgfce4516">
+</div><div id="outline-container-orgf82fc5c" class="outline-3">
+<h3 id="orgf82fc5c">计算机是如何启动的？</h3>
+<div class="outline-text-3" id="text-orgf82fc5c">
 <p>
 以 Intel 80386 为例，计算机加电后，CPU 从物理地址 0xFFFFFFF0（由初始化的 CS：EIP 确定，此时 CS 和 IP 的值分别是 0xF000 和 0xFFF0 ）开始执行。
 在 0xFFFFFFF0 这里只是存放了一条跳转指令，通过跳转指令跳到 BIOS 例行程序起始点。BIOS 做完计算机硬件自检和初始化后，会选择一个启动设备
@@ -307,9 +307,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org6b5fc82" class="outline-3">
-<h3 id="org6b5fc82">bootloader 启动过程</h3>
-<div class="outline-text-3" id="text-org6b5fc82">
+<div id="outline-container-org0d4ca1d" class="outline-3">
+<h3 id="org0d4ca1d">bootloader 启动过程</h3>
+<div class="outline-text-3" id="text-org0d4ca1d">
 <p>
 BIOS 将通过读取硬盘主引导扇区到内存，并转跳到对应内存中的位置执行 bootloader 。 bootloader 完成的工作包括：
 </p>
@@ -323,9 +323,9 @@ BIOS 将通过读取硬盘主引导扇区到内存，并转跳到对应内存中
 </div>
 </div>
 
-<div id="outline-container-org29f82bd" class="outline-2">
-<h2 id="org29f82bd">源代码分析</h2>
-<div class="outline-text-2" id="text-org29f82bd">
+<div id="outline-container-org7fa7e03" class="outline-2">
+<h2 id="org7fa7e03">源代码分析</h2>
+<div class="outline-text-2" id="text-org7fa7e03">
 <p>
 bootloader 工作的实现文件在 lab1 中的 boot 目录下，包含以下三个文件：
 </p>
@@ -336,9 +336,9 @@ bootloader 工作的实现文件在 lab1 中的 boot 目录下，包含以下三
 </ul>
 </div>
 
-<div id="outline-container-orgcb53dd5" class="outline-3">
-<h3 id="orgcb53dd5">bootasm.S</h3>
-<div class="outline-text-3" id="text-orgcb53dd5">
+<div id="outline-container-org692eaf2" class="outline-3">
+<h3 id="org692eaf2">bootasm.S</h3>
+<div class="outline-text-3" id="text-org692eaf2">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #a71d5d;"># start</span> <span style="color: #008575;">address</span> <span style="color: #cc0090;">should</span> <span style="color: #b84500;">be</span> <span style="color: #0086b3;">0</span>:<span style="color: #00857d;">7c00</span>, <span style="color: #7a6b00;">in</span> <span style="color: #0086b3;">real</span> <span style="color: #007d00;">mode</span>, <span style="color: #b627af;">the</span> <span style="color: #008582;">beginning</span> <span style="color: #008575;">address</span> <span style="color: #da004f;">of</span> <span style="color: #b627af;">the</span> <span style="color: #0086b3;">running</span> <span style="color: #007fe5;">bootloader</span>
 .<span style="color: #008346;">globl</span> <span style="color: #d10084;">start</span>
@@ -584,9 +584,9 @@ Intel 推出 x86 架构已近 30 年，刚开始推出的 8086 处理器是一�
 </div>
 </div>
 
-<div id="outline-container-org407aae5" class="outline-3">
-<h3 id="org407aae5">bootmain.c</h3>
-<div class="outline-text-3" id="text-org407aae5">
+<div id="outline-container-orga1bdef4" class="outline-3">
+<h3 id="orga1bdef4">bootmain.c</h3>
+<div class="outline-text-3" id="text-orga1bdef4">
 <p>
 bootloader 让 CPU 进入保护模式后，下一步的工作就是从硬盘上加载并运行 OS。考虑到实现的简单性，bootloader 的访问硬盘都是 LBA 模式
 的 PIO（Program IO）方式，即所有的 IO 操作是通过 CPU 访问硬盘的 IO 地址寄存器完成。
@@ -698,13 +698,13 @@ IO偏移地址寄存器来设置。
 
 
 
-<div id="outline-container-org253d2a0" class="outline-2">
-<h2 id="org253d2a0">练习题</h2>
+<div id="outline-container-org7017d68" class="outline-2">
+<h2 id="org7017d68">练习题</h2>
 </div>
 
-<div id="outline-container-org4759de0" class="outline-2">
-<h2 id="org4759de0">参考资料</h2>
-<div class="outline-text-2" id="text-org4759de0">
+<div id="outline-container-org9d7659a" class="outline-2">
+<h2 id="org9d7659a">参考资料</h2>
+<div class="outline-text-2" id="text-org9d7659a">
 <ol class="org-ol">
 <li><a href="http://www.cnblogs.com/zslhg903/p/5781882.html">ucore lab1 bootloader学习笔记</a> 基本将原作者的全部内容给搬运了过来</li>
 <li><a href="https://www.gitbook.com/book/objectkuan/ucore-docs/details">ucore-os-docs</a> 这是学堂在线操作系统课程实验的提供的官方文档，有些讲解的不清晰的地方需要自己在网上查阅资料</li>
