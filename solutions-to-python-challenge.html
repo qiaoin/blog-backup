@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-02 Sun 18:39 -->
+<!-- 2017-04-03 Mon 22:05 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>pythonchallenge解题报告</title>
@@ -230,6 +230,28 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="preamble" class="status">
@@ -250,6 +272,7 @@ for the JavaScript code in this tag.
 <li><a href="#org55c42b8">Problem 0: 0</a></li>
 <li><a href="#orgc1bfa4e">Problem 1: 274877906944</a></li>
 <li><a href="#org84aaa98">Problem 2: ocr</a></li>
+<li><a href="#orgd21c163">Problem 3: equality</a></li>
 </ul>
 </div>
 </div>
@@ -258,7 +281,7 @@ for the JavaScript code in this tag.
 <h2 id="org55c42b8"><a href="http://www.pythonchallenge.com/pc/def/0.html">Problem 0: 0</a></h2>
 <div class="outline-text-2" id="text-org55c42b8">
 <p>
-图片中显示的是 2 的 38 次方 $2<sup>38</sup>$，直接使用 <code>python</code> 进行计算即可
+图片中显示的是 2 的 38 次方 \(2^{38}\) ，直接使用 <code>python</code> 进行计算即可
 </p>
 
 <div class="org-src-container">
@@ -267,16 +290,14 @@ for the JavaScript code in this tag.
 </pre>
 </div>
 
-<div class="HTML">
+<blockquote>
 <p>
-&lt;div class="tip"&gt;
 这里就有一个问题，Python 在进行数学运算时候，需要去考虑精度问题什么的么？如果不考虑，为什么不需要去考虑？如果考虑了，我们应该在以后的编程中注意什么？（这里我不知道该如何提问）
-&lt;/div&gt;
 </p>
+</blockquote>
+</div>
+</div>
 
-</div>
-</div>
-</div>
 
 <div id="outline-container-orgc1bfa4e" class="outline-2">
 <h2 id="orgc1bfa4e"><a href="http://www.pythonchallenge.com/pc/def/map.html">Problem 1: 274877906944</a></h2>
@@ -286,16 +307,18 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #057c00;">hints</span> = <span style="color: #183691;">'''g fmnc wms bgblr rpylqjyrc gr zw fylb. rfyrq ufyr amknsrcpq </span>
+<pre class="src src-python"><span style="color: #c63400;">import</span> <span style="color: #00859d;">string</span>
+
+<span style="color: #057c00;">hints</span> = <span style="color: #183691;">'''g fmnc wms bgblr rpylqjyrc gr zw fylb. rfyrq ufyr amknsrcpq </span>
 <span style="color: #183691;">ypc dmp. bmgle gr gl zw fylb gq glcddgagclr ylb rfyr'q ufw rfgq rcvr </span>
 <span style="color: #183691;">gq qm jmle. sqgle qrpgle.kyicrpylq() gq pcamkkclbcb. lmu ynnjw ml rfc spj.'''</span>
-<span style="color: #d3007e;">intab</span> = <span style="color: #00859d;">string</span>.<span style="color: #a934bb;">ascii_lowercase</span>
-<span style="color: #da004e;">transtab</span> = <span style="color: #a71d5d;">str</span>.<span style="color: #965f00;">maketrans</span><span style="color: #969896;">(</span><span style="color: #d3007e;">intab</span>, <span style="color: #d3007e;">intab</span><span style="color: #0086b3;">[</span><span style="color: #0086b3;">2</span>:<span style="color: #0086b3;">]</span> + <span style="color: #d3007e;">intab</span><span style="color: #0086b3;">[</span>:<span style="color: #0086b3;">2</span><span style="color: #0086b3;">]</span><span style="color: #969896;">)</span>
-<span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #057c00;">hints</span>.<span style="color: #0076f2;">translate</span><span style="color: #0086b3;">(</span><span style="color: #da004e;">transtab</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>
+<span style="color: #567400;">source</span> = <span style="color: #00859d;">string</span>.<span style="color: #a934bb;">ascii_lowercase</span>
+<span style="color: #da0054;">table</span> = <span style="color: #a71d5d;">str</span>.<span style="color: #965f00;">maketrans</span><span style="color: #969896;">(</span><span style="color: #567400;">source</span>, <span style="color: #567400;">source</span><span style="color: #0086b3;">[</span><span style="color: #0086b3;">2</span>:<span style="color: #0086b3;">]</span> + <span style="color: #567400;">source</span><span style="color: #0086b3;">[</span>:<span style="color: #0086b3;">2</span><span style="color: #0086b3;">]</span><span style="color: #969896;">)</span>
+<span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #057c00;">hints</span>.<span style="color: #0076f2;">translate</span><span style="color: #0086b3;">(</span><span style="color: #da0054;">table</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>
 <span style="color: #969896;"># </span><span style="color: #969896;">i hope you didnt translate it by hand. thats what computers are for. </span>
 <span style="color: #969896;"># </span><span style="color: #969896;">doing it in by hand is inefficient and that's why this text is so long. </span>
 <span style="color: #969896;"># </span><span style="color: #969896;">using string.maketrans() is recommended. now apply on the url.</span>
-<span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #183691;">"map"</span>.<span style="color: #0076f2;">translate</span><span style="color: #0086b3;">(</span><span style="color: #da004e;">transtab</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span> <span style="color: #969896;"># </span><span style="color: #969896;">ocr</span>
+<span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #183691;">"map"</span>.<span style="color: #0076f2;">translate</span><span style="color: #0086b3;">(</span><span style="color: #da0054;">table</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span> <span style="color: #969896;"># </span><span style="color: #969896;">ocr</span>
 <span style="color: #969896;"># </span><span style="color: #969896;">http://www.pythonchallenge.com/pc/def/ocr.html</span>
 </pre>
 </div>
@@ -311,40 +334,21 @@ for the JavaScript code in this tag.
 
 <blockquote>
 <p>
-Help on built-in function maketrans:
-</p>
-
-<p>
-maketrans(x, y=None, z=None, /)  Return a translation table usable for str.translate().
+maketrans(x, y=None, z=None, /)    Return a translation table usable for str.translate().
 </p>
 
 <p>
 If there is only one argument, it must be a dictionary mapping Unicode ordinals (integers)
-</p>
-
-<p>
 or characters to Unicode ordinals, strings or None. Character keys will be then converted
-</p>
-
-<p>
 to ordinals. If there are two arguments, they must be strings of equal length, and in the
-</p>
-
-<p>
 resulting dictionary, each character in x will be mapped to the character at the same position
-</p>
-
-<p>
 in y. If there is a third argument, it must be a string, whose characters will be mapped to
-</p>
-
-<p>
 None in the result.
 </p>
 </blockquote>
 
 <p>
-<code>str.maketrans()</code> 就是去构造一个映射表，这个映射表定义了 <code>str.translate()</code> 转换关系。根据 <code>maketrans()</code> 参数的个数，可以分为以下三类：
+<code>str.maketrans()</code> 就是去构造一个映射表( <code>table</code> )，这个映射表定义了 <code>str.translate()</code> 转换关系。根据 <code>maketrans()</code> 参数的个数，可以分为以下三类：
 </p>
 
 <p>
@@ -362,8 +366,9 @@ None in the result.
 
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c63400;">import</span> <span style="color: #00859d;">string</span>
-<span style="color: #da004e;">transtab</span> = <span style="color: #a71d5d;">str</span>.<span style="color: #965f00;">maketrans</span><span style="color: #969896;">(</span><span style="color: #00859d;">string</span>.<span style="color: #a934bb;">ascii_lowercase</span>, <span style="color: #00859d;">string</span>.<span style="color: #0071f2;">ascii_uppercase</span><span style="color: #969896;">)</span>
-<span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #183691;">'http://qiaoin.github.io'</span>.<span style="color: #0076f2;">translate</span><span style="color: #0086b3;">(</span><span style="color: #da004e;">transtab</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>  <span style="color: #969896;"># </span><span style="color: #969896;">'HTTP://QIAOIN.GITHUB.IO'</span>
+
+<span style="color: #da0054;">table</span> = <span style="color: #a71d5d;">str</span>.<span style="color: #965f00;">maketrans</span><span style="color: #969896;">(</span><span style="color: #00859d;">string</span>.<span style="color: #a934bb;">ascii_lowercase</span>, <span style="color: #00859d;">string</span>.<span style="color: #0071f2;">ascii_uppercase</span><span style="color: #969896;">)</span>
+<span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #183691;">'https://aprilwith.me'</span>.<span style="color: #0076f2;">translate</span><span style="color: #0086b3;">(</span><span style="color: #da0054;">table</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>  <span style="color: #969896;"># </span><span style="color: #969896;">'HTTPS://APRILWITH.ME'</span>
 </pre>
 </div>
 
@@ -373,8 +378,9 @@ None in the result.
 
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c63400;">import</span> <span style="color: #00859d;">string</span>
-<span style="color: #da004e;">transtab</span> = <span style="color: #a71d5d;">str</span>.<span style="color: #965f00;">maketrans</span><span style="color: #969896;">(</span><span style="color: #00859d;">string</span>.<span style="color: #a934bb;">ascii_lowercase</span>, <span style="color: #00859d;">string</span>.<span style="color: #0071f2;">ascii_uppercase</span>, <span style="color: #183691;">'!@#$%^&amp;*'</span><span style="color: #969896;">)</span>
-<span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #183691;">'h@%tt^##p:%*@/%^/&amp;q@iao*(in#^&amp;git*@hub(&amp;^*%^&amp;%.^&amp;io*'</span>.<span style="color: #0076f2;">translate</span><span style="color: #0086b3;">(</span><span style="color: #da004e;">transtab</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>  <span style="color: #969896;"># </span><span style="color: #969896;">'HTTP://QIAOIN.GITHUB.IO'</span>
+
+<span style="color: #da0054;">table</span> = <span style="color: #a71d5d;">str</span>.<span style="color: #965f00;">maketrans</span><span style="color: #969896;">(</span><span style="color: #00859d;">string</span>.<span style="color: #a934bb;">ascii_lowercase</span>, <span style="color: #00859d;">string</span>.<span style="color: #0071f2;">ascii_uppercase</span>, <span style="color: #183691;">'!@#$%^&amp;*'</span><span style="color: #969896;">)</span>
+<span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #183691;">'h@%tt^##ps:%*@/%^/&amp;ap@ri*l(#wi^&amp;t*@(&amp;h^*%^&amp;%.^me&amp;*'</span>.<span style="color: #0076f2;">translate</span><span style="color: #0086b3;">(</span><span style="color: #da0054;">table</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>  <span style="color: #969896;"># </span><span style="color: #969896;">'HTTPS://APRILWITH.ME'</span>
 </pre>
 </div>
 
@@ -384,26 +390,12 @@ None in the result.
 
 <blockquote>
 <p>
-Help on method<sub>descriptor</sub>: 
-</p>
-
-<p>
-S.translate(table) -&gt; str
-</p>
-
-<p>
-Return a copy of the string S, where all characters have been mapped
+S.translate(table) -&gt; str    Return a copy of the string S, where all characters have been mapped
 </p>
 
 <p>
 through the given translation table, which must be a mapping of
-</p>
-
-<p>
 Unicode ordinals to Unicode ordinals, strings, or None.
-</p>
-
-<p>
 Unmapped characters are left untouched. Characters mapped to None are deleted.
 </p>
 </blockquote>
@@ -415,7 +407,7 @@ Unmapped characters are left untouched. Characters mapped to None are deleted.
 
 <p>
 注1：还需要一些说明的是，在 Python3 中， <code>string.maketrans()</code> 已经被 <code>deprecated</code> 了，转而使用静态方法来替代
- <code>static str.maketrans()</code> 。现在，对 <code>str</code> ， <code>bytes</code> ， <code>bytearray</code> 每个都有着与之所对应的 <code>aketrans()</code> 和 <code>translate()</code> 方法，
+ <code>static str.maketrans()</code> 。现在，对 <code>str</code> ， <code>bytes</code> ， <code>bytearray</code> 每个都有着与之所对应的 <code>maketrans()</code> 和 <code>translate()</code> 方法，
 这样就解决了原先 <code>string</code> 模块中 <code>string.maketrans()</code> 函数到底支持的类型的问题。
 </p>
 
@@ -430,9 +422,77 @@ Unmapped characters are left untouched. Characters mapped to None are deleted.
 </div>
 </div>
 
+
 <div id="outline-container-org84aaa98" class="outline-2">
 <h2 id="org84aaa98"><a href="http://www.pythonchallenge.com/pc/def/ocr.html">Problem 2: ocr</a></h2>
 <div class="outline-text-2" id="text-org84aaa98">
+<p>
+这道题目自己之前一直不敢去做，原因是一直琢磨着去用正则表达式去解决，但有时候一想到正则就会犯怯，这需要去克服；后来想想，这个都是 <code>pythonchallenge</code> ，当然只要是使用 <code>Python</code> 来解决这个问题就行了，优雅不优雅暂先不提及，能够求解出答案就可以，代码的效率与是否 <code>Pythonic</code> 都可以之后再去讨论，解决问题才是王道。
+</p>
+
+<blockquote>
+<p>
+recognize the characters. maybe they are in the book, 
+but MAYBE they are in the page source.
+</p>
+</blockquote>
+<p>
+根据提示，查看页面源码，下方包含很大段的注释 <code>find rare characters in the mess below: ...</code> ，需要在注释中的一大堆字符中找到出现次数最少的字符。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #c63400;">import</span> <span style="color: #00859d;">string</span>
+<span style="color: #c63400;">import</span> <span style="color: #008590;">requests</span>
+
+<span style="color: #006ff1;">r</span> = <span style="color: #008590;">requests</span>.<span style="color: #607200;">get</span><span style="color: #969896;">(</span><span style="color: #183691;">"http://www.pythonchallenge.com/pc/def/ocr.html"</span><span style="color: #969896;">)</span>
+<span style="color: #447700;">t</span> = <span style="color: #006ff1;">r</span>.<span style="color: #00834a;">text</span>
+<span style="color: #0085a6;">comment_begin</span> = <span style="color: #447700;">t</span>.<span style="color: #d70073;">find</span><span style="color: #969896;">(</span><span style="color: #183691;">"%%$@"</span><span style="color: #969896;">)</span>
+
+<span style="color: #007d00;">result</span> = <span style="color: #969896;">{}</span>
+<span style="color: #0082da;">for</span> <span style="color: #9e5a00;">char</span> <span style="color: #7a6b00;">in</span> <span style="color: #447700;">t</span><span style="color: #969896;">[</span><span style="color: #0085a6;">comment_begin</span>:<span style="color: #969896;">]</span>:
+    <span style="color: #007d00;">result</span><span style="color: #969896;">[</span><span style="color: #9e5a00;">char</span><span style="color: #969896;">]</span> = <span style="color: #007d00;">result</span>.<span style="color: #607200;">get</span><span style="color: #969896;">(</span><span style="color: #9e5a00;">char</span>, <span style="color: #0086b3;">0</span><span style="color: #969896;">)</span> + <span style="color: #0086b3;">1</span>
+
+<span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #007d00;">result</span><span style="color: #969896;">)</span>
+</pre>
+</div>
+
+<p>
+结果返回为个字符对应的出现次数
+</p>
+<blockquote>
+<p>
+{'@': 6157, '-': 2, '{': 6046, 't': 1, 'u': 1, 'e': 1, '_': 6112, ']': 6152, ')': 6186, '$': 6046, '[': 6108, '*': 6034, '%': 6104, '}': 6105, '(': 6154, '&gt;': 1, 'y': 1, 'a': 1, '#': 6115, '!': 6079, 'l': 1, 'q': 1, '&amp;': 6043, '\n': 1222, 'i': 1, '+': 6066, '^': 6030}
+</p>
+</blockquote>
+<p>
+可以看出，对应有八个字符仅出现过 1 次，为提示中的 <code>rare characters</code> ：
+</p>
+<div class="org-center">
+<p>
+'t' 'u' 'e' 'y' 'a' 'l' 'q' 'i'
+</p>
+</div>
+<p>
+但这八个字符可以有很多种组合，最后决定以这些字符在这一大段注释中出现的先后顺序组织：
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #da0055;">rare_string</span> = <span style="color: #183691;">"tueyalqi"</span>
+<span style="color: #8a47ce;">url</span> = <span style="color: #969896;">[]</span>
+<span style="color: #0082da;">for</span> <span style="color: #9e5a00;">char</span> <span style="color: #7a6b00;">in</span> <span style="color: #447700;">t</span><span style="color: #969896;">[</span><span style="color: #0085a6;">comment_begin</span>:<span style="color: #969896;">]</span>:
+    <span style="color: #0083d2;">if</span> <span style="color: #9e5a00;">char</span> <span style="color: #7a6b00;">in</span> <span style="color: #da0055;">rare_string</span>:
+        <span style="color: #8a47ce;">url</span>.<span style="color: #0077f1;">append</span><span style="color: #969896;">(</span><span style="color: #9e5a00;">char</span><span style="color: #969896;">)</span>
+<span style="color: #8a47ce;">url</span> = <span style="color: #969896;">(</span><span style="color: #183691;">""</span><span style="color: #969896;">)</span>.<span style="color: #0085a5;">join</span><span style="color: #969896;">(</span><span style="color: #8a47ce;">url</span><span style="color: #969896;">)</span>
+<span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #183691;">"http://www.pythonchallenge.com/pc/def/{0}.html"</span>.<span style="color: #a71d5d;">format</span><span style="color: #0086b3;">(</span><span style="color: #8a47ce;">url</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">http://www.pythonchallenge.com/pc/def/equality.html</span>
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgd21c163" class="outline-2">
+<h2 id="orgd21c163"><a href="http://www.pythonchallenge.com/pc/def/equality.html">Problem 3: equality</a></h2>
+<div class="outline-text-2" id="text-orgd21c163">
 <p>
 <b>TODO</b>
 </p>
