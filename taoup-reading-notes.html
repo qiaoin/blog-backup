@@ -6,7 +6,7 @@
 <!-- 2017-04-15 Sat 23:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sitemap</title>
+<title>《 UNIX 编程艺术》 读书笔记</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="qiaoin" />
 <style type="text/css">
@@ -235,35 +235,157 @@ for the JavaScript code in this tag.
           </div>
 </div>
 <div id="content">
-<h1 class="title">Sitemap</h1>
-<ul class="org-ul">
-<li><a href="taoup-reading-notes.html">《 UNIX 编程艺术》 读书笔记</a></li>
-<li><a href="solutions-to-python-challenge.html">pythonchallenge解题报告</a></li>
-<li><a href="index.html">apriwith.me's homepage</a></li>
-<li><a href="archives-ucore-os-labs.html">uCore 操作系统实验笔记整理</a></li>
-<li><a href="archives-learning-c-the-hardest-way.html">C 语言学习笔记</a></li>
-<li><a href="archives-csapp-labs.html">深入理解计算机系统 课程实验</a></li>
-<li><a href="archives-how-linux-works-all-parts.html">Linux 学习笔记</a></li>
-<li><a href="archives-cs61a-notes.html">CS61A 课程笔记</a></li>
-<li><a href="c-lang-part-0.html">C FAQ（一）：基础概念</a></li>
-<li><a href="all-about-randmom-numbers.html">随机数——僭越之罪</a></li>
-<li><a href="step-into-emacs.html">开始使用 Emacs</a></li>
-<li><a href="some-configurations-about-mac.html">关于MAC的一些配置</a></li>
-<li><a href="magic-methods-in-python.html">Python中的“魔法方法”</a></li>
-<li><a href="learning-docker-from-scratch.html">从零开始学习Docker</a></li>
-<li><a href="learning-LaTeX-the-hardest-way.html">开始学习 LaTeX</a></li>
-<li><a href="how-to-use-org-mode.html">Org mode 学习笔记</a></li>
-<li><a href="how-linux-works-part-0.html">Linux 学习笔记（一）</a></li>
-<li><a href="deploy-django-on-ubuntu-with-uwsgi-and-nginx.html">使用uWSGI和Nginx在Ubuntu上部署Django成功</a></li>
-<li><a href="deepth-of-recursion.html">递归的深度</a></li>
-<li><a href="c-lang-part-2.html">C FAQ（三）：局部变量的内存分配</a></li>
-<li><a href="csapp-bomb-lab.html">二机制炸弹实验</a></li>
-<li><a href="c-lang-part-3.html">C FAQ（四）：C 语言与汇编语言</a></li>
-<li><a href="ucore-ex1-notes.html">uCore实验1笔记整理</a></li>
-<li><a href="cmake-tutorial-zh.html">CMake Tutorial 翻译及整理</a></li>
-<li><a href="book-reading-notes.html">读书笔记</a></li>
-<li><a href="c-lang-part-1.html">C FAQ（二）：结构体与数组</a></li>
+<h1 class="title">《 UNIX 编程艺术》 读书笔记</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org5ae6f10">模块性：保持清晰，保持简洁</a>
+<ul>
+<li><a href="#org88847fd">封装和最佳模块大小</a></li>
+<li><a href="#org7528524">紧凑性和正交性</a>
+<ul>
+<li><a href="#org53f59e0">紧凑性</a></li>
+<li><a href="#org8fef281">正交性</a></li>
+<li><a href="#org58f868f">SPOT 原则</a></li>
+<li><a href="#orgf0eb28f">紧凑性和强单一中心</a></li>
+<li><a href="#org9062763">分离的价值</a></li>
 </ul>
+</li>
+<li><a href="#org7be93bc">软件是多层的</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<p>
+正文从这里开始， <b>注意</b> 使用 Org-mode 的方式进行编辑即可。
+</p>
+
+<div id="outline-container-org5ae6f10" class="outline-2">
+<h2 id="org5ae6f10">模块性：保持清晰，保持简洁</h2>
+<div class="outline-text-2" id="text-org5ae6f10">
+<blockquote>
+<p>
+There are two ways of constructing a software design. One is to make it so simple 
+that there are obviously no deficiencies; the other is to make it so complicated 
+that there are no obvious deficiencies. The first method is far more difficult.
+</p>
+
+<p>
+软件设计有两种方式：一种是设计得极为简洁，没有看得到的缺陷；另一种是设计得极为复杂，
+有缺陷也看不出来。第一种方式的难度要大得多。
+</p>
+
+<p>
+《皇帝的旧衣》，CACM 1981 年 2 月， By C. A. R. Hoare
+</p>
+</blockquote>
+
+<p>
+模块化原则在这里展开来说就是：要编写复杂软件又不至于一败涂地的唯一方法，就是用定义
+清晰的接口把若干简单模块组合起来，如此一来，多数问题只会出现在局部，那么还有希望对
+局部进行改进或优化，而不至于牵动全身。
+</p>
+</div>
+
+<div id="outline-container-org88847fd" class="outline-3">
+<h3 id="org88847fd">封装和最佳模块大小</h3>
+<div class="outline-text-3" id="text-org88847fd">
+<p>
+模块化代码的首要特质就是封装。封装良好的模块不会过多向外部披露自身的细节，不会直接
+调用其他模块的实现码，也不会胡乱共享全部数据。模块之间通过应用程序编程接口（ API ）
+————一组严密、定义良好的程序调用和数据结构————来通信。这就是模块化原则的内容。
+</p>
+
+<p>
+API 在模块间扮演双重角色。在实现层面，作为模块之间的滞塞点（ check point ），阻止
+各自的内部细节被相邻模块知晓；在设计层面，正是 API （而不是模块间的实现代码）真正
+定义了整个体系。
+</p>
+
+<p>
+有一个很好的方式来验证 API 是否设计良好：如果试着用纯人类语言描述设计（不许摘录任
+何源代码），能否把事情说清楚？养成在编码前为 API 编写一段非正式描述的习惯，是一个
+非常好的办法。实际上，一些最有能力的开发者，一开始总是定义接口，然后编写简要注释，
+对其进行描述，最后才编写代码————因为编写注释的过程就阐明了代码必须达到的目的。这种
+描述能够帮助你阻止思路，本身就是十分有用的模块说明，而且，最终你可能还想把这些说明
+做成路标文档（ roadmap document ），方便以后的人阅读代码。
+</p>
+
+<p>
+模块分解的越彻底，每一块就越小，API 的定义也就越重要。全局复杂度和受 bug 影响的程度
+也会相应降低。然而，也可能因过度划分造成模块太小。在模块很小时，bug 发生率也出乎
+意料地增多，这在大量以不同语言实现的各种系统中均是如此。因此，Hatton 的经验数据表明，
+假设其他所有因素（如程序员的能力）都相同，200 到 400 之间的逻辑行的代码是“最佳点”，
+可能的缺陷密度达到最小。这个大小与所使用的语言无关————这个结论有力支持了书中的建议，
+即尽可能用最强大的语言和工具编程。根据经验，Hatton 建议逻辑行与物理行之间为两倍的折
+算率，即最佳物理行数建议应在 400 至 800 行之间。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org7528524" class="outline-3">
+<h3 id="org7528524">紧凑性和正交性</h3>
+<div class="outline-text-3" id="text-org7528524">
+<p>
+具有最佳尺寸的模块并不意味着代码有高质量。因此，在设计 API、命令集、协议以及其他让
+计算机工作的方法时，还要考虑另外两个特性：紧凑性和正交性。
+</p>
+</div>
+
+<div id="outline-container-org53f59e0" class="outline-4">
+<h4 id="org53f59e0">紧凑性</h4>
+</div>
+
+<div id="outline-container-org8fef281" class="outline-4">
+<h4 id="org8fef281">正交性</h4>
+</div>
+
+<div id="outline-container-org58f868f" class="outline-4">
+<h4 id="org58f868f">SPOT 原则</h4>
+</div>
+
+<div id="outline-container-orgf0eb28f" class="outline-4">
+<h4 id="orgf0eb28f">紧凑性和强单一中心</h4>
+</div>
+
+<div id="outline-container-org9062763" class="outline-4">
+<h4 id="org9062763">分离的价值</h4>
+</div>
+</div>
+
+
+<div id="outline-container-org7be93bc" class="outline-3">
+<h3 id="org7be93bc">软件是多层的</h3>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<div id="disqus_thread"></div>
+                  <script>
+                  /**
+                   *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                   */
+                  /*
+                  var disqus_config = function () {
+                    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                  };
+                  */
+                  (function() { // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://aprilwith.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                  })();
+                  </script>
+                  <noscript>
+                    Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+                  </noscript>
 </div>
 </body>
 </html>
