@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-02 Sun 18:39 -->
+<!-- 2017-04-15 Sat 17:14 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>使用uWSGI和Nginx在Ubuntu上部署Django成功</title>
@@ -181,9 +181,6 @@
 </style>
 <link rel="stylesheet" type="text/css" href="css/site.css"/>
 <link rel="icon" href="favicon.ico">
-         <script type="text/javascript" async
-           src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?...">
-         </script>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -247,27 +244,27 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org0fe76db">python环境搭建</a>
+<li><a href="#org549b78c">python环境搭建</a>
 <ul>
-<li><a href="#org18b3262">安装uWSGI</a></li>
-<li><a href="#org377f809">安装Django</a></li>
+<li><a href="#org79d4559">安装uWSGI</a></li>
+<li><a href="#orga6fcf8d">安装Django</a></li>
 </ul>
 </li>
-<li><a href="#orgb54982e">Nginx 搭建</a>
+<li><a href="#org7d47ab1">Nginx 搭建</a>
 <ul>
-<li><a href="#org09b4a14">安装 Nginx</a></li>
-<li><a href="#orgad89735">配置Nginx</a></li>
-<li><a href="#org3b1b63a">部署static文件</a></li>
-<li><a href="#orgb866931">测试 Nginx 是否部署成功</a></li>
+<li><a href="#orgb3d2517">安装 Nginx</a></li>
+<li><a href="#org7cbc435">配置Nginx</a></li>
+<li><a href="#org9807686">部署static文件</a></li>
+<li><a href="#orgd222769">测试 Nginx 是否部署成功</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org0fe76db" class="outline-2">
-<h2 id="org0fe76db">python环境搭建</h2>
-<div class="outline-text-2" id="text-org0fe76db">
+<div id="outline-container-org549b78c" class="outline-2">
+<h2 id="org549b78c">python环境搭建</h2>
+<div class="outline-text-2" id="text-org549b78c">
 <p>
 伴随着机器学习、深度学习的热潮， <code>Python</code> 的使用也是越来越火热，对于 <code>Python</code> 开发环境的搭建，个人重点推荐的方式是使用 <code>Anaconda</code> 进行 <code>Python</code> 环境和包的管理，但在
 <a href="https://www.continuum.io/downloads">官网</a> 上所提供的下载实在是太大了，原因就是它会预先给你下载很多乱七八糟的包，而这些包可能我们不怎么会用到，毕竟程序员大都有强迫症，这些用不到的包还要占据我的磁盘空间；在官网上
@@ -312,9 +309,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org18b3262" class="outline-3">
-<h3 id="org18b3262">安装uWSGI</h3>
-<div class="outline-text-3" id="text-org18b3262">
+<div id="outline-container-org79d4559" class="outline-3">
+<h3 id="org79d4559">安装uWSGI</h3>
+<div class="outline-text-3" id="text-org79d4559">
 <div class="org-src-container">
 <pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #c92e0b;">pip</span> <span style="color: #d8003c;">install</span> <span style="color: #00834b;">uWSGI</span>  
 <span style="color: #969896;"># </span><span style="color: #969896;">&#36825;&#37324;&#38656;&#35201;&#26159;&#24050;&#32463;`source`&#36827;&#20837;&#20102;&#26032;&#24314;&#29615;&#22659;&#65292;&#23601;&#20250;&#20986;&#29616;&#21069;&#32512; (aprilwith.me)</span>
@@ -356,9 +353,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org377f809" class="outline-3">
-<h3 id="org377f809">安装Django</h3>
-<div class="outline-text-3" id="text-org377f809">
+<div id="outline-container-orga6fcf8d" class="outline-3">
+<h3 id="orga6fcf8d">安装Django</h3>
+<div class="outline-text-3" id="text-orga6fcf8d">
 <div class="org-src-container">
 <pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #00833e;">conda</span> <span style="color: #d8003c;">install</span> <span style="color: #6d6f00;">django</span>
 </pre>
@@ -444,21 +441,21 @@ vacuum = true
 </div>
 </div>
 
-<div id="outline-container-orgb54982e" class="outline-2">
-<h2 id="orgb54982e">Nginx 搭建</h2>
-<div class="outline-text-2" id="text-orgb54982e">
-</div><div id="outline-container-org09b4a14" class="outline-3">
-<h3 id="org09b4a14">安装 Nginx</h3>
-<div class="outline-text-3" id="text-org09b4a14">
+<div id="outline-container-org7d47ab1" class="outline-2">
+<h2 id="org7d47ab1">Nginx 搭建</h2>
+<div class="outline-text-2" id="text-org7d47ab1">
+</div><div id="outline-container-orgb3d2517" class="outline-3">
+<h3 id="orgb3d2517">安装 Nginx</h3>
+<div class="outline-text-3" id="text-orgb3d2517">
 <p>
 安装步骤主要参考 <a href="http://www.jianshu.com/p/d5114a2a2052">Centos下 Nginx安装与配置</a> ，最后，打开浏览器访问此机器的IP，如果浏览器出现"Welcome to nginx!" 则表示 <code>Nginx</code> 已经安装并运行成功。
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgad89735" class="outline-3">
-<h3 id="orgad89735">配置Nginx</h3>
-<div class="outline-text-3" id="text-orgad89735">
+<div id="outline-container-org7cbc435" class="outline-3">
+<h3 id="org7cbc435">配置Nginx</h3>
+<div class="outline-text-3" id="text-org7cbc435">
 <ul class="org-ul">
 <li>将 <code>uwsgi_params</code> 文件拷贝到项目文件夹下。 <code>uwsgi_params</code> 文件在 <code>/usr/local/nginx/</code> 目录下，也可以从 <a href="https://github.com/nginx/nginx/blob/master/conf/uwsgi_params">这里</a> 下载;</li>
 <li>在项目文件夹下创建文件 <code>myapp_nginx.conf</code> ，添加以下内容：</li>
@@ -556,9 +553,9 @@ do the following:
 </div>
 </div>
 
-<div id="outline-container-org3b1b63a" class="outline-3">
-<h3 id="org3b1b63a">部署static文件</h3>
-<div class="outline-text-3" id="text-org3b1b63a">
+<div id="outline-container-org9807686" class="outline-3">
+<h3 id="org9807686">部署static文件</h3>
+<div class="outline-text-3" id="text-org9807686">
 <p>
 在你的 <code>Django</code> 项目的 <code>settings.py</code> 文件最后添加下面一行代码：
 </p>
@@ -592,9 +589,9 @@ do the following:
 </div>
 </div>
 
-<div id="outline-container-orgb866931" class="outline-3">
-<h3 id="orgb866931">测试 Nginx 是否部署成功</h3>
-<div class="outline-text-3" id="text-orgb866931">
+<div id="outline-container-orgd222769" class="outline-3">
+<h3 id="orgd222769">测试 Nginx 是否部署成功</h3>
+<div class="outline-text-3" id="text-orgd222769">
 <p>
 首先关闭 <code>Nginx</code> 服务
 </p>
