@@ -1,0 +1,861 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-05-08 Mon 11:21 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>第 1 章 数据结构和算法</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="qiaoin" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="css/site.css"/>
+<link rel="icon" href="favicon.ico">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<div class="header">
+              <a href="https://aprilwith.me">自在随心</a> | <a href="http://github.com/qiaoin">Github</a>
+          </div>
+</div>
+<div id="content">
+<h1 class="title">第 1 章 数据结构和算法</h1>
+<p>
+Python 内置了许多非常有用的数据结构，比如列表（list）、集合（set）以及字典
+（dictionary）。就绝大部分情况来说，我们可以直接使用这些数据结构。但是，通常我们
+还需要考虑比如搜索、排序、排列以及筛选等这一类常见的问题。因此，本章的目的就是来
+讨论常见的数据结构和同数据有关的算法。此外，在 <code>collections</code> 模块中也包含了针对
+各种数据结构的解决方案。
+</p>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org89a0a2d">将序列分解为单独的变量</a></li>
+<li><a href="#orgc7ae564">从任意长度的可迭代对象中分解元素</a></li>
+<li><a href="#org4053b78">保存最后 N 个元素</a></li>
+<li><a href="#orgc43623c">找到最大或最小的 N 个元素</a></li>
+<li><a href="#org1074459">实现优先级队列</a></li>
+<li><a href="#org7418b92">在字典中将键映射到多个值上</a></li>
+<li><a href="#orge008eb1">让字典保持有序</a></li>
+<li><a href="#org41cfa59">与字典有关的计算问题</a></li>
+<li><a href="#org0588be9">在两个字典中寻找相同点</a></li>
+<li><a href="#orge751259">从序列中移除重复项目且保持元素间顺序不变</a></li>
+<li><a href="#orgb64526f">对切片命名</a></li>
+<li><a href="#org4376bdd">找出序列中出现次数最多的元素</a></li>
+<li><a href="#org3785e99">通过公共键对字典列表排序</a></li>
+<li><a href="#orgbcb68f9">对不原生支持比较操作的对象排序</a></li>
+<li><a href="#orga6242a0">根据字段将记录分组</a></li>
+<li><a href="#org3235d87">筛选序列中的元素</a></li>
+<li><a href="#org32d45c4">从字典中提取子集</a></li>
+<li><a href="#org2d48a15">从名称映射到序列的元素中</a></li>
+<li><a href="#org7f7ce38">同时对数据做转换和换算</a></li>
+<li><a href="#orgdf7b33a">将多个映射合并为单个映射</a></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org89a0a2d" class="outline-2">
+<h2 id="org89a0a2d">将序列分解为单独的变量</h2>
+<div class="outline-text-2" id="text-org89a0a2d">
+<p>
+任何序列（或可迭代对象）都可以通过一个简单的赋值操作来分解为单独的变量。唯一的
+要求是变量的总数和结构要与序列相吻合，如果元素的数量不匹配，将得到一个错误提示。
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #da0049;">data</span> = <span style="color: #969896;">[</span><span style="color: #183691;">'aprilwith.me'</span>, <span style="color: #0086b3;">50</span>, <span style="color: #0086b3;">91</span>.<span style="color: #0086b3;">1</span>, <span style="color: #0086b3;">(</span><span style="color: #0086b3;">2017</span>, <span style="color: #0086b3;">5</span>, <span style="color: #0086b3;">7</span><span style="color: #0086b3;">)</span><span style="color: #969896;">]</span>
+<span style="color: #8848d0;">name</span>, <span style="color: #ad30b7;">_</span>, <span style="color: #cd2518;">price</span>, <span style="color: #ca2d0d;">date</span> = <span style="color: #da0049;">data</span>
+</pre>
+</div>
+<p>
+实际上，不仅仅只是元组或列表，只要对象恰好是可迭代的，那么就可以执行分解操作。
+这包括字符串、文件、迭代器以及生成器。当做分解操作时，如果我们不会用到某一个值，
+可以使用 '_' 来引用，表示要丢弃这个值。
+</p>
+
+<p>
+<b>TODO</b> 如何判断一个对象是可迭代的呢？    
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgc7ae564" class="outline-2">
+<h2 id="orgc7ae564">从任意长度的可迭代对象中分解元素</h2>
+<div class="outline-text-2" id="text-orgc7ae564">
+<p>
+Python 的 ‘*表达式’ 可用来匹配多个值。
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #a03bc2;">record</span> = <span style="color: #969896;">(</span><span style="color: #183691;">'aprilwith.me'</span>, <span style="color: #0086b3;">23</span>, <span style="color: #0086b3;">180</span>, <span style="color: #0086b3;">(</span><span style="color: #0086b3;">5</span>, <span style="color: #0086b3;">7</span>, <span style="color: #0086b3;">2017</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>
+<span style="color: #8848d0;">name</span>, *<span style="color: #008597;">character</span>, <span style="color: #969896;">(</span>*<span style="color: #ad30b7;">_</span>, <span style="color: #00811e;">year</span><span style="color: #969896;">)</span> = <span style="color: #a03bc2;">record</span>
+</pre>
+</div>
+<p>
+同样，在分解的时候，可以丢弃某些值，使用几个常用的来表示丢弃值的变量名，比如 ‘_’
+或者 ‘ign(ignored)’ 。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-org4053b78" class="outline-2">
+<h2 id="org4053b78">保存最后 N 个元素</h2>
+<div class="outline-text-2" id="text-org4053b78">
+<p>
+我们希望在迭代或是其他形式的处理过程中对最后几项记录做一个有限的历史记录统计。这
+就需要使用 <code>collections</code> 模块中的 <code>deque</code> 类了。
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #da0048;">from</span> <span style="color: #007cec;">collections</span> <span style="color: #c63400;">import</span> <span style="color: #507600;">deque</span>
+
+
+<span style="color: #2f7a00;">def</span> <span style="color: #008588;">search</span><span style="color: #969896;">(</span><span style="color: #007e00;">lines</span>, <span style="color: #00822e;">pattern</span>, <span style="color: #008125;">history</span>=<span style="color: #0086b3;">5</span><span style="color: #969896;">)</span>:
+    <span style="color: #c70198;">previous_lines</span> = <span style="color: #507600;">deque</span><span style="color: #969896;">(</span><span style="color: #746d00;">maxlen</span>=<span style="color: #008125;">history</span><span style="color: #969896;">)</span>
+    <span style="color: #0082da;">for</span> <span style="color: #be1ba6;">line</span> <span style="color: #7a6b00;">in</span> <span style="color: #007e00;">lines</span>:
+        <span style="color: #0083d2;">if</span> <span style="color: #00822e;">pattern</span> <span style="color: #7a6b00;">in</span> <span style="color: #be1ba6;">line</span>:
+            <span style="color: #a835bc;">yield</span> <span style="color: #be1ba6;">line</span>, <span style="color: #c70198;">previous_lines</span>
+        <span style="color: #c70198;">previous_lines</span>.<span style="color: #0077f1;">append</span><span style="color: #969896;">(</span><span style="color: #be1ba6;">line</span><span style="color: #969896;">)</span>
+
+<span style="color: #0083d2;">if</span> <span style="color: #a71d5d;">__name__</span> == <span style="color: #183691;">'__main__'</span>:
+    <span style="color: #d70074;">with</span> <span style="color: #a71d5d;">open</span><span style="color: #969896;">(</span><span style="color: #183691;">'somefile.txt'</span><span style="color: #969896;">)</span> <span style="color: #0084c2;">as</span> <span style="color: #c5099c;">f</span>:
+        <span style="color: #0082da;">for</span> <span style="color: #be1ba6;">line</span>, <span style="color: #008467;">prevlines</span> <span style="color: #7a6b00;">in</span> <span style="color: #008588;">search</span><span style="color: #969896;">(</span><span style="color: #c5099c;">f</span>, <span style="color: #183691;">'python'</span>, <span style="color: #0086b3;">5</span><span style="color: #969896;">)</span>:
+            <span style="color: #0082da;">for</span> <span style="color: #916100;">pline</span> <span style="color: #7a6b00;">in</span> <span style="color: #008467;">prevlines</span>:
+                <span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #916100;">pline</span>, <span style="color: #a735bc;">end</span>=<span style="color: #183691;">''</span><span style="color: #969896;">)</span>
+            <span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #be1ba6;">line</span>, <span style="color: #a735bc;">end</span>=<span style="color: #183691;">''</span><span style="color: #969896;">)</span>
+            <span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #183691;">'-'</span>*<span style="color: #0086b3;">20</span><span style="color: #969896;">)</span>
+</pre>
+</div>
+
+<p>
+当编写搜索某项记录的代码时，通常会用到含有 <code>yield</code> 关键字的生成器函数，这将处理
+搜索过程的代码和使用搜索结果的代码成功解耦开来。 <b>TODO</b> yield 关键字？
+</p>
+
+<p>
+<code>collections.deque(maxlen=N)</code> 创建了一个固定长度的队列，有点类似于用数组实现的
+循环队列，当有新纪录加入而队列已满时会自动移除最老的那条记录。如果不指定队列的
+大小，也就得到了一个无界限的队列，类似与链表实现的队列（维护 <code>head</code> 和 <code>tail</code> 
+两个指针），可以在两端执行添加和弹出操作，且复杂度均为 <code>O(1)</code> 。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgc43623c" class="outline-2">
+<h2 id="orgc43623c">找到最大或最小的 N 个元素</h2>
+<div class="outline-text-2" id="text-orgc43623c">
+<p>
+<code>heapq</code> 模块中有两个函数—— <code>nlargest(n, iterable, key=None)</code> 和 <code>nsmallest()</code> 分别
+用于找出集合中最大或最小的 N 个元素。
+</p>
+
+<p>
+当所要找的元素的数量相对较小时，函数 <code>nlargest()</code> 和 <code>nsmallest()</code> 才是最适用的。
+如果只是简单地想找到最小或最大的元素（ <code>N=1</code> 时），那么用 <code>min()</code> 和 <code>max()</code> 会
+更加快。同样，如果 N 和集合本身的大小差不多大，通常更快的方法是先对集合排序，然后
+做切片操作（例如，使用 <code>sorted(items)[:N]</code> 或者 <code>sorted(items)[-N:]</code> ）。应该要
+注意的是， <code>nlargest()</code> 和 <code>nsmallest()</code> 的实际实现会根据使用它们的方式而有所不同，
+可能会相应做一些优化措施（比如，当 N 的大小同输入大小很接近时，就会先进行排序）。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org1074459" class="outline-2">
+<h2 id="org1074459">实现优先级队列</h2>
+<div class="outline-text-2" id="text-org1074459">
+<p>
+利用 <code>heapq</code> 模块实现一个简单的优先级队列，它能够以给定的优先级来对元素进行排序，
+且每次 <code>pop</code> 操作都会返回优先级最高的那个元素。
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #c63400;">import</span> <span style="color: #008576;">heapq</span>
+
+
+<span style="color: #cd008e;">class</span> <span style="color: #0086b3;">Item</span>:
+
+    <span style="color: #2f7a00;">def</span> <span style="color: #d50079;">__init__</span><span style="color: #969896;">(</span><span style="color: #0082da;">self</span>, <span style="color: #8848d0;">name</span><span style="color: #969896;">)</span>:
+        <span style="color: #0082da;">self</span>.<span style="color: #007fe4;">_name</span> = <span style="color: #8848d0;">name</span>
+
+    <span style="color: #2f7a00;">def</span> <span style="color: #4b7600;">__repr__</span><span style="color: #969896;">(</span><span style="color: #0082da;">self</span><span style="color: #969896;">)</span>:
+        <span style="color: #0085a3;">return</span> <span style="color: #183691;">'Item({!r})'</span>.<span style="color: #a71d5d;">format</span><span style="color: #969896;">(</span><span style="color: #0082da;">self</span>.<span style="color: #007fe4;">_name</span><span style="color: #969896;">)</span>
+
+
+<span style="color: #cd008e;">class</span> <span style="color: #0086b3;">PriorityQueue</span>:
+
+    <span style="color: #2f7a00;">def</span> <span style="color: #d50079;">__init__</span><span style="color: #969896;">(</span><span style="color: #0082da;">self</span><span style="color: #969896;">)</span>:
+        <span style="color: #0082da;">self</span>.<span style="color: #a735bc;">_queue</span> = <span style="color: #969896;">[]</span>
+        <span style="color: #0082da;">self</span>.<span style="color: #008342;">_index</span> = <span style="color: #0086b3;">0</span>
+
+    <span style="color: #2f7a00;">def</span> <span style="color: #00822a;">push</span><span style="color: #969896;">(</span><span style="color: #0082da;">self</span>, <span style="color: #0071f2;">item</span>, <span style="color: #0085ae;">priority</span><span style="color: #969896;">)</span>:
+        <span style="color: #008576;">heapq</span>.<span style="color: #5658e0;">heappush</span><span style="color: #969896;">(</span><span style="color: #0082da;">self</span>.<span style="color: #a735bc;">_queue</span>, <span style="color: #0086b3;">(</span>-<span style="color: #0085ae;">priority</span>, <span style="color: #0082da;">self</span>.<span style="color: #008342;">_index</span>, <span style="color: #0071f2;">item</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>
+        <span style="color: #0082da;">self</span>.<span style="color: #008342;">_index</span> += <span style="color: #0086b3;">1</span>
+
+    <span style="color: #2f7a00;">def</span> <span style="color: #0085b8;">pop</span><span style="color: #969896;">(</span><span style="color: #0082da;">self</span><span style="color: #969896;">)</span>:
+        <span style="color: #0085a3;">return</span> <span style="color: #008576;">heapq</span>.<span style="color: #d21527;">heappop</span><span style="color: #969896;">(</span><span style="color: #0082da;">self</span>.<span style="color: #a735bc;">_queue</span><span style="color: #969896;">)[</span>-<span style="color: #0086b3;">1</span><span style="color: #969896;">]</span>
+
+
+<span style="color: #0083d2;">if</span> <span style="color: #a71d5d;">__name__</span> == <span style="color: #183691;">'__main__'</span>:
+    <span style="color: #007ee9;">q</span> = <span style="color: #077c00;">PriorityQueue</span><span style="color: #969896;">()</span>
+    <span style="color: #007ee9;">q</span>.<span style="color: #00822a;">push</span><span style="color: #969896;">(</span><span style="color: #5e7300;">Item</span><span style="color: #0086b3;">(</span><span style="color: #183691;">'foo'</span><span style="color: #0086b3;">)</span>, <span style="color: #0086b3;">1</span><span style="color: #969896;">)</span>
+    <span style="color: #007ee9;">q</span>.<span style="color: #00822a;">push</span><span style="color: #969896;">(</span><span style="color: #5e7300;">Item</span><span style="color: #0086b3;">(</span><span style="color: #183691;">'bar'</span><span style="color: #0086b3;">)</span>, <span style="color: #0086b3;">5</span><span style="color: #969896;">)</span>
+    <span style="color: #007ee9;">q</span>.<span style="color: #00822a;">push</span><span style="color: #969896;">(</span><span style="color: #5e7300;">Item</span><span style="color: #0086b3;">(</span><span style="color: #183691;">'spam'</span><span style="color: #0086b3;">)</span>, <span style="color: #0086b3;">4</span><span style="color: #969896;">)</span>
+    <span style="color: #007ee9;">q</span>.<span style="color: #00822a;">push</span><span style="color: #969896;">(</span><span style="color: #5e7300;">Item</span><span style="color: #0086b3;">(</span><span style="color: #183691;">'grok'</span><span style="color: #0086b3;">)</span>, <span style="color: #0086b3;">1</span><span style="color: #969896;">)</span>
+
+    <span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #007ee9;">q</span>.<span style="color: #0085b8;">pop</span><span style="color: #0086b3;">()</span><span style="color: #969896;">)</span>  <span style="color: #969896;"># </span><span style="color: #969896;">Item('bar')</span>
+    <span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #007ee9;">q</span>.<span style="color: #0085b8;">pop</span><span style="color: #0086b3;">()</span><span style="color: #969896;">)</span>  <span style="color: #969896;"># </span><span style="color: #969896;">Item('spam')</span>
+    <span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #007ee9;">q</span>.<span style="color: #0085b8;">pop</span><span style="color: #0086b3;">()</span><span style="color: #969896;">)</span>  <span style="color: #969896;"># </span><span style="color: #969896;">Item('foo')</span>
+    <span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #007ee9;">q</span>.<span style="color: #0085b8;">pop</span><span style="color: #0086b3;">()</span><span style="color: #969896;">)</span>  <span style="color: #969896;"># </span><span style="color: #969896;">Item('grok')</span>
+</pre>
+</div>
+<p>
+函数 <code>heapq.heappush()</code> 以及 <code>heapq.heappop()</code> 分别实现将元素从列表 <code>_queue</code> 中
+插入和移除，且保证列表中的第一个元素的优先级最低（ <code>heapq</code> 模块维护的是一个最小对）。
+<code>heappop()</code> 方法总是返回“最小”的元素，此外，由于 <code>push</code> 和 <code>pop</code> 操作的复杂度都是
+<code>O(logN)</code> ，其中 N 表示堆中元素的数量。
+</p>
+
+<p>
+在这段代码中，队列以元组 <code>(-priority, index, item)</code> 的形式组成。把 <code>priority</code> 取
+负值是为了让队列能够按照元素的优先级从高到低的顺序排列。这和正常的堆排列顺序相反，
+一般情况下堆是按照从小到大的顺序排列的。
+</p>
+
+<p>
+变量 <code>index</code> 的作用是为了将具有相同优先级的元素以适当的顺序排列。通过维护一个不断
+递增的索引，元素将以它们入队列时的顺序来排列。当带比较的元素具有相同的优先级时，
+由于 <code>Item</code> 实例是没法进行次序比较的（当然可以根据其 <code>_name</code> 域进行比较，这个后面
+会讨论到），当以元组 <code>(-priority, item)</code> 的形式来表示元素时，那么只要优先级不同，
+它们就可以进行比较。但是，如果两个元组的优先级值相同，对 <code>Item</code> 实例的比较操作就
+会失败。通过引入额外的索引值，以 <code>(-priority, index, item)</code> 的方式来建立元组，就
+可以完全避免这个问题。因为没有哪两个元组会有相同的 <code>index</code> 值（一旦比较操作的结果
+可以确定，Python就不会再去比较剩下的元组元素了）。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org7418b92" class="outline-2">
+<h2 id="org7418b92">在字典中将键映射到多个值上</h2>
+<div class="outline-text-2" id="text-org7418b92">
+<p>
+字典是一种关联容器，每个键都映射到一个单独的值上。如果想让键映射到多个值，需要将
+这多个值保存到另一个容器如列表或集合中。要使用列表还是集合取决于应用的意图。如果
+希望保留元素插入的顺序，就用列表；如果希望消除重复元素（且不在意它们的顺序），就
+用集合。
+</p>
+
+<p>
+为了更方便地创建一键多值的字典，可以利用 <code>collections</code> 模块中的 <code>defaultdict</code> 类。
+<code>defaultdict</code> 的一个特点就是它会自动初始化第一个值，这样只需要关注添加元素即可。
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #da0048;">from</span> <span style="color: #007cec;">collections</span> <span style="color: #c63400;">import</span> <span style="color: #007f00;">defaultdict</span>
+
+<span style="color: #d50430;">pairs</span> = <span style="color: #969896;">[</span>
+    <span style="color: #0086b3;">(</span><span style="color: #183691;">'a'</span>, <span style="color: #0086b3;">1</span><span style="color: #0086b3;">)</span>,
+    <span style="color: #0086b3;">(</span><span style="color: #183691;">'a'</span>, <span style="color: #0086b3;">2</span><span style="color: #0086b3;">)</span>,
+    <span style="color: #0086b3;">(</span><span style="color: #183691;">'b'</span>, <span style="color: #0086b3;">1</span><span style="color: #0086b3;">)</span>
+<span style="color: #969896;">]</span>
+<span style="color: #b84500;">d</span> = <span style="color: #007f00;">defaultdict</span><span style="color: #969896;">(</span><span style="color: #a71d5d;">list</span><span style="color: #969896;">)</span>
+<span style="color: #0082da;">for</span> <span style="color: #00834d;">key</span>, <span style="color: #00856e;">value</span> <span style="color: #7a6b00;">in</span> <span style="color: #d50430;">pairs</span>:
+    <span style="color: #b84500;">d</span><span style="color: #969896;">[</span><span style="color: #00834d;">key</span><span style="color: #969896;">]</span>.<span style="color: #0077f1;">append</span><span style="color: #969896;">(</span><span style="color: #00856e;">value</span><span style="color: #969896;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orge008eb1" class="outline-2">
+<h2 id="orge008eb1">让字典保持有序</h2>
+<div class="outline-text-2" id="text-orge008eb1">
+<p>
+要控制字典中元素的顺序，可以使用 <code>collections</code> 模块中的 <code>OrderedDict</code> 类。当对
+字典做迭代时，它会严格按照元素初始添加的顺序进行。
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #da0048;">from</span> <span style="color: #007cec;">collections</span> <span style="color: #c63400;">import</span> <span style="color: #af4d00;">OrderedDict</span>
+
+
+<span style="color: #b84500;">d</span> = <span style="color: #af4d00;">OrderedDict</span><span style="color: #969896;">()</span>
+<span style="color: #b84500;">d</span><span style="color: #969896;">[</span><span style="color: #183691;">'foo'</span><span style="color: #969896;">]</span> = <span style="color: #0086b3;">1</span>
+<span style="color: #b84500;">d</span><span style="color: #969896;">[</span><span style="color: #183691;">'bar'</span><span style="color: #969896;">]</span> = <span style="color: #0086b3;">2</span>
+<span style="color: #b84500;">d</span><span style="color: #969896;">[</span><span style="color: #183691;">'spam'</span><span style="color: #969896;">]</span> = <span style="color: #0086b3;">3</span>
+<span style="color: #b84500;">d</span><span style="color: #969896;">[</span><span style="color: #183691;">'grok'</span><span style="color: #969896;">]</span> = <span style="color: #0086b3;">4</span>
+
+<span style="color: #969896;"># </span><span style="color: #969896;">foo 1 bar 2   spam 3  grok 4    </span>
+<span style="color: #0082da;">for</span> <span style="color: #00834d;">key</span> <span style="color: #7a6b00;">in</span> <span style="color: #b84500;">d</span>:
+    <span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #00834d;">key</span>, <span style="color: #b84500;">d</span><span style="color: #0086b3;">[</span><span style="color: #00834d;">key</span><span style="color: #0086b3;">]</span>, <span style="color: #a735bc;">end</span>=<span style="color: #183691;">"\t"</span><span style="color: #969896;">)</span>
+</pre>
+</div>
+<p>
+<code>OrderedDict</code> 内部维护了一个双向链表，它会根据元素加入的顺序来排列键的位置。第一次
+新加入的元素被放置在链表的末尾，接下来对已存在的键做重新赋值不会改变键的顺序。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org41cfa59" class="outline-2">
+<h2 id="org41cfa59">与字典有关的计算问题</h2>
+<div class="outline-text-2" id="text-org41cfa59">
+<p>
+如果尝试直接在字典上执行常见的数据操作，会发现它们只会处理键，而不是值。这不是
+我们所期望的，一般我们是尝试对字典的值进行处理。利用 <code>zip()</code> 将字典的键-值对
+“反转”为值-键对，当在这样的元组上比较操作时，值会先进行比较，然后才是键。应该要
+注意的是，当涉及 <code>(value, key)</code> 对的比较时，如果碰巧有多个条目拥有相同的 <code>value</code>
+值，那么此时 <code>key</code> 将被用来作为判定结果的依据。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org0588be9" class="outline-2">
+<h2 id="org0588be9">在两个字典中寻找相同点</h2>
+<div class="outline-text-2" id="text-org0588be9">
+<p>
+要找出两个字典中的相同之处，只需要通过 <code>keys()</code> 或者 <code>items()</code> 方法执行常见的集合
+操作即可。
+</p>
+
+<p>
+字典是一系列键和值之间的映射集合。字典的 <code>keys()</code> 方法会返回 <code>keys-views</code> 对象，其
+支持常见的集合操作，比如求并集（ <code>+</code> ）、交集（ <code>&amp;</code> ）和差集（ <code>-</code> ）。字典的 <code>items()</code>
+方法返回由 <code>(key, value)</code> 对组成的 <code>item-view</code> 对象，也支持类似的集合操作。然而，
+字典的 <code>values()</code> 方法并不支持集合操作。部分原因是因为在字典中键和值是不同的，从
+值的角度来看并不能保证所有的值都是唯一的。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orge751259" class="outline-2">
+<h2 id="orge751259">从序列中移除重复项目且保持元素间顺序不变</h2>
+<div class="outline-text-2" id="text-orge751259">
+<p>
+如果想要做的只是去除重复项，最简单的方法就行构建一个集合，但这样不能保证元素能够
+保持顺序不变性（集合的特点就是集合中的元素都是唯一的，但不保证它们之间的顺序）。
+</p>
+
+<p>
+我们想去除序列中出现的重复元素，并且保持剩下的元素顺序不变。要实现这个目的，就需
+考察序列中的元素是否是可哈希（ <code>hashable</code> ）的。（ <b>注</b> ：如果一个对象是可哈希的，
+那么在它的生存期内必须是不可变的，它需要有一个 <code>__hash__()</code> 方法。整数、浮点数、
+字符串、元组都是不可变的，即为可哈希的）。 <b>TODO</b> 可哈希对象？
+</p>
+
+<p>
+如果序列中的值是可哈希的，那么可以通过使用集合和生成器来解决：
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #2f7a00;">def</span> <span style="color: #cc2815;">dedupe</span><span style="color: #969896;">(</span><span style="color: #716d00;">items</span><span style="color: #969896;">)</span>:
+    <span style="color: #008238;">seen</span> = <span style="color: #a71d5d;">set</span><span style="color: #969896;">()</span>
+    <span style="color: #0082da;">for</span> <span style="color: #0071f2;">item</span> <span style="color: #7a6b00;">in</span> <span style="color: #716d00;">items</span>:
+        <span style="color: #0083d2;">if</span> <span style="color: #0071f2;">item</span> <span style="color: #0085bc;">not</span> <span style="color: #7a6b00;">in</span> <span style="color: #008238;">seen</span>:
+            <span style="color: #a835bc;">yield</span> <span style="color: #0071f2;">item</span>
+            <span style="color: #008238;">seen</span>.<span style="color: #0c7c00;">add</span><span style="color: #969896;">(</span><span style="color: #0071f2;">item</span><span style="color: #969896;">)</span>
+</pre>
+</div>
+<p>
+如果想在不可哈希的对象序列中去除重复项，需进行修改：
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #2f7a00;">def</span> <span style="color: #cc2815;">dedupe</span><span style="color: #969896;">(</span><span style="color: #716d00;">items</span>, <span style="color: #00834d;">key</span>=<span style="color: #0086b3;">None</span><span style="color: #969896;">)</span>:
+    <span style="color: #008238;">seen</span> = <span style="color: #a71d5d;">set</span><span style="color: #969896;">()</span>
+    <span style="color: #0082da;">for</span> <span style="color: #0071f2;">item</span> <span style="color: #7a6b00;">in</span> <span style="color: #716d00;">items</span>:
+        <span style="color: #5e57de;">val</span> = <span style="color: #0071f2;">item</span> <span style="color: #0083d2;">if</span> <span style="color: #00834d;">key</span> <span style="color: #d9006b;">is</span> <span style="color: #0086b3;">None</span> <span style="color: #0084c9;">else</span> <span style="color: #00834d;">key</span><span style="color: #969896;">(</span><span style="color: #0071f2;">item</span><span style="color: #969896;">)</span>
+        <span style="color: #0083d2;">if</span> <span style="color: #5e57de;">val</span> <span style="color: #0085bc;">not</span> <span style="color: #7a6b00;">in</span> <span style="color: #008238;">seen</span>:
+            <span style="color: #a835bc;">yield</span> <span style="color: #0071f2;">item</span>
+            <span style="color: #008238;">seen</span>.<span style="color: #0c7c00;">add</span><span style="color: #969896;">(</span><span style="color: #5e57de;">val</span><span style="color: #969896;">)</span>
+</pre>
+</div>
+<p>
+这里参数 <code>key</code> 的作用是指定一个函数用来将序列中的元素转换为可哈希的类型，这样就
+可用来检测重复项。这一解决方案，也可以用于在较复杂的数据结构中，针对该对象的某个
+字段或属性来去除重复项。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgb64526f" class="outline-2">
+<h2 id="orgb64526f">对切片命名</h2>
+<div class="outline-text-2" id="text-orgb64526f">
+<p>
+代码中如果有很多硬编码的索引值，将导致可读性和可维护性均不佳。这时候，使用内置的
+<code>slice()</code> 函数来创建一个切片对象，可以用在任何允许进行切片操作的地方。如果有一个
+<code>slice</code> 对象的实例 <code>s</code> ，可以通过 <code>s.start</code> 、 <code>s.stop</code> 、 <code>s.step</code> 属性来得到
+关于该对象的信息。此外，使用 <code>S.indices(size)</code> 方法将切片 <code>S</code> 映射到特定大小的
+序列上，返回一个 <code>(start, stop, step)</code> 元组，所有的值都已经恰当地限制在边界以内
+（当做索引操作时可避免出现 <code>IndexError</code> 异常）。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org4376bdd" class="outline-2">
+<h2 id="org4376bdd">找出序列中出现次数最多的元素</h2>
+<div class="outline-text-2" id="text-org4376bdd">
+<p>
+<code>collections</code> 模块中的 <code>Counter</code> 类，可以给 <code>Counter</code> 对象提供任何可哈希的对象序列
+作为输入，然后调用 <code>most_common(self, n=None)</code> 得到出现次数最多的 N 个元素。在底层
+实现中， <code>Counter</code> 是一个字典，在元素和它们出现的次数间做了映射。 <b>注意</b> ： <code>Counter</code>
+实例可以轻松地同各种数学运算操作结合起来使用。 
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org3785e99" class="outline-2">
+<h2 id="org3785e99">通过公共键对字典列表排序</h2>
+<div class="outline-text-2" id="text-org3785e99">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #da0048;">from</span> <span style="color: #0085a5;">operator</span> <span style="color: #c63400;">import</span> <span style="color: #c43600;">itemgetter</span>
+
+<span style="color: #d60033;">rows</span> = <span style="color: #969896;">[</span>
+    <span style="color: #0086b3;">{</span><span style="color: #183691;">'fname'</span>: <span style="color: #183691;">'Brian'</span>, <span style="color: #183691;">'lname'</span>: <span style="color: #183691;">'Jones'</span>, <span style="color: #183691;">'uid'</span>: <span style="color: #0086b3;">1003</span><span style="color: #0086b3;">}</span>,
+    <span style="color: #0086b3;">{</span><span style="color: #183691;">'fname'</span>: <span style="color: #183691;">'David'</span>, <span style="color: #183691;">'lname'</span>: <span style="color: #183691;">'Beazley'</span>, <span style="color: #183691;">'uid'</span>: <span style="color: #0086b3;">1002</span><span style="color: #0086b3;">}</span>,
+    <span style="color: #0086b3;">{</span><span style="color: #183691;">'fname'</span>: <span style="color: #183691;">'John'</span>, <span style="color: #183691;">'lname'</span>: <span style="color: #183691;">'Cleese'</span>, <span style="color: #183691;">'uid'</span>: <span style="color: #0086b3;">1001</span><span style="color: #0086b3;">}</span>,
+    <span style="color: #0086b3;">{</span><span style="color: #183691;">'fname'</span>: <span style="color: #183691;">'Big'</span>, <span style="color: #183691;">'lname'</span>: <span style="color: #183691;">'Jones'</span>, <span style="color: #183691;">'uid'</span>: <span style="color: #0086b3;">1004</span><span style="color: #0086b3;">}</span>
+<span style="color: #969896;">]</span>
+
+<span style="color: #b44900;">rows_by_uid</span> = <span style="color: #a71d5d;">sorted</span><span style="color: #969896;">(</span><span style="color: #d60033;">rows</span>, <span style="color: #00834d;">key</span>=<span style="color: #c43600;">itemgetter</span><span style="color: #0086b3;">(</span><span style="color: #183691;">'uid'</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">rows_by_uid = sorted(rows, key=lambda r: r['uid'])</span>
+<span style="color: #008237;">rows_by_lfname</span> = <span style="color: #a71d5d;">sorted</span><span style="color: #969896;">(</span><span style="color: #d60033;">rows</span>, <span style="color: #00834d;">key</span>=<span style="color: #c43600;">itemgetter</span><span style="color: #0086b3;">(</span><span style="color: #183691;">'lname'</span>, <span style="color: #183691;">'fname'</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>
+<span style="color: #969896;"># </span><span style="color: #969896;">rows_by_lfname = sorted(rows, key=lambda r: (r['lname'], r['fname']))</span>
+</pre>
+</div>
+<p>
+利用 <code>operator</code> 模块中的 <code>itemgetter</code> 函数可以很简单的对这类结构进行排序。函数
+<code>operator.itemgetter()</code> 接受的函数可作为查询的标记，用来从 <code>rows</code> 的记录中提取
+出所需要的值。它可以是字典的键名称、用数字表示的列表元素或是任何可以传给对象的
+<code>__getitem__()</code> 方法的值。如果传多个标记给 <code>itemgetter()</code> ，那么它产生的可调用
+对象将返回一个包含所有元素在内的元组，然后 <code>sorted()</code> 将根据对元组的排序结果来
+排列输出结果。如果想同时针对多个字典字段进行排序，这就是非常有用的。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgbcb68f9" class="outline-2">
+<h2 id="orgbcb68f9">对不原生支持比较操作的对象排序</h2>
+<div class="outline-text-2" id="text-orgbcb68f9">
+<p>
+我们项在同一个类的实例之间做排序，但是它们并不原生支持比较操作，像之前提到的 'Item'。
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #716d00;">items</span> = <span style="color: #969896;">[</span><span style="color: #5e7300;">Item</span><span style="color: #0086b3;">(</span><span style="color: #183691;">'foo'</span><span style="color: #0086b3;">)</span>, <span style="color: #5e7300;">Item</span><span style="color: #0086b3;">(</span><span style="color: #183691;">'bar'</span><span style="color: #0086b3;">)</span>, <span style="color: #5e7300;">Item</span><span style="color: #0086b3;">(</span><span style="color: #183691;">'spam'</span><span style="color: #0086b3;">)</span>, <span style="color: #5e7300;">Item</span><span style="color: #0086b3;">(</span><span style="color: #183691;">'grok'</span><span style="color: #0086b3;">)</span><span style="color: #969896;">]</span>
+
+<span style="color: #a71d5d;">sorted</span><span style="color: #969896;">(</span><span style="color: #716d00;">items</span>, <span style="color: #00834d;">key</span>=<span style="color: #0081df;">lambda</span> <span style="color: #796b00;">i</span>: <span style="color: #796b00;">i</span>.<span style="color: #007fe4;">_name</span><span style="color: #969896;">)</span>
+
+<span style="color: #969896;"># </span><span style="color: #969896;">another method</span>
+<span style="color: #da0048;">from</span> <span style="color: #0085a5;">operator</span> <span style="color: #c63400;">import</span> <span style="color: #a537be;">attrgetter</span>
+<span style="color: #a71d5d;">sorted</span><span style="color: #969896;">(</span><span style="color: #716d00;">items</span>, <span style="color: #00834d;">key</span>=<span style="color: #a537be;">attrgetter</span><span style="color: #0086b3;">(</span><span style="color: #183691;">'_name'</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>
+</pre>
+</div>
+<p>
+要使用 <code>lambda</code> 表达式还是 <code>attrgetter()</code> 都可以，但是通常来说， <code>attrgetter()</code> 
+要更快一些，并且代码的可读性也更高，而且具有允许同时提取多个字段值的能力。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-orga6242a0" class="outline-2">
+<h2 id="orga6242a0">根据字段将记录分组</h2>
+<div class="outline-text-2" id="text-orga6242a0">
+<p>
+<code>itertools.groupby()</code> 函数在对数据进行分组时特别有用。函数 <code>groupby()</code> 通过扫描
+序列找出拥有相同值（或是由参数 <code>key</code> 指定的函数所返回的值）的序列项，并将它们分组。
+<code>groupby()</code> 创建了一个迭代器，而在每次迭代时都会返回一个值（ <code>value</code> ）和一个子
+迭代器（ <code>sub_iterator</code> ），这个子迭代器可以产生所有在该分组内具有该值的项。
+</p>
+
+<p>
+<b>注意</b> 首先要根据感兴趣的字段对数据进行排序，这是因为 <code>groupby()</code> 只能检查连续的
+项，若不排序的话，将无法按所想的方式来对记录进行分组。 
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org3235d87" class="outline-2">
+<h2 id="org3235d87">筛选序列中的元素</h2>
+<div class="outline-text-2" id="text-org3235d87">
+<p>
+列表推导式和生成器表达式通常是用来筛选数据的最简单和最直接的方式。使用列表推导式
+的一个潜在缺点是如果原始输入非常大的话，可能会产生一个庞大的结果，这时候就可以
+使用生成器表达式通过迭代的方式产生筛选的结果。
+</p>
+
+<p>
+另外，假设筛选的过程涉及异常处理或者其他一些复杂的细节，可以将处理筛选逻辑的代码
+放到单独的函数中，然后使用内建的 <code>filter(function or None, iterable)</code> 函数处理，
+<code>filter()</code> 返回一个迭代器。
+</p>
+
+<p>
+关于筛选数据，有时候是用新值替换掉不满足标准的值，而不是丢弃它们，可以使用三元
+表达式轻松实现。
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #995d00;">mylist</span> = <span style="color: #969896;">[</span><span style="color: #0086b3;">1</span>, <span style="color: #0086b3;">3</span>, <span style="color: #0086b3;">4</span>, -<span style="color: #0086b3;">5</span>, <span style="color: #0086b3;">10</span>, -<span style="color: #0086b3;">7</span>, <span style="color: #0086b3;">20</span><span style="color: #969896;">]</span>
+<span style="color: #ab5100;">clip_neg</span> = <span style="color: #969896;">[</span><span style="color: #0076f2;">n</span> <span style="color: #0083d2;">if</span> <span style="color: #0076f2;">n</span> &gt; <span style="color: #0086b3;">0</span> <span style="color: #0084c9;">else</span> <span style="color: #0086b3;">0</span> <span style="color: #0082da;">for</span> <span style="color: #0076f2;">n</span> <span style="color: #7a6b00;">in</span> <span style="color: #995d00;">mylist</span><span style="color: #969896;">]</span>
+</pre>
+</div>
+
+<p>
+另一个常用的筛选工具是 <code>itertools.compress(data, selector)</code> ，它接受一个可迭代对象
+以及一个布尔选择器作为输入。输出时，它会给出所有在对应的布尔选择器中为 <code>True</code> 的
+可迭代对象元素，返回的是一个迭代器。如果想把对一个序列的筛选结果施加到另一个相关的
+序列上时， <code>compress()</code> 就非常有用。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-org32d45c4" class="outline-2">
+<h2 id="org32d45c4">从字典中提取子集</h2>
+<div class="outline-text-2" id="text-org32d45c4">
+<p>
+利用字典推导式可轻松解决。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org2d48a15" class="outline-2">
+<h2 id="org2d48a15">从名称映射到序列的元素中</h2>
+<div class="outline-text-2" id="text-org2d48a15">
+<p>
+我们的代码是通过位置（索引或下标）来访问列表或元组的，但有时候这会使代码变得有些
+难以阅读。我们希望可以通过名称来访问元素，以此来减少结构中对位置的依赖性。
+</p>
+
+<p>
+<code>collections.namedtuple()</code> 命名元组就可以提供这种遍历，其为一个工厂方法，返回的是
+Python 中标准元组类型的子类。我们提供给它一个类型名称以及对应的字段名称，它就返回
+一个可实例化的类，就可以为你已经定义好的字段传入值了。
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #da0048;">from</span> <span style="color: #007cec;">collections</span> <span style="color: #c63400;">import</span> <span style="color: #445ce4;">namedtuple</span>
+
+<span style="color: #706e00;">Student</span> = <span style="color: #445ce4;">namedtuple</span><span style="color: #969896;">(</span><span style="color: #183691;">'Student'</span>, <span style="color: #0086b3;">[</span><span style="color: #183691;">'name'</span>, <span style="color: #183691;">'website'</span><span style="color: #0086b3;">]</span><span style="color: #969896;">)</span>
+<span style="color: #c50a9c;">me</span> = <span style="color: #706e00;">Student</span><span style="color: #969896;">(</span><span style="color: #183691;">'aprilwith.me'</span>, <span style="color: #183691;">'http://aprilwith.me'</span><span style="color: #969896;">)</span>
+
+<span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #c50a9c;">me</span>.<span style="color: #8848d0;">name</span><span style="color: #969896;">)</span>
+<span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #c50a9c;">me</span>.<span style="color: #008592;">age</span><span style="color: #969896;">)</span>
+</pre>
+</div>
+<p>
+命名元组的实例与普通元组是可互换的，而且支持所有普通元组所支持的操作，例如索引和分解。
+</p>
+
+<p>
+命名元组的主要作用在于将代码同它所控制的元素的位置间解耦。
+</p>
+
+<p>
+与字典不同， <code>namedtuple</code> 是不可变的（ immutable ）。如果需要修改属性值，可以使用 <code>namedtuple</code> 
+实例的 <code>_replace()</code> 方法来实现，该方法会创建一个全新的命名元组，并对相应的值做替换。
+</p>
+
+<p>
+<b>注意</b> 如果我们的目标是定义一个高效的数据结构，而且将来会修改各种实例属性，那么使用 <code>namedtuple</code>
+并不是最佳选择。这时候，可以考虑定义一个使用 <code>__slot__</code> 属性的类。
+</p>
+
+<p>
+<b>TODO</b> <code>__slot__</code> 属性？
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org7f7ce38" class="outline-2">
+<h2 id="org7f7ce38">同时对数据做转换和换算</h2>
+<div class="outline-text-2" id="text-org7f7ce38">
+<p>
+<b>注意</b> 当把生成器表达式作为函数的单独参数时在语法上是不必重复使用括号的。
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #00858c;">s</span> = <span style="color: #a71d5d;">sum</span><span style="color: #969896;">(</span><span style="color: #c63400;">x</span> * <span style="color: #c63400;">x</span> <span style="color: #0082da;">for</span> <span style="color: #c63400;">x</span> <span style="color: #7a6b00;">in</span> <span style="color: #a71d5d;">range</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">10</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>
+
+<span style="color: #969896;"># </span><span style="color: #969896;">another</span>
+<span style="color: #00858c;">s</span> = <span style="color: #a71d5d;">sum</span><span style="color: #969896;">(</span><span style="color: #0086b3;">(</span><span style="color: #c63400;">x</span> * <span style="color: #c63400;">x</span> <span style="color: #0082da;">for</span> <span style="color: #c63400;">x</span> <span style="color: #7a6b00;">in</span> <span style="color: #a71d5d;">range</span><span style="color: #969896;">(</span><span style="color: #0086b3;">10</span><span style="color: #969896;">)</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgdf7b33a" class="outline-2">
+<h2 id="orgdf7b33a">将多个映射合并为单个映射</h2>
+<div class="outline-text-2" id="text-orgdf7b33a">
+<p>
+我们有多个字典或映射，想在逻辑上将它们合并为一个单独的映射结构，以此执行某些特定
+的操作，比如查找值或者检查键是否存在。一个简单的方法是利用 <code>collections</code> 模块中的
+<code>ChainMap</code> 类，其可接受多个映射，然后在逻辑上使它们表现为一个单独的映射结构，但是，
+这些映射在字面上并不会真正合并到一起。相反， <code>ChainMap</code> 只是简单地维护了一个记录
+底层映射关系的列表，然后重定义常见的字典操作来扫描这个列表。如果有重复的键，会采用
+第一个映射中所对应的值，并且对合并之后的映射的修改操作总是会作用在第一个映射结构上。
+</p>
+
+<p>
+作为 <code>ChainMap</code> 的替代方案，可能会考虑使用字典的 <code>update()</code> 方法将多个字典合并在
+一起。这需要单独创建一个完整的字典对象（或者修改其中现有的一个字典，这就破坏了
+原始数据）。并且之后对其中任何一个原始字典做了修改，这个改变都不会在合并的字典中
+有所反应。 而 <code>ChainMap</code> 使用的就是原始的字典，它能够知晓这些改变。
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<div id="disqus_thread"></div>
+                  <script>
+                  /**
+                   *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                   */
+                  /*
+                  var disqus_config = function () {
+                    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                  };
+                  */
+                  (function() { // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://aprilwith.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                  })();
+                  </script>
+                  <noscript>
+                    Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+                  </noscript>
+</div>
+</body>
+</html>
