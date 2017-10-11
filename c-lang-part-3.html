@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-15 Sat 17:14 -->
+<!-- 2017-10-11 Wed 21:10 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>C FAQ（四）：C 语言与汇编语言</title>
@@ -231,7 +231,7 @@ for the JavaScript code in this tag.
 <body>
 <div id="preamble" class="status">
 <div class="header">
-              <a href="https://aprilwith.me">自在随心</a> | <a href="http://github.com/qiaoin">Github</a>
+              <a href="http://aprilwith.me">自在随心</a> | <a href="https://github.com/qiaoin">Github</a>
           </div>
 </div>
 <div id="content">
@@ -244,14 +244,14 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgcd5a021">一个最简单的汇编程序</a></li>
+<li><a href="#orga5ed318">一个最简单的汇编程序</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgcd5a021" class="outline-2">
-<h2 id="orgcd5a021">一个最简单的汇编程序</h2>
-<div class="outline-text-2" id="text-orgcd5a021">
+<div id="outline-container-orga5ed318" class="outline-2">
+<h2 id="orga5ed318">一个最简单的汇编程序</h2>
+<div class="outline-text-2" id="text-orga5ed318">
 <div class="org-src-container">
 <pre class="src src-ASM"># exits and return a status code back to the Linux kernel
   .section .data
@@ -268,14 +268,14 @@ _start:
 将这个程序保存为 <code>hello.s</code> （汇编程序通常以 <code>.s</code> 作为文件名后缀，也有要求使用 <code>.S</code> 的，后面再解释），用汇编器 <code>as</code> 把汇编程序中的助记符翻译成机器指令，生成目标文件 <code>hello.o</code> ：
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">$ <span style="color: #0084c2;">as</span> <span style="color: #00800f;">hello.s</span> <span style="color: #756c00;">-o</span> <span style="color: #c03c00;">hello.o</span>
+<pre class="src src-sh">$ as hello.s -o hello.o
 </pre>
 </div>
 <p>
 然后用链接器（Linker） <code>ld</code> 将目标文件 <code>hello.o</code> 链接成可执行文件 <code>hello</code> ：
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">$ <span style="color: #a05900;">ld</span> <span style="color: #c03c00;">hello.o</span> <span style="color: #756c00;">-o</span> <span style="color: #796b00;">hello</span>
+<pre class="src src-sh">$ ld hello.o -o hello
 </pre>
 </div>
 <p>
@@ -290,8 +290,8 @@ _start:
 现在执行这个程序，它只做了一件事就是退出，退出状态为 16，可以使用 Shell 中的特殊变量 <code>$?</code> 得到上一条命令的退出状态：
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">$ <span style="color: #008574;">./hello</span>
-$ <span style="color: #008126;">echo</span> $<span style="color: #d5007b;">?</span>
+<pre class="src src-sh">$ ./hello
+$ echo $<span style="color: #333333;">?</span>
 <span style="color: #0086b3;">16</span>
 </pre>
 </div>

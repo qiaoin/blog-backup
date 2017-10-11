@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-15 Sat 17:14 -->
+<!-- 2017-10-11 Wed 21:10 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Linux 学习笔记（一）</title>
@@ -231,7 +231,7 @@ for the JavaScript code in this tag.
 <body>
 <div id="preamble" class="status">
 <div class="header">
-              <a href="https://aprilwith.me">自在随心</a> | <a href="http://github.com/qiaoin">Github</a>
+              <a href="http://aprilwith.me">自在随心</a> | <a href="https://github.com/qiaoin">Github</a>
           </div>
 </div>
 <div id="content">
@@ -244,22 +244,22 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org25ecab0">首先是 Shell</a>
+<li><a href="#org6148bb7">首先是 Shell</a>
 <ul>
-<li><a href="#orge7d954f">开始使用 Shell</a></li>
-<li><a href="#orgb74398e">cat 命令</a></li>
-<li><a href="#org296d1de">标准输入输出</a></li>
+<li><a href="#orgdb7717d">开始使用 Shell</a></li>
+<li><a href="#org8a1fdb6">cat 命令</a></li>
+<li><a href="#org0a24547">标准输入输出</a></li>
 </ul>
 </li>
-<li><a href="#org2ddb5c3">Shell 通配</a></li>
-<li><a href="#org2a7905f">常用的基础命令</a></li>
+<li><a href="#org05c1149">Shell 通配</a></li>
+<li><a href="#org227ad0d">常用的基础命令</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org25ecab0" class="outline-2">
-<h2 id="org25ecab0">首先是 Shell</h2>
-<div class="outline-text-2" id="text-org25ecab0">
+<div id="outline-container-org6148bb7" class="outline-2">
+<h2 id="org6148bb7">首先是 Shell</h2>
+<div class="outline-text-2" id="text-org6148bb7">
 <p>
 对于 Shell，这里我们引用池建强在《<a href="http://macshuo.com/?p=676">终极 Shell</a>》里的通俗介绍：
 </p>
@@ -275,11 +275,11 @@ Shell是Linux/Unix的一个外壳，你理解成衣服也行。它负责外界�
 </p>
 
 <div class="org-src-container">
-<pre class="src src-shell"><span style="color: #8c6300;">/bin/sh</span>
-<span style="color: #007fe6;">/bin/dash</span>
-<span style="color: #007e00;">/bin/bash</span>
-<span style="color: #008343;">/bin/rbash</span>
-<span style="color: #0082d6;">/bin/zsh</span>
+<pre class="src src-shell">/bin/sh
+/bin/dash
+/bin/bash
+/bin/rbash
+/bin/zsh
 </pre>
 </div>
 
@@ -295,9 +295,9 @@ Shell是Linux/Unix的一个外壳，你理解成衣服也行。它负责外界�
 </ul>
 </div>
 
-<div id="outline-container-orge7d954f" class="outline-3">
-<h3 id="orge7d954f">开始使用 Shell</h3>
-<div class="outline-text-3" id="text-orge7d954f">
+<div id="outline-container-orgdb7717d" class="outline-3">
+<h3 id="orgdb7717d">开始使用 Shell</h3>
+<div class="outline-text-3" id="text-orgdb7717d">
 <div class="HTML">
 <p>
 &lt;div class="tip"&gt;
@@ -313,18 +313,18 @@ Shell是Linux/Unix的一个外壳，你理解成衣服也行。它负责外界�
 </div>
 </div>
 
-<div id="outline-container-orgb74398e" class="outline-3">
-<h3 id="orgb74398e">cat 命令</h3>
-<div class="outline-text-3" id="text-orgb74398e">
+<div id="outline-container-org8a1fdb6" class="outline-3">
+<h3 id="org8a1fdb6">cat 命令</h3>
+<div class="outline-text-3" id="text-org8a1fdb6">
 <p>
 显示一个或者多个文件的内容， <code>cat file1 file2 ...</code> ，将多个文件拼接显示。
 </p>
 </div>
 </div>
 
-<div id="outline-container-org296d1de" class="outline-3">
-<h3 id="org296d1de">标准输入输出</h3>
-<div class="outline-text-3" id="text-org296d1de">
+<div id="outline-container-org0a24547" class="outline-3">
+<h3 id="org0a24547">标准输入输出</h3>
+<div class="outline-text-3" id="text-org0a24547">
 <p>
 以下内容摘自《精通 Linux，第二版》
 </p>
@@ -362,18 +362,18 @@ Shell是Linux/Unix的一个外壳，你理解成衣服也行。它负责外界�
 </div>
 </div>
 
-<div id="outline-container-org2ddb5c3" class="outline-2">
-<h2 id="org2ddb5c3">Shell 通配</h2>
-<div class="outline-text-2" id="text-org2ddb5c3">
+<div id="outline-container-org05c1149" class="outline-2">
+<h2 id="org05c1149">Shell 通配</h2>
+<div class="outline-text-2" id="text-org05c1149">
 <p>
 <b>TODO</b>
 </p>
 </div>
 </div>
 
-<div id="outline-container-org2a7905f" class="outline-2">
-<h2 id="org2a7905f">常用的基础命令</h2>
-<div class="outline-text-2" id="text-org2a7905f">
+<div id="outline-container-org227ad0d" class="outline-2">
+<h2 id="org227ad0d">常用的基础命令</h2>
+<div class="outline-text-2" id="text-org227ad0d">
 <p>
 注：这些基础命令大都需要输入参数，同时支持可选项和格式，这里仅将常用的列出。
 </p>
@@ -385,48 +385,48 @@ Shell是Linux/Unix的一个外壳，你理解成衣服也行。它负责外界�
 <li>man <b>function</b> to see documentation for standard library functions. The command man -k string will search for man pages whose titles contain string.</li>
 <li>Sometimes there is more than one man page with the same name. In this case man -k will distingiush them by different manual section numbers, e.g., printf (1) (a shell command) vs. printf (3) (a library routine). To get a man page from a specific section, use man <b>section</b> <b>name</b>, e.g. man 3 printf.</li>
 </ul></li>
-<li><b>ls</b> <br />
+<li><b>ls</b> <br  />
 显示指定目录的内容，默认参数为当前目录
 <ul class="org-ul">
 <li>指定目录 <code>ls /some/other/dir</code></li>
 <li>以长列表形式输出显示详细信息 <code>ls -l</code></li>
 <li>显示文件类型信息 <code>ls -F</code></li>
 </ul></li>
-<li><b>cp</b> <br />
+<li><b>cp</b> <br  />
 复制文件 <code>cp old-name new-name</code> （make a copy of a file）</li>
 <li><b>mv</b>
 <ul class="org-ul">
 <li>重命名文件 <code>mv file1 file2</code> （change the name of a file）</li>
 <li>移动文件到目录 <code>mv file1 ... fileN dir</code> （move files between directories）</li>
 </ul></li>
-<li><b>touch</b> <br />
+<li><b>touch</b> <br  />
 用来创建文件，如果文件已经存在，则会更新文件的时间戳信息</li>
 <li><b>rm</b>
 <ul class="org-ul">
 <li>删除文件 <code>rm file</code> deletes a file. Deleted files cannot be recovered. Use this command <b>carefully</b></li>
 <li>为了提醒我们，在 <code>.zshrc</code>  中配置 alias rm="rm -i" ，再次输入 <code>rm file-name</code> 时就会出现提示 <code>rm: remove regular file 'file-name'?</code> ，这是我们就能有几秒的思考时间来确实是否真的要删除掉这个文件。</li>
 </ul></li>
-<li><b>echo</b> <br />
+<li><b>echo</b> <br  />
 将其参数显示到标准输出（一般与上面的 Shell 通配符 结合使用）</li>
 <li><b>cd</b>
 <ul class="org-ul">
 <li>设置当前工作目录（当前工作目录是指进程和 Shell 当前所在的目录） <code>cd dir</code></li>
 <li>不带 dir 参数，默认进入个人的主目录</li>
 </ul></li>
-<li><b>mkdir</b> <br />
+<li><b>mkdir</b> <br  />
 创建新目录</li>
 <li><b>rmdir</b>
 <ul class="org-ul">
 <li>删除空目录（如果目录里面有内容，这个命令会执行失败）</li>
 <li><code>rm -rf not-empty-dir</code> 删除一个目录以及其中所有内容。 <b>Cautious</b> ： <code>-r</code> 选项会依次递归删除 dir 中的所有文件和子目录， <code>-f</code> 选项表示强制删除。使用 <code>-rf</code> 时不要在参数里使用通配符，并且执行命令前最好检查参数是否正确</li>
 </ul></li>
-<li><b>pwd</b> <br />
+<li><b>pwd</b> <br  />
 输出当前的工作目录名，有以下两个用处：
 <ul class="org-ul">
 <li>并不是所有的提示符都显示当前目录名，甚至有时候需要摆脱它，因为其占用很大空间，这时候就需要使用 pwd 来解决</li>
 <li>使用符号链接的时候通常很难获知当前目录信息，可以使用 <code>pwd -P</code> 来查看</li>
 </ul></li>
-<li><b>chmod</b> <br />
+<li><b>chmod</b> <br  />
 更改一个文件或目录的权限信息。以下是一些简单例子：
 <ul class="org-ul">
 <li>chmod 644 file; owner can read or write the file, others can only read it</li>

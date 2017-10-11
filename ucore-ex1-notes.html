@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-15 Sat 17:14 -->
+<!-- 2017-10-11 Wed 21:10 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>uCore实验1笔记整理</title>
@@ -253,7 +253,7 @@ for the JavaScript code in this tag.
 <body>
 <div id="preamble" class="status">
 <div class="header">
-              <a href="https://aprilwith.me">自在随心</a> | <a href="http://github.com/qiaoin">Github</a>
+              <a href="http://aprilwith.me">自在随心</a> | <a href="https://github.com/qiaoin">Github</a>
           </div>
 </div>
 <div id="content">
@@ -266,30 +266,30 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org193ce50">实验准备</a>
+<li><a href="#org237fd40">实验准备</a>
 <ul>
-<li><a href="#orgecd21fd">计算机是如何启动的？</a></li>
-<li><a href="#org75d7151">bootloader 启动过程</a></li>
+<li><a href="#org83a092a">计算机是如何启动的？</a></li>
+<li><a href="#orgac17784">bootloader 启动过程</a></li>
 </ul>
 </li>
-<li><a href="#orgf8e6a6e">源代码分析</a>
+<li><a href="#org4814ef5">源代码分析</a>
 <ul>
-<li><a href="#orgb75b1df">bootasm.S</a></li>
-<li><a href="#org144cd9c">bootmain.c</a></li>
+<li><a href="#org9c5a235">bootasm.S</a></li>
+<li><a href="#orgb6ba1e5">bootmain.c</a></li>
 </ul>
 </li>
-<li><a href="#orgcac7738">练习题</a></li>
-<li><a href="#org0c853bf">参考资料</a></li>
+<li><a href="#org20d0b90">练习题</a></li>
+<li><a href="#orgc931751">参考资料</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org193ce50" class="outline-2">
-<h2 id="org193ce50">实验准备</h2>
-<div class="outline-text-2" id="text-org193ce50">
-</div><div id="outline-container-orgecd21fd" class="outline-3">
-<h3 id="orgecd21fd">计算机是如何启动的？</h3>
-<div class="outline-text-3" id="text-orgecd21fd">
+<div id="outline-container-org237fd40" class="outline-2">
+<h2 id="org237fd40">实验准备</h2>
+<div class="outline-text-2" id="text-org237fd40">
+</div><div id="outline-container-org83a092a" class="outline-3">
+<h3 id="org83a092a">计算机是如何启动的？</h3>
+<div class="outline-text-3" id="text-org83a092a">
 <p>
 以 Intel 80386 为例，计算机加电后，CPU 从物理地址 0xFFFFFFF0（由初始化的 CS：EIP 确定，此时 CS 和 IP 的值分别是 0xF000 和 0xFFF0 ）开始执行。
 在 0xFFFFFFF0 这里只是存放了一条跳转指令，通过跳转指令跳到 BIOS 例行程序起始点。BIOS 做完计算机硬件自检和初始化后，会选择一个启动设备
@@ -308,9 +308,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org75d7151" class="outline-3">
-<h3 id="org75d7151">bootloader 启动过程</h3>
-<div class="outline-text-3" id="text-org75d7151">
+<div id="outline-container-orgac17784" class="outline-3">
+<h3 id="orgac17784">bootloader 启动过程</h3>
+<div class="outline-text-3" id="text-orgac17784">
 <p>
 BIOS 将通过读取硬盘主引导扇区到内存，并转跳到对应内存中的位置执行 bootloader 。 bootloader 完成的工作包括：
 </p>
@@ -324,9 +324,9 @@ BIOS 将通过读取硬盘主引导扇区到内存，并转跳到对应内存中
 </div>
 </div>
 
-<div id="outline-container-orgf8e6a6e" class="outline-2">
-<h2 id="orgf8e6a6e">源代码分析</h2>
-<div class="outline-text-2" id="text-orgf8e6a6e">
+<div id="outline-container-org4814ef5" class="outline-2">
+<h2 id="org4814ef5">源代码分析</h2>
+<div class="outline-text-2" id="text-org4814ef5">
 <p>
 bootloader 工作的实现文件在 lab1 中的 boot 目录下，包含以下三个文件：
 </p>
@@ -337,22 +337,22 @@ bootloader 工作的实现文件在 lab1 中的 boot 目录下，包含以下三
 </ul>
 </div>
 
-<div id="outline-container-orgb75b1df" class="outline-3">
-<h3 id="orgb75b1df">bootasm.S</h3>
-<div class="outline-text-3" id="text-orgb75b1df">
+<div id="outline-container-org9c5a235" class="outline-3">
+<h3 id="org9c5a235">bootasm.S</h3>
+<div class="outline-text-3" id="text-org9c5a235">
 <div class="org-src-container">
-<pre class="src src-C"><span style="color: #a71d5d;"># start</span> <span style="color: #008575;">address</span> <span style="color: #cc0090;">should</span> <span style="color: #b84500;">be</span> <span style="color: #0086b3;">0</span>:<span style="color: #00857d;">7c00</span>, <span style="color: #7a6b00;">in</span> <span style="color: #0086b3;">real</span> <span style="color: #007d00;">mode</span>, <span style="color: #b627af;">the</span> <span style="color: #008582;">beginning</span> <span style="color: #008575;">address</span> <span style="color: #da004f;">of</span> <span style="color: #b627af;">the</span> <span style="color: #0086b3;">running</span> <span style="color: #007fe5;">bootloader</span>
-.<span style="color: #008346;">globl</span> <span style="color: #d10084;">start</span>
-<span style="color: #d10084;">start</span>:
-.<span style="color: #c03c00;">code16</span>                                             # <span style="color: #0067ed;">Assemble</span> <span style="color: #0082da;">for</span> <span style="color: #0086b3;">16</span>-<span style="color: #9b5c00;">bit</span> <span style="color: #007d00;">mode</span>
-    <span style="color: #008460;">cli</span>                                             # <span style="color: #da004d;">Disable</span> <span style="color: #945f00;">interrupts</span>
-    <span style="color: #0068ed;">cld</span>                                             # <span style="color: #497700;">String</span> <span style="color: #0084c4;">operations</span> <span style="color: #0064eb;">increment</span>
+<pre class="src src-C"><span style="color: #a71d5d;"># start</span> address should be <span style="color: #0086b3;">0</span>:7c00, in <span style="color: #0086b3;">real</span> <span style="color: #333333;">mode</span>, the beginning address of the <span style="color: #0086b3;">running</span> <span style="color: #333333;">bootloader</span>
+.globl start
+start:
+.code16                                             # Assemble <span style="color: #a71d5d;">for</span> <span style="color: #0086b3;">16</span>-bit mode
+    cli                                             # Disable interrupts
+    cld                                             # String operations increment
 
-<span style="color: #a71d5d;">    # Set</span> <span style="color: #00822b;">up</span> <span style="color: #b627af;">the</span> <span style="color: #00845e;">important</span> <span style="color: #da0049;">data</span> <span style="color: #da0064;">segment</span> <span style="color: #0064eb;">registers</span> <span style="color: #969896;">(</span><span style="color: #008452;">DS</span>, <span style="color: #c63400;">ES</span>, <span style="color: #2f7a00;">SS</span>, <span style="color: #0071f2;">set</span> <span style="color: #5e57de;">all</span> <span style="color: #da0055;">three</span> <span style="color: #0086b3;">to</span> <span style="color: #0085ba;">zero</span><span style="color: #969896;">)</span>.
-    <span style="color: #0081dd;">xorw</span> %<span style="color: #af2eb5;">ax</span>, %<span style="color: #af2eb5;">ax</span>                                   # <span style="color: #008462;">Segment</span> <span style="color: #0085a7;">number</span> <span style="color: #0085ba;">zero</span>
-    <span style="color: #bd3f00;">movw</span> %<span style="color: #af2eb5;">ax</span>, %<span style="color: #6f52da;">ds</span>                                   # -&gt; <span style="color: #8f6200;">Data</span> <span style="color: #008462;">Segment</span>
-    <span style="color: #bd3f00;">movw</span> %<span style="color: #af2eb5;">ax</span>, %<span style="color: #d01c22;">es</span>                                   # -&gt; <span style="color: #d90045;">Extra</span> <span style="color: #008462;">Segment</span>
-    <span style="color: #bd3f00;">movw</span> %<span style="color: #af2eb5;">ax</span>, %<span style="color: #b12cb3;">ss</span>                                   # -&gt; <span style="color: #0073f2;">Stack</span> <span style="color: #008462;">Segment</span>
+<span style="color: #a71d5d;">    # Set</span> up the important data segment registers <span style="color: #969896;">(</span>DS, ES, SS, set all three <span style="color: #0086b3;">to</span> <span style="color: #333333;">zero</span><span style="color: #969896;">)</span>.
+    xorw %ax, %ax                                   # Segment number zero
+    movw %ax, %ds                                   # -&gt; Data Segment
+    movw %ax, %es                                   # -&gt; Extra Segment
+    movw %ax, %ss                                   # -&gt; Stack Segment
 </pre>
 </div>
 
@@ -362,17 +362,17 @@ bootloader 工作的实现文件在 lab1 中的 boot 目录下，包含以下三
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C"><span style="color: #a71d5d;">    # Enable</span> <span style="color: #c90095;">A20</span>:
-<span style="color: #a71d5d;">    #  For</span> <span style="color: #6c6f00;">backwards</span> <span style="color: #ce241a;">compatibility</span> <span style="color: #d70074;">with</span> <span style="color: #b627af;">the</span> <span style="color: #375ee5;">earliest</span> <span style="color: #bc4100;">PCs</span>, <span style="color: #cd2617;">physical</span>
-<span style="color: #a71d5d;">    #  address</span> <span style="color: #be1ba6;">line</span> <span style="color: #0086b3;">20</span> <span style="color: #d9006b;">is</span> <span style="color: #bf19a4;">tied</span> <span style="color: #9144cb;">low</span>, <span style="color: #008236;">so</span> <span style="color: #da005d;">that</span> <span style="color: #a65500;">addresses</span> <span style="color: #0086b3;">higher</span> <span style="color: #008126;">than</span>
-<span style="color: #a71d5d;">    #  1MB</span> <span style="color: #bb1fa9;">wrap</span> <span style="color: #8b6400;">around</span> <span style="color: #d21527;">to</span> <span style="color: #0085ba;">zero</span> <span style="color: #0074f2;">by</span> <span style="color: #007bee;">default</span>. <span style="color: #0085ad;">This</span> <span style="color: #d40d2c;">code</span> <span style="color: #7d4dd4;">undoes</span> <span style="color: #da0046;">this</span>.
+<pre class="src src-C"><span style="color: #a71d5d;">    # Enable</span> A20:
+<span style="color: #a71d5d;">    #  For</span> backwards compatibility with the earliest PCs, physical
+<span style="color: #a71d5d;">    #  address</span> line <span style="color: #0086b3;">20</span> is tied low, so that addresses <span style="color: #0086b3;">higher</span> <span style="color: #333333;">than</span>
+<span style="color: #a71d5d;">    #  1MB</span> wrap around to zero by <span style="color: #a71d5d;">default</span>. This code undoes this.
 <span style="color: #0086b3;">seta20</span>.<span style="color: #0086b3;">1</span>:
-    <span style="color: #bc1da7;">inb</span> <span style="color: #3d7800;">$0x64</span>, %<span style="color: #cb0091;">al</span>                                  # <span style="color: #527500;">Wait</span> <span style="color: #0082da;">for</span> <span style="color: #0085bc;">not</span> <span style="color: #007aef;">busy</span><span style="color: #969896;">(</span><span style="color: #0086b3;">8042</span> <span style="color: #0072f2;">input</span> <span style="color: #da004e;">buffer</span> <span style="color: #d8003c;">empty</span><span style="color: #969896;">)</span>.
-    <span style="color: #9d5a00;">testb</span> <span style="color: #0084c4;">$0x2</span>, %<span style="color: #cb0091;">al</span>
-    <span style="color: #da0046;">jnz</span> <span style="color: #c6059a;">seta20</span>.<span style="color: #0086b3;">1</span>
+    inb $0x64, %al                                  # Wait <span style="color: #a71d5d;">for</span> not busy<span style="color: #969896;">(</span><span style="color: #0086b3;">8042</span> input buffer empty<span style="color: #969896;">)</span>.
+    testb $0x2, %al
+    jnz seta20.<span style="color: #0086b3;">1</span>
 
-    <span style="color: #ca0093;">movb</span> <span style="color: #0084ca;">$0xd1</span>, %<span style="color: #cb0091;">al</span>                                 # <span style="color: #0086b3;">0xd1</span> -&gt; <span style="color: #736d00;">port</span> <span style="color: #0086b3;">0x64</span>
-    <span style="color: #8d6300;">outb</span> %<span style="color: #cb0091;">al</span>, <span style="color: #3d7800;">$0x64</span>                                 # <span style="color: #0086b3;">0xd1</span> <span style="color: #d90045;">means</span>: <span style="color: #007fe7;">write</span> <span style="color: #da0049;">data</span> <span style="color: #d21527;">to</span> <span style="color: #0086b3;">8042</span><span style="color: #333333;">'</span><span style="color: #183691;">s P2 port</span>
+    movb $0xd1, %al                                 # <span style="color: #0086b3;">0xd1</span> -&gt; port <span style="color: #0086b3;">0x64</span>
+    outb %al, $0x64                                 # <span style="color: #0086b3;">0xd1</span> means: write data to <span style="color: #0086b3;">8042</span><span style="color: #333333;">'</span><span style="color: #183691;">s P2 port</span>
 
 <span style="color: #183691;">seta20.2:</span>
 <span style="color: #183691;">    inb $0x64, %al                                  # Wait for not busy(8042 input buffer empty).</span>
@@ -380,7 +380,7 @@ bootloader 工作的实现文件在 lab1 中的 boot 目录下，包含以下三
 <span style="color: #183691;">    jnz seta20.2</span>
 
 <span style="color: #183691;">    movb $0xdf, %al                                 # 0xdf -&gt; port 0x60</span>
-<span style="color: #183691;">    outb %al, $0x60                                 # 0xdf = 11011111, means set P2'</span><span style="color: #00858c;">s</span> <span style="color: #c90095;">A20</span> <span style="color: #9b5c00;">bit</span><span style="color: #969896;">(</span><span style="color: #b627af;">the</span> <span style="color: #0086b3;">1</span> <span style="color: #9b5c00;">bit</span><span style="color: #969896;">)</span> <span style="color: #d21527;">to</span> <span style="color: #0086b3;">1</span>
+<span style="color: #183691;">    outb %al, $0x60                                 # 0xdf = 11011111, means set P2'</span>s A20 bit<span style="color: #969896;">(</span>the <span style="color: #0086b3;">1</span> bit<span style="color: #969896;">)</span> to <span style="color: #0086b3;">1</span>
 </pre>
 </div>
 
@@ -414,11 +414,11 @@ Intel 推出 x86 架构已近 30 年，刚开始推出的 8086 处理器是一�
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-C"><span style="color: #a71d5d;"># Switch</span> <span style="color: #da0048;">from</span> <span style="color: #007bee;">real</span> <span style="color: #d21527;">to</span> <span style="color: #008580;">protected</span> <span style="color: #007d00;">mode</span>, <span style="color: #da0064;">using</span> <span style="color: #00800f;">a</span> <span style="color: #0086b3;">bootstrap</span> <span style="color: #844ad1;">GDT</span>
-<span style="color: #a71d5d;"># and</span> <span style="color: #da0064;">segment</span> <span style="color: #2c7a00;">translation</span> <span style="color: #da005d;">that</span> <span style="color: #008574;">makes</span> <span style="color: #007fe6;">virtual</span> <span style="color: #a65500;">addresses</span>
-<span style="color: #a71d5d;"># identical</span> <span style="color: #d21527;">to</span> <span style="color: #cd2617;">physical</span> <span style="color: #a65500;">addresses</span>, <span style="color: #008236;">so</span> <span style="color: #0086b3;">that</span> <span style="color: #b627af;">the</span>
-<span style="color: #a71d5d;"># effective</span> <span style="color: #0079f0;">memory</span> <span style="color: #cd008e;">map</span> <span style="color: #0079f0;">does</span> <span style="color: #0085bc;">not</span> <span style="color: #0082dc;">change</span> <span style="color: #0084c7;">during</span> <span style="color: #b627af;">the</span> <span style="color: #0085a0;">switch</span>.
-<span style="color: #0086b3;">lgdt</span> <span style="color: #0071f2;">gdtdesc</span>
+<pre class="src src-C"><span style="color: #a71d5d;"># Switch</span> from real to protected mode, using a <span style="color: #0086b3;">bootstrap</span> <span style="color: #333333;">GDT</span>
+<span style="color: #a71d5d;"># and</span> segment translation that makes virtual addresses
+<span style="color: #a71d5d;"># identical</span> to physical addresses, so <span style="color: #0086b3;">that</span> <span style="color: #333333;">the</span>
+<span style="color: #a71d5d;"># effective</span> memory map does not change during the <span style="color: #a71d5d;">switch</span>.
+<span style="color: #0086b3;">lgdt</span> <span style="color: #333333;">gdtdesc</span>
 </pre>
 </div>
 
@@ -427,16 +427,16 @@ Intel 推出 x86 架构已近 30 年，刚开始推出的 8086 处理器是一�
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C"><span style="color: #a71d5d;"># Bootstrap</span> <span style="color: #844ad1;">GDT</span>
-.<span style="color: #0074f2;">p2align</span> <span style="color: #0086b3;">2</span>                                          # <span style="color: #d40b2d;">force</span> <span style="color: #0086b3;">4</span> <span style="color: #0084c8;">byte</span> <span style="color: #008014;">alignment</span>
-<span style="color: #da0064;">gdt</span>:
-    <span style="color: #0082d7;">SEG_NULLASM</span>                                     # <span style="color: #008012;">null</span> <span style="color: #ba4300;">seg</span>
-    <span style="color: #826800;">SEG_ASM</span><span style="color: #969896;">(</span><span style="color: #7350d8;">STA_X</span>|<span style="color: #a65400;">STA_R</span>, <span style="color: #0086b3;">0x0</span>, <span style="color: #0086b3;">0xffffffff</span><span style="color: #969896;">)</span>           # <span style="color: #d40d2c;">code</span> <span style="color: #ba4300;">seg</span> <span style="color: #0082da;">for</span> <span style="color: #007fe5;">bootloader</span> <span style="color: #007bee;">and</span> <span style="color: #0082d7;">kernel</span>
-    <span style="color: #826800;">SEG_ASM</span><span style="color: #969896;">(</span><span style="color: #0085a4;">STA_W</span>, <span style="color: #0086b3;">0x0</span>, <span style="color: #0086b3;">0xffffffff</span><span style="color: #969896;">)</span>                 # <span style="color: #da0049;">data</span> <span style="color: #ba4300;">seg</span> <span style="color: #0082da;">for</span> <span style="color: #007fe5;">bootloader</span> <span style="color: #007bee;">and</span> <span style="color: #0082d7;">kernel</span>
+<pre class="src src-C"><span style="color: #a71d5d;"># Bootstrap</span> GDT
+.p2align <span style="color: #0086b3;">2</span>                                          # force <span style="color: #0086b3;">4</span> byte alignment
+gdt:
+    SEG_NULLASM                                     # null seg
+    SEG_ASM<span style="color: #969896;">(</span>STA_X|STA_R, <span style="color: #0086b3;">0x0</span>, <span style="color: #0086b3;">0xffffffff</span><span style="color: #969896;">)</span>           # code seg <span style="color: #a71d5d;">for</span> bootloader and kernel
+    SEG_ASM<span style="color: #969896;">(</span>STA_W, <span style="color: #0086b3;">0x0</span>, <span style="color: #0086b3;">0xffffffff</span><span style="color: #969896;">)</span>                 # data seg <span style="color: #a71d5d;">for</span> bootloader and kernel
 
-<span style="color: #0071f2;">gdtdesc</span>:
-    .<span style="color: #d90040;">word</span> <span style="color: #0086b3;">0x17</span>                                      # <span style="color: #8e6200;">sizeof</span><span style="color: #969896;">(</span><span style="color: #da0064;">gdt</span><span style="color: #969896;">)</span> - <span style="color: #0086b3;">1</span>
-    .<span style="color: #0086b3;">long</span> <span style="color: #da0064;">gdt</span>                                       # <span style="color: #008575;">address</span> <span style="color: #da0064;">gdt</span>
+gdtdesc:
+    .word <span style="color: #0086b3;">0x17</span>                                      # <span style="color: #a71d5d;">sizeof</span><span style="color: #969896;">(</span>gdt<span style="color: #969896;">)</span> - <span style="color: #0086b3;">1</span>
+    .<span style="color: #0086b3;">long</span> gdt                                       # address gdt
 </pre>
 </div>
 
@@ -452,9 +452,9 @@ Intel 推出 x86 架构已近 30 年，刚开始推出的 8086 处理器是一�
 其中， <code>SEG_NULLASM</code> 的定义为：
 </p>
 <div class="org-src-container">
-<pre class="src src-C"><span style="color: #a71d5d;">#define</span> <span style="color: #0082d7;">SEG_NULLASM</span>                                             \
-    .<span style="color: #d90040;">word</span> <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>;                                                 \
-    .<span style="color: #0084c8;">byte</span> <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>
+<pre class="src src-C"><span style="color: #a71d5d;">#define</span> <span style="color: #333333;">SEG_NULLASM</span>                                             \
+    .word <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>;                                                 \
+    .byte <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>
 </pre>
 </div>
 <p>
@@ -465,10 +465,10 @@ Intel 推出 x86 架构已近 30 年，刚开始推出的 8086 处理器是一�
 而 <code>SEG_ASM</code> 的定义为：
 </p>
 <div class="org-src-container">
-<pre class="src src-C"><span style="color: #a71d5d;">#define</span> <span style="color: #826800;">SEG_ASM</span><span style="color: #969896;">(</span><span style="color: #6c6f00;">type</span>,<span style="color: #007bee;">base</span>,<span style="color: #2b7a00;">lim</span><span style="color: #969896;">)</span>                                  \
-    .<span style="color: #d90040;">word</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">(</span><span style="color: #969896;">(</span><span style="color: #2b7a00;">lim</span><span style="color: #969896;">)</span> &gt;&gt; <span style="color: #0086b3;">12</span><span style="color: #0086b3;">)</span> &amp; <span style="color: #0086b3;">0xffff</span><span style="color: #969896;">)</span>, <span style="color: #969896;">(</span><span style="color: #0086b3;">(</span><span style="color: #007bee;">base</span><span style="color: #0086b3;">)</span> &amp; <span style="color: #0086b3;">0xffff</span><span style="color: #969896;">)</span>;          \
-    .<span style="color: #0084c8;">byte</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">(</span><span style="color: #969896;">(</span><span style="color: #007bee;">base</span><span style="color: #969896;">)</span> &gt;&gt; <span style="color: #0086b3;">16</span><span style="color: #0086b3;">)</span> &amp; <span style="color: #0086b3;">0xff</span><span style="color: #969896;">)</span>, <span style="color: #969896;">(</span><span style="color: #0086b3;">0x90</span> | <span style="color: #0086b3;">(</span><span style="color: #6c6f00;">type</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>,             \
-        <span style="color: #969896;">(</span><span style="color: #0086b3;">0xC0</span> | <span style="color: #0086b3;">(</span><span style="color: #969896;">(</span><span style="color: #795da3;">(</span><span style="color: #2b7a00;">lim</span><span style="color: #795da3;">)</span> &gt;&gt; <span style="color: #0086b3;">28</span><span style="color: #969896;">)</span> &amp; <span style="color: #0086b3;">0xf</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>, <span style="color: #969896;">(</span><span style="color: #0086b3;">(</span><span style="color: #969896;">(</span><span style="color: #007bee;">base</span><span style="color: #969896;">)</span> &gt;&gt; <span style="color: #0086b3;">24</span><span style="color: #0086b3;">)</span> &amp; <span style="color: #0086b3;">0xff</span><span style="color: #969896;">)</span>
+<pre class="src src-C"><span style="color: #a71d5d;">#define</span> <span style="color: #795da3;">SEG_ASM</span><span style="color: #969896;">(</span><span style="color: #333333;">type</span>,<span style="color: #333333;">base</span>,<span style="color: #333333;">lim</span><span style="color: #969896;">)</span>                                  \
+    .word <span style="color: #969896;">(</span><span style="color: #0086b3;">(</span><span style="color: #969896;">(</span>lim<span style="color: #969896;">)</span> &gt;&gt; <span style="color: #0086b3;">12</span><span style="color: #0086b3;">)</span> &amp; <span style="color: #0086b3;">0xffff</span><span style="color: #969896;">)</span>, <span style="color: #969896;">(</span><span style="color: #0086b3;">(</span>base<span style="color: #0086b3;">)</span> &amp; <span style="color: #0086b3;">0xffff</span><span style="color: #969896;">)</span>;          \
+    .byte <span style="color: #969896;">(</span><span style="color: #0086b3;">(</span><span style="color: #969896;">(</span>base<span style="color: #969896;">)</span> &gt;&gt; <span style="color: #0086b3;">16</span><span style="color: #0086b3;">)</span> &amp; <span style="color: #0086b3;">0xff</span><span style="color: #969896;">)</span>, <span style="color: #969896;">(</span><span style="color: #0086b3;">0x90</span> | <span style="color: #0086b3;">(</span>type<span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>,             \
+        <span style="color: #969896;">(</span><span style="color: #0086b3;">0xC0</span> | <span style="color: #0086b3;">(</span><span style="color: #969896;">(</span><span style="color: #795da3;">(</span>lim<span style="color: #795da3;">)</span> &gt;&gt; <span style="color: #0086b3;">28</span><span style="color: #969896;">)</span> &amp; <span style="color: #0086b3;">0xf</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>, <span style="color: #969896;">(</span><span style="color: #0086b3;">(</span><span style="color: #969896;">(</span>base<span style="color: #969896;">)</span> &gt;&gt; <span style="color: #0086b3;">24</span><span style="color: #0086b3;">)</span> &amp; <span style="color: #0086b3;">0xff</span><span style="color: #969896;">)</span>
 </pre>
 </div>
 <p>
@@ -531,11 +531,11 @@ Intel 推出 x86 架构已近 30 年，刚开始推出的 8086 处理器是一�
 </table>
 
 <div class="org-src-container">
-<pre class="src src-C">.<span style="color: #0071f2;">set</span> <span style="color: #008469;">CR0_PE_ON</span>,             <span style="color: #0086b3;">0x1</span>                     # <span style="color: #008580;">protected</span> <span style="color: #007d00;">mode</span> <span style="color: #00800d;">enable</span> <span style="color: #985d00;">flag</span>
+<pre class="src src-C">.set CR0_PE_ON,             <span style="color: #0086b3;">0x1</span>                     # protected mode enable flag
 
-<span style="color: #0085a0;">movl</span> %<span style="color: #bc1ea8;">cr0</span>, %<span style="color: #a636bd;">eax</span>
-<span style="color: #876500;">orl</span> <span style="color: #0063ea;">$CR0_PE_ON</span>, %<span style="color: #a636bd;">eax</span>
-<span style="color: #0085a0;">movl</span> %<span style="color: #a636bd;">eax</span>, %<span style="color: #bc1ea8;">cr0</span>
+movl %cr0, %eax
+orl $CR0_PE_ON, %eax
+movl %eax, %cr0
 </pre>
 </div>
 <p>
@@ -543,9 +543,9 @@ Intel 推出 x86 架构已近 30 年，刚开始推出的 8086 处理器是一�
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C"><span style="color: #a71d5d;"># Jump</span> <span style="color: #d21527;">to</span> <span style="color: #985d00;">next</span> <span style="color: #00859b;">instruction</span>, <span style="color: #0086b3;">but</span> <span style="color: #7a6b00;">in</span> <span style="color: #0086b3;">32</span>-<span style="color: #9b5c00;">bit</span> <span style="color: #d40d2c;">code</span> <span style="color: #da0064;">segment</span>.
-<span style="color: #a71d5d;"># Switches</span> <span style="color: #d00087;">processor</span> <span style="color: #008450;">into</span> <span style="color: #0086b3;">32</span>-<span style="color: #9b5c00;">bit</span> <span style="color: #007d00;">mode</span>.
-<span style="color: #517500;">ljmp</span> <span style="color: #7d6a00;">$PROT_MODE_CSEG</span>, <span style="color: #007aef;">$protcseg</span>
+<pre class="src src-C"><span style="color: #a71d5d;"># Jump</span> to next instruction, <span style="color: #0086b3;">but</span> <span style="color: #333333;">in</span> <span style="color: #0086b3;">32</span>-bit code segment.
+<span style="color: #a71d5d;"># Switches</span> processor into <span style="color: #0086b3;">32</span>-bit mode.
+ljmp $PROT_MODE_CSEG, $protcseg
 </pre>
 </div>
 
@@ -558,20 +558,20 @@ Intel 推出 x86 架构已近 30 年，刚开始推出的 8086 处理器是一�
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C">.<span style="color: #ab5100;">code32</span>                                             # <span style="color: #0067ed;">Assemble</span> <span style="color: #0082da;">for</span> <span style="color: #0086b3;">32</span>-<span style="color: #9b5c00;">bit</span> <span style="color: #007d00;">mode</span>
-<span style="color: #00822e;">protcseg</span>:
-<span style="color: #a71d5d;">    # Set</span> <span style="color: #00822b;">up</span> <span style="color: #b627af;">the</span> <span style="color: #008580;">protected</span>-<span style="color: #007d00;">mode</span> <span style="color: #da0049;">data</span> <span style="color: #da0064;">segment</span> <span style="color: #0064eb;">registers</span>
-    <span style="color: #bd3f00;">movw</span> <span style="color: #0067ed;">$PROT_MODE_DSEG</span>, %<span style="color: #af2eb5;">ax</span>                       # <span style="color: #da005f;">Our</span> <span style="color: #da0049;">data</span> <span style="color: #da0064;">segment</span> <span style="color: #bf18a3;">selector</span>
-    <span style="color: #bd3f00;">movw</span> %<span style="color: #af2eb5;">ax</span>, %<span style="color: #6f52da;">ds</span>                                   # -&gt; <span style="color: #008452;">DS</span>: <span style="color: #8f6200;">Data</span> <span style="color: #008462;">Segment</span>
-    <span style="color: #bd3f00;">movw</span> %<span style="color: #af2eb5;">ax</span>, %<span style="color: #d01c22;">es</span>                                   # -&gt; <span style="color: #c63400;">ES</span>: <span style="color: #d90045;">Extra</span> <span style="color: #008462;">Segment</span>
-    <span style="color: #bd3f00;">movw</span> %<span style="color: #af2eb5;">ax</span>, %<span style="color: #00857c;">fs</span>                                   # -&gt; <span style="color: #916100;">FS</span>
-    <span style="color: #bd3f00;">movw</span> %<span style="color: #af2eb5;">ax</span>, %<span style="color: #008571;">gs</span>                                   # -&gt; <span style="color: #0062e9;">GS</span>
-    <span style="color: #bd3f00;">movw</span> %<span style="color: #af2eb5;">ax</span>, %<span style="color: #b12cb3;">ss</span>                                   # -&gt; <span style="color: #2f7a00;">SS</span>: <span style="color: #0073f2;">Stack</span> <span style="color: #008462;">Segment</span>
+<pre class="src src-C">.code32                                             # Assemble <span style="color: #a71d5d;">for</span> <span style="color: #0086b3;">32</span>-bit mode
+protcseg:
+<span style="color: #a71d5d;">    # Set</span> up the protected-mode data segment registers
+    movw $PROT_MODE_DSEG, %ax                       # Our data segment selector
+    movw %ax, %ds                                   # -&gt; DS: Data Segment
+    movw %ax, %es                                   # -&gt; ES: Extra Segment
+    movw %ax, %fs                                   # -&gt; FS
+    movw %ax, %gs                                   # -&gt; GS
+    movw %ax, %ss                                   # -&gt; SS: Stack Segment
 
-<span style="color: #a71d5d;">    # Set</span> <span style="color: #00822b;">up</span> <span style="color: #b627af;">the</span> <span style="color: #c53500;">stack</span> <span style="color: #008119;">pointer</span> <span style="color: #007bee;">and</span> <span style="color: #0072f2;">call</span> <span style="color: #008450;">into</span> <span style="color: #9c5b00;">C</span>. <span style="color: #bc4000;">The</span> <span style="color: #c53500;">stack</span> <span style="color: #0071f2;">region</span> <span style="color: #d9006b;">is</span> <span style="color: #da0048;">from</span> <span style="color: #0086b3;">0</span>--<span style="color: #d10084;">start</span><span style="color: #969896;">(</span><span style="color: #0086b3;">0x7c00</span><span style="color: #969896;">)</span>
-    <span style="color: #0085a0;">movl</span> <span style="color: #0085a1;">$0x0</span>, %<span style="color: #00833e;">ebp</span>
-    <span style="color: #0085a0;">movl</span> <span style="color: #a35700;">$start</span>, %<span style="color: #008461;">esp</span>
-    <span style="color: #0072f2;">call</span> <span style="color: #cf221c;">bootmain</span>
+<span style="color: #a71d5d;">    # Set</span> up the stack pointer and call into C. The stack region is from <span style="color: #0086b3;">0</span>--start<span style="color: #969896;">(</span><span style="color: #0086b3;">0x7c00</span><span style="color: #969896;">)</span>
+    movl $0x0, %ebp
+    movl $start, %esp
+    call bootmain
 </pre>
 </div>
 
@@ -585,16 +585,16 @@ Intel 推出 x86 架构已近 30 年，刚开始推出的 8086 处理器是一�
 </div>
 </div>
 
-<div id="outline-container-org144cd9c" class="outline-3">
-<h3 id="org144cd9c">bootmain.c</h3>
-<div class="outline-text-3" id="text-org144cd9c">
+<div id="outline-container-orgb6ba1e5" class="outline-3">
+<h3 id="orgb6ba1e5">bootmain.c</h3>
+<div class="outline-text-3" id="text-orgb6ba1e5">
 <p>
 bootloader 让 CPU 进入保护模式后，下一步的工作就是从硬盘上加载并运行 OS。考虑到实现的简单性，bootloader 的访问硬盘都是 LBA 模式
 的 PIO（Program IO）方式，即所有的 IO 操作是通过 CPU 访问硬盘的 IO 地址寄存器完成。
 </p>
 
 <p>
- 一般主板有 2 个 IDE 通道，每个通道可以接 2 个 IDE 硬盘。访问第一个硬盘的扇区可设置 IO 地址寄存器 0x1f0-0x1f7 实现的，具体参数见下表。
+一般主板有 2 个 IDE 通道，每个通道可以接 2 个 IDE 硬盘。访问第一个硬盘的扇区可设置 IO 地址寄存器 0x1f0-0x1f7 实现的，具体参数见下表。
 一般第一个 IDE 通道通过访问 IO 地址 0x1f0-0x1f7 来实现，第二个 IDE 通道通过访问 0x170-0x17f 实现。每个通道的主从盘的选择通过第 6 个
 IO偏移地址寄存器来设置。
 </p>
@@ -666,30 +666,30 @@ IO偏移地址寄存器来设置。
 
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #969896;">/* </span><span style="color: #969896;">waitdisk - wait for disk ready </span><span style="color: #969896;">*/</span>
-<span style="color: #00845b;">static</span> <span style="color: #0086b3;">void</span>
-<span style="color: #008464;">waitdisk</span><span style="color: #969896;">(</span><span style="color: #0086b3;">void</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
-    <span style="color: #c73204;">while</span> <span style="color: #0086b3;">(</span><span style="color: #969896;">(</span><span style="color: #bc1da7;">inb</span><span style="color: #795da3;">(</span><span style="color: #0086b3;">0x1F7</span><span style="color: #795da3;">)</span> &amp; <span style="color: #0086b3;">0xC0</span><span style="color: #969896;">)</span> != <span style="color: #0086b3;">0x40</span><span style="color: #0086b3;">)</span>
+<span style="color: #a71d5d;">static</span> <span style="color: #0086b3;">void</span>
+<span style="color: #795da3;">waitdisk</span><span style="color: #969896;">(</span><span style="color: #0086b3;">void</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+    <span style="color: #a71d5d;">while</span> <span style="color: #0086b3;">(</span><span style="color: #969896;">(</span>inb<span style="color: #795da3;">(</span><span style="color: #0086b3;">0x1F7</span><span style="color: #795da3;">)</span> &amp; <span style="color: #0086b3;">0xC0</span><span style="color: #969896;">)</span> != <span style="color: #0086b3;">0x40</span><span style="color: #0086b3;">)</span>
         <span style="color: #969896;">/* </span><span style="color: #969896;">do nothing </span><span style="color: #969896;">*/</span>;
 <span style="color: #969896;">}</span>
 
 <span style="color: #969896;">/* </span><span style="color: #969896;">readsect - read a single sector at @secno into @dst </span><span style="color: #969896;">*/</span>
-<span style="color: #00845b;">static</span> <span style="color: #0086b3;">void</span>
-<span style="color: #c43600;">readsect</span><span style="color: #969896;">(</span><span style="color: #0086b3;">void</span> *<span style="color: #3e7800;">dst</span>, <span style="color: #0086b3;">uint32_t</span> <span style="color: #896500;">secno</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+<span style="color: #a71d5d;">static</span> <span style="color: #0086b3;">void</span>
+<span style="color: #795da3;">readsect</span><span style="color: #969896;">(</span><span style="color: #0086b3;">void</span> *<span style="color: #333333;">dst</span>, <span style="color: #0086b3;">uint32_t</span> <span style="color: #333333;">secno</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
     <span style="color: #969896;">// </span><span style="color: #969896;">wait for disk to be ready</span>
-    <span style="color: #008464;">waitdisk</span><span style="color: #0086b3;">()</span>;
+    waitdisk<span style="color: #0086b3;">()</span>;
 
-    <span style="color: #8d6300;">outb</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F2</span>, <span style="color: #0086b3;">1</span><span style="color: #0086b3;">)</span>;                         <span style="color: #969896;">// </span><span style="color: #969896;">count = 1</span>
-    <span style="color: #8d6300;">outb</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F3</span>, <span style="color: #896500;">secno</span> &amp; <span style="color: #0086b3;">0xFF</span><span style="color: #0086b3;">)</span>;
-    <span style="color: #8d6300;">outb</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F4</span>, <span style="color: #969896;">(</span><span style="color: #896500;">secno</span> &gt;&gt; <span style="color: #0086b3;">8</span><span style="color: #969896;">)</span> &amp; <span style="color: #0086b3;">0xFF</span><span style="color: #0086b3;">)</span>;
-    <span style="color: #8d6300;">outb</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F5</span>, <span style="color: #969896;">(</span><span style="color: #896500;">secno</span> &gt;&gt; <span style="color: #0086b3;">16</span><span style="color: #969896;">)</span> &amp; <span style="color: #0086b3;">0xFF</span><span style="color: #0086b3;">)</span>;
-    <span style="color: #8d6300;">outb</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F6</span>, <span style="color: #969896;">(</span><span style="color: #795da3;">(</span><span style="color: #896500;">secno</span> &gt;&gt; <span style="color: #0086b3;">24</span><span style="color: #795da3;">)</span> &amp; <span style="color: #0086b3;">0xF</span><span style="color: #969896;">)</span> | <span style="color: #0086b3;">0xE0</span><span style="color: #0086b3;">)</span>;
-    <span style="color: #8d6300;">outb</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F7</span>, <span style="color: #0086b3;">0x20</span><span style="color: #0086b3;">)</span>;                      <span style="color: #969896;">// </span><span style="color: #969896;">cmd 0x20 - read sectors</span>
+    outb<span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F2</span>, <span style="color: #0086b3;">1</span><span style="color: #0086b3;">)</span>;                         <span style="color: #969896;">// </span><span style="color: #969896;">count = 1</span>
+    outb<span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F3</span>, secno &amp; <span style="color: #0086b3;">0xFF</span><span style="color: #0086b3;">)</span>;
+    outb<span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F4</span>, <span style="color: #969896;">(</span>secno &gt;&gt; <span style="color: #0086b3;">8</span><span style="color: #969896;">)</span> &amp; <span style="color: #0086b3;">0xFF</span><span style="color: #0086b3;">)</span>;
+    outb<span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F5</span>, <span style="color: #969896;">(</span>secno &gt;&gt; <span style="color: #0086b3;">16</span><span style="color: #969896;">)</span> &amp; <span style="color: #0086b3;">0xFF</span><span style="color: #0086b3;">)</span>;
+    outb<span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F6</span>, <span style="color: #969896;">(</span><span style="color: #795da3;">(</span>secno &gt;&gt; <span style="color: #0086b3;">24</span><span style="color: #795da3;">)</span> &amp; <span style="color: #0086b3;">0xF</span><span style="color: #969896;">)</span> | <span style="color: #0086b3;">0xE0</span><span style="color: #0086b3;">)</span>;
+    outb<span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F7</span>, <span style="color: #0086b3;">0x20</span><span style="color: #0086b3;">)</span>;                      <span style="color: #969896;">// </span><span style="color: #969896;">cmd 0x20 - read sectors</span>
 
     <span style="color: #969896;">// </span><span style="color: #969896;">wait for disk to be ready</span>
-    <span style="color: #008464;">waitdisk</span><span style="color: #0086b3;">()</span>;
+    waitdisk<span style="color: #0086b3;">()</span>;
 
     <span style="color: #969896;">// </span><span style="color: #969896;">read a sector</span>
-    <span style="color: #8d6300;">insl</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F0</span>, <span style="color: #3e7800;">dst</span>, <span style="color: #d50078;">SECTSIZE</span> / <span style="color: #0086b3;">4</span><span style="color: #0086b3;">)</span>;
+    insl<span style="color: #0086b3;">(</span><span style="color: #0086b3;">0x1F0</span>, dst, SECTSIZE / <span style="color: #0086b3;">4</span><span style="color: #0086b3;">)</span>;
 <span style="color: #969896;">}</span>
 </pre>
 </div>
@@ -699,13 +699,13 @@ IO偏移地址寄存器来设置。
 
 
 
-<div id="outline-container-orgcac7738" class="outline-2">
-<h2 id="orgcac7738">练习题</h2>
+<div id="outline-container-org20d0b90" class="outline-2">
+<h2 id="org20d0b90">练习题</h2>
 </div>
 
-<div id="outline-container-org0c853bf" class="outline-2">
-<h2 id="org0c853bf">参考资料</h2>
-<div class="outline-text-2" id="text-org0c853bf">
+<div id="outline-container-orgc931751" class="outline-2">
+<h2 id="orgc931751">参考资料</h2>
+<div class="outline-text-2" id="text-orgc931751">
 <ol class="org-ol">
 <li><a href="http://www.cnblogs.com/zslhg903/p/5781882.html">ucore lab1 bootloader学习笔记</a> 基本将原作者的全部内容给搬运了过来</li>
 <li><a href="https://www.gitbook.com/book/objectkuan/ucore-docs/details">ucore-os-docs</a> 这是学堂在线操作系统课程实验的提供的官方文档，有些讲解的不清晰的地方需要自己在网上查阅资料</li>

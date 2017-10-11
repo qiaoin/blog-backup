@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-15 Sat 17:14 -->
+<!-- 2017-10-11 Wed 21:10 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Python中的“魔法方法”</title>
@@ -231,7 +231,7 @@ for the JavaScript code in this tag.
 <body>
 <div id="preamble" class="status">
 <div class="header">
-              <a href="https://aprilwith.me">自在随心</a> | <a href="http://github.com/qiaoin">Github</a>
+              <a href="http://aprilwith.me">自在随心</a> | <a href="https://github.com/qiaoin">Github</a>
           </div>
 </div>
 <div id="content">
@@ -244,45 +244,45 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org199c2f8">构造和析构</a>
+<li><a href="#orgecddff0">构造和析构</a>
 <ul>
-<li><a href="#org4b985bf"><code>__init__(self[,...])</code></a></li>
-<li><a href="#org9bb0f21"><code>__new__(cls[,...])</code></a></li>
-<li><a href="#orga2c40ea"><code>__del__(self)</code></a></li>
+<li><a href="#orgda25a18"><code>__init__(self[,...])</code></a></li>
+<li><a href="#orgf55ee1a"><code>__new__(cls[,...])</code></a></li>
+<li><a href="#org49bf83c"><code>__del__(self)</code></a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org199c2f8" class="outline-2">
-<h2 id="org199c2f8">构造和析构</h2>
-<div class="outline-text-2" id="text-org199c2f8">
-</div><div id="outline-container-org4b985bf" class="outline-3">
-<h3 id="org4b985bf"><code>__init__(self[,...])</code></h3>
-<div class="outline-text-3" id="text-org4b985bf">
+<div id="outline-container-orgecddff0" class="outline-2">
+<h2 id="orgecddff0">构造和析构</h2>
+<div class="outline-text-2" id="text-orgecddff0">
+</div><div id="outline-container-orgda25a18" class="outline-3">
+<h3 id="orgda25a18"><code>__init__(self[,...])</code></h3>
+<div class="outline-text-3" id="text-orgda25a18">
 <p>
 相当于构造方法，返回是一个 <code>None</code> 类型， <code>__init()__ should return None</code>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #cd008e;">class</span> <span style="color: #0086b3;">Rectangle</span>:
-    <span style="color: #2f7a00;">def</span> <span style="color: #d50079;">__init__</span><span style="color: #969896;">(</span><span style="color: #0082da;">self</span>, <span style="color: #5559e0;">width</span>, <span style="color: #007deb;">height</span><span style="color: #969896;">)</span>:
-        <span style="color: #0082da;">self</span>.<span style="color: #5559e0;">width</span> = <span style="color: #5559e0;">width</span>
-        <span style="color: #0082da;">self</span>.<span style="color: #007deb;">height</span> = <span style="color: #007deb;">height</span>
+<pre class="src src-python"><span style="color: #a71d5d;">class</span> <span style="color: #0086b3;">Rectangle</span>:
+    <span style="color: #a71d5d;">def</span> <span style="color: #795da3;">__init__</span><span style="color: #969896;">(</span><span style="color: #a71d5d;">self</span>, width, height<span style="color: #969896;">)</span>:
+        <span style="color: #a71d5d;">self</span>.width = width
+        <span style="color: #a71d5d;">self</span>.height = height
 
-    <span style="color: #2f7a00;">def</span> <span style="color: #cb2a12;">getArea</span><span style="color: #969896;">()</span>:
-        <span style="color: #0085a3;">return</span> <span style="color: #0082da;">self</span>.<span style="color: #5559e0;">width</span> * <span style="color: #0082da;">self</span>.<span style="color: #007deb;">height</span>
+    <span style="color: #a71d5d;">def</span> <span style="color: #795da3;">getArea</span><span style="color: #969896;">()</span>:
+        <span style="color: #a71d5d;">return</span> <span style="color: #a71d5d;">self</span>.width * <span style="color: #a71d5d;">self</span>.height
 
-<span style="color: #00844f;">rect</span> = <span style="color: #008466;">Rectangle</span><span style="color: #969896;">(</span><span style="color: #0086b3;">3</span>, <span style="color: #0086b3;">4</span><span style="color: #969896;">)</span>
+<span style="color: #333333;">rect</span> = Rectangle<span style="color: #969896;">(</span><span style="color: #0086b3;">3</span>, <span style="color: #0086b3;">4</span><span style="color: #969896;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org9bb0f21" class="outline-3">
-<h3 id="org9bb0f21"><code>__new__(cls[,...])</code></h3>
-<div class="outline-text-3" id="text-org9bb0f21">
+<div id="outline-container-orgf55ee1a" class="outline-3">
+<h3 id="orgf55ee1a"><code>__new__(cls[,...])</code></h3>
+<div class="outline-text-3" id="text-orgf55ee1a">
 <p>
 对象创建时，第一个被调用的方法，后面的 <code>...</code> 参数会原封不动的传递给 <code>__init__()</code> ，返回一个对象（通常是返回 <code>cls</code> 类的实例对象，也可以返回其他类的一个对象）。
 但在平常，我们是极少情况会去重写 <code>__new__()</code> 的，使用 Python 默认的方法执行就可以了。但在一种情况下就得重写了，当我们在继承了一个不可变类型
@@ -290,38 +290,38 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #cd008e;">class</span> <span style="color: #0086b3;">CapStr</span><span style="color: #969896;">(</span><span style="color: #a71d5d;">str</span><span style="color: #969896;">)</span>:
-    <span style="color: #2f7a00;">def</span> <span style="color: #3b7900;">__new__</span><span style="color: #969896;">(</span><span style="color: #8d6300;">cls</span>, <span style="color: #00859d;">string</span><span style="color: #969896;">)</span>:
-        <span style="color: #00859d;">string</span> = <span style="color: #00859d;">string</span>.<span style="color: #0082d8;">upper</span><span style="color: #969896;">()</span>
-        <span style="color: #0085a3;">return</span> <span style="color: #a71d5d;">str</span>.<span style="color: #3b7900;">__new__</span><span style="color: #969896;">(</span><span style="color: #8d6300;">cls</span>, <span style="color: #00859d;">string</span><span style="color: #969896;">)</span>
+<pre class="src src-python"><span style="color: #a71d5d;">class</span> <span style="color: #0086b3;">CapStr</span><span style="color: #969896;">(</span><span style="color: #a71d5d;">str</span><span style="color: #969896;">)</span>:
+    <span style="color: #a71d5d;">def</span> <span style="color: #795da3;">__new__</span><span style="color: #969896;">(</span>cls, string<span style="color: #969896;">)</span>:
+        <span style="color: #333333;">string</span> = string.upper<span style="color: #969896;">()</span>
+        <span style="color: #a71d5d;">return</span> <span style="color: #a71d5d;">str</span>.__new__<span style="color: #969896;">(</span>cls, string<span style="color: #969896;">)</span>
 
-<span style="color: #00800f;">a</span> = <span style="color: #d8003e;">CapStr</span><span style="color: #969896;">(</span><span style="color: #183691;">"http://qiaoin.github.io"</span><span style="color: #969896;">)</span>  <span style="color: #969896;"># </span><span style="color: #969896;">'HTTP://QIAOIN.GITHUB.IO'</span>
+<span style="color: #333333;">a</span> = CapStr<span style="color: #969896;">(</span><span style="color: #183691;">"http://qiaoin.github.io"</span><span style="color: #969896;">)</span>  <span style="color: #969896;"># </span><span style="color: #969896;">'HTTP://QIAOIN.GITHUB.IO'</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orga2c40ea" class="outline-3">
-<h3 id="orga2c40ea"><code>__del__(self)</code></h3>
-<div class="outline-text-3" id="text-orga2c40ea">
+<div id="outline-container-org49bf83c" class="outline-3">
+<h3 id="org49bf83c"><code>__del__(self)</code></h3>
+<div class="outline-text-3" id="text-org49bf83c">
 <p>
 相当于析构函数，并不是 <code>del</code> 之后就会执行这个方法，而是 Python 使用垃圾回收机制进行处理，没有任何变量去引用这个对象的时候，就会去自动调用这个 <code>__del__()</code> 去销毁这个对象
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #cd008e;">class</span> <span style="color: #0086b3;">Room</span>:
-    <span style="color: #2f7a00;">def</span> <span style="color: #d50079;">__init__</span><span style="color: #969896;">(</span><span style="color: #0082da;">self</span><span style="color: #969896;">)</span>:
-        <span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #183691;">'the __init__ method has been excuted...'</span><span style="color: #969896;">)</span>
+<pre class="src src-python"><span style="color: #a71d5d;">class</span> <span style="color: #0086b3;">Room</span>:
+    <span style="color: #a71d5d;">def</span> <span style="color: #795da3;">__init__</span><span style="color: #969896;">(</span><span style="color: #a71d5d;">self</span><span style="color: #969896;">)</span>:
+        <span style="color: #a71d5d;">print</span><span style="color: #969896;">(</span><span style="color: #183691;">'the __init__ method has been excuted...'</span><span style="color: #969896;">)</span>
 
-    <span style="color: #2f7a00;">def</span> <span style="color: #0064eb;">__del__</span><span style="color: #969896;">(</span><span style="color: #0082da;">self</span><span style="color: #969896;">)</span>:
-        <span style="color: #cb2b11;">print</span><span style="color: #969896;">(</span><span style="color: #183691;">'the __del__ method has been excuted...'</span><span style="color: #969896;">)</span>
+    <span style="color: #a71d5d;">def</span> <span style="color: #795da3;">__del__</span><span style="color: #969896;">(</span><span style="color: #a71d5d;">self</span><span style="color: #969896;">)</span>:
+        <span style="color: #a71d5d;">print</span><span style="color: #969896;">(</span><span style="color: #183691;">'the __del__ method has been excuted...'</span><span style="color: #969896;">)</span>
 
-<span style="color: #0085ae;">r1</span> = <span style="color: #0082d8;">Room</span><span style="color: #969896;">()</span>  <span style="color: #969896;"># </span><span style="color: #969896;">'the __init__ method has been excuted...'</span>
-<span style="color: #007e00;">r2</span> = <span style="color: #0085ae;">r1</span>
-<span style="color: #187c00;">r3</span> = <span style="color: #007e00;">r2</span>
-<span style="color: #d90066;">del</span> <span style="color: #187c00;">r3</span>
-<span style="color: #d90066;">del</span> <span style="color: #007e00;">r2</span>
-<span style="color: #d90066;">del</span> <span style="color: #0085ae;">r1</span>  <span style="color: #969896;"># </span><span style="color: #969896;">'the __del__ method has been excuted...'</span>
+<span style="color: #333333;">r1</span> = Room<span style="color: #969896;">()</span>  <span style="color: #969896;"># </span><span style="color: #969896;">'the __init__ method has been excuted...'</span>
+<span style="color: #333333;">r2</span> = r1
+<span style="color: #333333;">r3</span> = r2
+<span style="color: #a71d5d;">del</span> r3
+<span style="color: #a71d5d;">del</span> r2
+<span style="color: #a71d5d;">del</span> r1  <span style="color: #969896;"># </span><span style="color: #969896;">'the __del__ method has been excuted...'</span>
 </pre>
 </div>
 </div>

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-15 Sat 17:14 -->
+<!-- 2017-10-11 Wed 21:10 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>使用uWSGI和Nginx在Ubuntu上部署Django成功</title>
@@ -231,7 +231,7 @@ for the JavaScript code in this tag.
 <body>
 <div id="preamble" class="status">
 <div class="header">
-              <a href="https://aprilwith.me">自在随心</a> | <a href="http://github.com/qiaoin">Github</a>
+              <a href="http://aprilwith.me">自在随心</a> | <a href="https://github.com/qiaoin">Github</a>
           </div>
 </div>
 <div id="content">
@@ -244,27 +244,27 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org549b78c">python环境搭建</a>
+<li><a href="#org1ac59a8">python环境搭建</a>
 <ul>
-<li><a href="#org79d4559">安装uWSGI</a></li>
-<li><a href="#orga6fcf8d">安装Django</a></li>
+<li><a href="#org117c856">安装uWSGI</a></li>
+<li><a href="#org7aa35f5">安装Django</a></li>
 </ul>
 </li>
-<li><a href="#org7d47ab1">Nginx 搭建</a>
+<li><a href="#org13e8103">Nginx 搭建</a>
 <ul>
-<li><a href="#orgb3d2517">安装 Nginx</a></li>
-<li><a href="#org7cbc435">配置Nginx</a></li>
-<li><a href="#org9807686">部署static文件</a></li>
-<li><a href="#orgd222769">测试 Nginx 是否部署成功</a></li>
+<li><a href="#org612f8cd">安装 Nginx</a></li>
+<li><a href="#orgcddcfc3">配置Nginx</a></li>
+<li><a href="#orgf599203">部署static文件</a></li>
+<li><a href="#orgac113a0">测试 Nginx 是否部署成功</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org549b78c" class="outline-2">
-<h2 id="org549b78c">python环境搭建</h2>
-<div class="outline-text-2" id="text-org549b78c">
+<div id="outline-container-org1ac59a8" class="outline-2">
+<h2 id="org1ac59a8">python环境搭建</h2>
+<div class="outline-text-2" id="text-org1ac59a8">
 <p>
 伴随着机器学习、深度学习的热潮， <code>Python</code> 的使用也是越来越火热，对于 <code>Python</code> 开发环境的搭建，个人重点推荐的方式是使用 <code>Anaconda</code> 进行 <code>Python</code> 环境和包的管理，但在
 <a href="https://www.continuum.io/downloads">官网</a> 上所提供的下载实在是太大了，原因就是它会预先给你下载很多乱七八糟的包，而这些包可能我们不怎么会用到，毕竟程序员大都有强迫症，这些用不到的包还要占据我的磁盘空间；在官网上
@@ -276,7 +276,7 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-shell"><span style="color: #00833e;">conda</span> <span style="color: #c90095;">create</span> <span style="color: #ca2d0d;">-n</span> <span style="color: #cd2617;">aprilwith.me</span> <span style="color: #008578;">python</span>=<span style="color: #0086b3;">3.5</span>
+<pre class="src src-shell">conda create -n aprilwith.me <span style="color: #333333;">python</span>=<span style="color: #0086b3;">3.5</span>
 </pre>
 </div>
 
@@ -285,7 +285,7 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-shell"><span style="color: #a71d5d;">source</span> <span style="color: #008119;">activate</span> <span style="color: #cd2617;">aprilwith.me</span>  <span style="color: #969896;"># </span><span style="color: #969896;">&#36825;&#37324;&#23601;&#26159;&#26032;&#24314;&#29615;&#22659;&#30340;&#21517;&#23383;</span>
+<pre class="src src-shell"><span style="color: #a71d5d;">source</span> activate aprilwith.me  <span style="color: #969896;"># </span><span style="color: #969896;">&#36825;&#37324;&#23601;&#26159;&#26032;&#24314;&#29615;&#22659;&#30340;&#21517;&#23383;</span>
 </pre>
 </div>
 
@@ -294,26 +294,26 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-shell"><span style="color: #00833e;">conda</span> <span style="color: #cd008d;">list</span>  <span style="color: #969896;"># </span><span style="color: #969896;">&#21015;&#20986;&#24403;&#21069;&#29615;&#22659;&#19979;&#25152;&#23433;&#35013;&#30340;packages</span>
-<span style="color: #00833e;">conda</span> <span style="color: #d8003c;">install</span> <span style="color: #969896;">[</span><span style="color: #0085ab;">package-name</span><span style="color: #969896;">]</span>  <span style="color: #969896;"># </span><span style="color: #969896;">&#23433;&#35013;package&#65292;&#20854;&#20250;&#21435;&#20320;&#25152;&#35774;&#32622;&#30340;&#38236;&#20687;&#28304;&#19978;&#21435;&#25214;</span>
+<pre class="src src-shell">conda list  <span style="color: #969896;"># </span><span style="color: #969896;">&#21015;&#20986;&#24403;&#21069;&#29615;&#22659;&#19979;&#25152;&#23433;&#35013;&#30340;packages</span>
+conda install <span style="color: #969896;">[</span>package-name<span style="color: #969896;">]</span>  <span style="color: #969896;"># </span><span style="color: #969896;">&#23433;&#35013;package&#65292;&#20854;&#20250;&#21435;&#20320;&#25152;&#35774;&#32622;&#30340;&#38236;&#20687;&#28304;&#19978;&#21435;&#25214;</span>
 <span style="color: #969896;"># </span><span style="color: #969896;">&#24403;&#28982;&#22914;&#26524;&#26576;&#20010;package&#20165;&#26377;pip&#28304;&#65288;&#22914;&#20197;&#19979;&#23558;&#35201;&#20351;&#29992;&#21040;&#30340;uWSGI&#65289;</span>
 <span style="color: #969896;"># </span><span style="color: #969896;">&#37027;&#25105;&#20204;&#20063;&#21487;&#20197;&#20351;&#29992;pip&#23433;&#35013;&#65288;&#19981;&#38656;&#35201;&#21306;&#20998;pip&#21644;pip3&#65289;</span>
-<span style="color: #c92e0b;">pip</span> <span style="color: #cd008d;">list</span>  <span style="color: #969896;"># </span><span style="color: #969896;">&#20165;&#21015;&#20986;&#24403;&#21069;&#29615;&#22659;&#19979;&#20351;&#29992;pip&#23433;&#35013;&#30340;packages</span>
-<span style="color: #c92e0b;">pip</span> <span style="color: #d8003c;">install</span> <span style="color: #969896;">[</span><span style="color: #0085ab;">package-name</span><span style="color: #969896;">]</span>
+pip list  <span style="color: #969896;"># </span><span style="color: #969896;">&#20165;&#21015;&#20986;&#24403;&#21069;&#29615;&#22659;&#19979;&#20351;&#29992;pip&#23433;&#35013;&#30340;packages</span>
+pip install <span style="color: #969896;">[</span>package-name<span style="color: #969896;">]</span>
 <span style="color: #969896;"># </span><span style="color: #969896;">&#24403;&#20320;&#20351;&#29992;`conda list`&#20986;&#24403;&#21069;&#29615;&#22659;&#19979;&#25152;&#23433;&#35013;&#30340;&#25152;&#26377;packages&#26102;&#65292;</span>
 <span style="color: #969896;"># </span><span style="color: #969896;">&#23427;&#20250;&#21578;&#35785;&#20320;&#36825;&#20010;package&#26159;&#20351;&#29992;&#20160;&#20040;&#23433;&#35013;&#30340;&#65292;&#25512;&#33616;&#39318;&#20808;&#20351;&#29992;`conda install [package-name]`</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">&#36864;&#20986;&#24403;&#21069;&#29615;&#22659;</span>
-<span style="color: #a71d5d;">source</span> <span style="color: #a735bc;">deactivate</span> <span style="color: #cd2617;">aprilwith.me</span>
+<span style="color: #a71d5d;">source</span> deactivate aprilwith.me
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org79d4559" class="outline-3">
-<h3 id="org79d4559">安装uWSGI</h3>
-<div class="outline-text-3" id="text-org79d4559">
+<div id="outline-container-org117c856" class="outline-3">
+<h3 id="org117c856">安装uWSGI</h3>
+<div class="outline-text-3" id="text-org117c856">
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #c92e0b;">pip</span> <span style="color: #d8003c;">install</span> <span style="color: #00834b;">uWSGI</span>  
+<pre class="src src-sh"><span style="color: #969896;">(</span>aprilwith.me<span style="color: #969896;">)</span> $ pip install uWSGI  
 <span style="color: #969896;"># </span><span style="color: #969896;">&#36825;&#37324;&#38656;&#35201;&#26159;&#24050;&#32463;`source`&#36827;&#20837;&#20102;&#26032;&#24314;&#29615;&#22659;&#65292;&#23601;&#20250;&#20986;&#29616;&#21069;&#32512; (aprilwith.me)</span>
 </pre>
 </div>
@@ -328,9 +328,9 @@ for the JavaScript code in this tag.
 
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #969896;"># </span><span style="color: #969896;">test_uwsgi.py</span>
-<span style="color: #2f7a00;">def</span> <span style="color: #0076f2;">application</span><span style="color: #969896;">(</span><span style="color: #007e00;">env</span>, <span style="color: #d11a24;">start_response</span><span style="color: #969896;">)</span>:
-    <span style="color: #d11a24;">start_response</span><span style="color: #969896;">(</span><span style="color: #183691;">'200 OK'</span>, <span style="color: #0086b3;">[</span><span style="color: #969896;">(</span><span style="color: #183691;">'Content-Type'</span>, <span style="color: #183691;">'text/html'</span><span style="color: #969896;">)</span><span style="color: #0086b3;">]</span><span style="color: #969896;">)</span>
-    <span style="color: #0085a3;">return</span> <span style="color: #969896;">[</span><span style="color: #00859a;">b</span><span style="color: #183691;">'Hello, this websit is https://aprilwith.me'</span><span style="color: #969896;">]</span>  <span style="color: #969896;"># </span><span style="color: #969896;">python3</span>
+<span style="color: #a71d5d;">def</span> <span style="color: #795da3;">application</span><span style="color: #969896;">(</span>env, start_response<span style="color: #969896;">)</span>:
+    start_response<span style="color: #969896;">(</span><span style="color: #183691;">'200 OK'</span>, <span style="color: #0086b3;">[</span><span style="color: #969896;">(</span><span style="color: #183691;">'Content-Type'</span>, <span style="color: #183691;">'text/html'</span><span style="color: #969896;">)</span><span style="color: #0086b3;">]</span><span style="color: #969896;">)</span>
+    <span style="color: #a71d5d;">return</span> <span style="color: #969896;">[</span>b<span style="color: #183691;">'Hello, this websit is https://aprilwith.me'</span><span style="color: #969896;">]</span>  <span style="color: #969896;"># </span><span style="color: #969896;">python3</span>
     <span style="color: #969896;"># </span><span style="color: #969896;">return ['Hello, this websit is https://aprilwith.me']  # python2</span>
 </pre>
 </div>
@@ -340,7 +340,7 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #325ee6;">uwsgi</span> <span style="color: #b823ac;">--http</span> <span style="color: #ab5000;">:8000</span> <span style="color: #007ee9;">--wsgi-file</span> <span style="color: #0071f2;">test_uwsgi.py</span>
+<pre class="src src-sh"><span style="color: #969896;">(</span>aprilwith.me<span style="color: #969896;">)</span> $ uwsgi --http :8000 --wsgi-file test_uwsgi.py
 <span style="color: #969896;"># </span><span style="color: #969896;">--http : 8000 [&#20351;&#29992;http&#21327;&#35758;&#65292;8000&#31471;&#21475;]</span>
 <span style="color: #969896;"># </span><span style="color: #969896;">--wsgi-file test_uwsgi.py [&#25351;&#23450;&#21152;&#36733;&#25991;&#20214;]</span>
 </pre>
@@ -353,11 +353,11 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orga6fcf8d" class="outline-3">
-<h3 id="orga6fcf8d">安装Django</h3>
-<div class="outline-text-3" id="text-orga6fcf8d">
+<div id="outline-container-org7aa35f5" class="outline-3">
+<h3 id="org7aa35f5">安装Django</h3>
+<div class="outline-text-3" id="text-org7aa35f5">
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #00833e;">conda</span> <span style="color: #d8003c;">install</span> <span style="color: #6d6f00;">django</span>
+<pre class="src src-sh"><span style="color: #969896;">(</span>aprilwith.me<span style="color: #969896;">)</span> $ conda install django
 </pre>
 </div>
 
@@ -366,9 +366,9 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #00859e;">aprilewith.me</span><span style="color: #969896;">)</span> $ <span style="color: #b94400;">django-admin.py</span> <span style="color: #0080e2;">startproject</span> <span style="color: #cb2a12;">myapp</span>
-<span style="color: #969896;">(</span><span style="color: #00859e;">aprilewith.me</span><span style="color: #969896;">)</span> $ <span style="color: #cf0089;">cd</span> <span style="color: #cb2a12;">myapp</span>
-<span style="color: #969896;">(</span><span style="color: #00859e;">aprilewith.me</span><span style="color: #969896;">)</span> $ <span style="color: #da0050;">tree</span>
+<pre class="src src-sh"><span style="color: #969896;">(</span>aprilewith.me<span style="color: #969896;">)</span> $ django-admin.py startproject myapp
+<span style="color: #969896;">(</span>aprilewith.me<span style="color: #969896;">)</span> $ cd myapp
+<span style="color: #969896;">(</span>aprilewith.me<span style="color: #969896;">)</span> $ tree
 <span style="color: #969896;"># </span><span style="color: #969896;">.</span>
 <span style="color: #969896;"># </span><span style="color: #969896;">|-- myapp</span>
 <span style="color: #969896;"># </span><span style="color: #969896;">|   |-- __init__.py  // &#19968;&#20010;&#31354;&#25991;&#20214;&#65292;&#21578;&#35785;Python&#35813;&#30446;&#24405;&#26159;&#19968;&#20010;Python&#21253;</span>
@@ -384,7 +384,7 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #00859e;">aprilewith.me</span><span style="color: #969896;">)</span> $ <span style="color: #008578;">python</span> <span style="color: #c33800;">manage.py</span> <span style="color: #007fe5;">runserver</span> <span style="color: #0086b3;">0.0.0.0:8001</span>
+<pre class="src src-sh"><span style="color: #969896;">(</span>aprilewith.me<span style="color: #969896;">)</span> $ python manage.py runserver <span style="color: #0086b3;">0.0.0.0:8001</span>
 </pre>
 </div>
 
@@ -393,7 +393,7 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #00859e;">aprilewith.me</span><span style="color: #969896;">)</span> $ <span style="color: #325ee6;">uwsgi</span> <span style="color: #b823ac;">--http</span> <span style="color: #ab5000;">:8000</span> <span style="color: #007ee9;">--wsgi-file</span> <span style="color: #d70036;">myapp/wsgi.py</span>
+<pre class="src src-sh"><span style="color: #969896;">(</span>aprilewith.me<span style="color: #969896;">)</span> $ uwsgi --http :8000 --wsgi-file myapp/wsgi.py
 </pre>
 </div>
 
@@ -406,19 +406,19 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-yaml"><span style="color: #969896;"># </span><span style="color: #969896;">test_uwsgi.ini</span>
+<pre class="src src-yaml"># test_uwsgi.ini
 [uwsgi]
-<span style="color: #969896;"># </span><span style="color: #969896;">Django-related settings</span>
-<span style="color: #969896;"># </span><span style="color: #969896;">the base directory (full path)</span>
+# Django-related settings
+# the base directory (full path)
 chdir  = /home/aprilwith/myapp
-<span style="color: #969896;"># </span><span style="color: #969896;">Django's wsgi file</span>
+# Django's wsgi file
 wsgi-file = /home/aprilwith/myapp/myapp/wsgi.py
 
-<span style="color: #969896;"># </span><span style="color: #969896;">Process-related settings</span>
+# Process-related settings
 master = true
 processes = 4
 
-http = :8000  <span style="color: #969896;"># </span><span style="color: #969896;">&#29305;&#21035;&#38656;&#35201;&#27880;&#24847;&#36825;&#37324;&#65281;</span>
+http = :8000  # 特别需要注意这里！
 chmod-socket = 666
 vacuum = true
 </pre>
@@ -434,28 +434,28 @@ vacuum = true
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #00859e;">aprilewith.me</span><span style="color: #969896;">)</span> $ <span style="color: #325ee6;">uwsgi</span> <span style="color: #006df1;">test_uwsgi.ini</span>
+<pre class="src src-sh"><span style="color: #969896;">(</span>aprilewith.me<span style="color: #969896;">)</span> $ uwsgi test_uwsgi.ini
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org7d47ab1" class="outline-2">
-<h2 id="org7d47ab1">Nginx 搭建</h2>
-<div class="outline-text-2" id="text-org7d47ab1">
-</div><div id="outline-container-orgb3d2517" class="outline-3">
-<h3 id="orgb3d2517">安装 Nginx</h3>
-<div class="outline-text-3" id="text-orgb3d2517">
+<div id="outline-container-org13e8103" class="outline-2">
+<h2 id="org13e8103">Nginx 搭建</h2>
+<div class="outline-text-2" id="text-org13e8103">
+</div><div id="outline-container-org612f8cd" class="outline-3">
+<h3 id="org612f8cd">安装 Nginx</h3>
+<div class="outline-text-3" id="text-org612f8cd">
 <p>
 安装步骤主要参考 <a href="http://www.jianshu.com/p/d5114a2a2052">Centos下 Nginx安装与配置</a> ，最后，打开浏览器访问此机器的IP，如果浏览器出现"Welcome to nginx!" 则表示 <code>Nginx</code> 已经安装并运行成功。
 </p>
 </div>
 </div>
 
-<div id="outline-container-org7cbc435" class="outline-3">
-<h3 id="org7cbc435">配置Nginx</h3>
-<div class="outline-text-3" id="text-org7cbc435">
+<div id="outline-container-orgcddcfc3" class="outline-3">
+<h3 id="orgcddcfc3">配置Nginx</h3>
+<div class="outline-text-3" id="text-orgcddcfc3">
 <ul class="org-ul">
 <li>将 <code>uwsgi_params</code> 文件拷贝到项目文件夹下。 <code>uwsgi_params</code> 文件在 <code>/usr/local/nginx/</code> 目录下，也可以从 <a href="https://github.com/nginx/nginx/blob/master/conf/uwsgi_params">这里</a> 下载;</li>
 <li>在项目文件夹下创建文件 <code>myapp_nginx.conf</code> ，添加以下内容：</li>
@@ -464,34 +464,34 @@ vacuum = true
 <pre class="src src-sh"><span style="color: #969896;"># </span><span style="color: #969896;">myapp_nginx.conf</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">the upstream component nginx needs to connect to</span>
-<span style="color: #0080e4;">upstream</span> <span style="color: #6d6f00;">django</span> <span style="color: #969896;">{</span>
+upstream django <span style="color: #969896;">{</span>
     <span style="color: #969896;"># </span><span style="color: #969896;">connect to this socket</span>
-    <span style="color: #da0061;">server</span>    <span style="color: #c92e0c;">unix:///home/aprilwith/myapp/myapp.sock</span>;
+    server    unix:///home/aprilwith/myapp/myapp.sock;
     <span style="color: #969896;"># </span><span style="color: #969896;">take care of `///`</span>
 <span style="color: #969896;">}</span>
 
-<span style="color: #da0061;">server</span> <span style="color: #969896;">{</span>
+server <span style="color: #969896;">{</span>
     <span style="color: #969896;"># </span><span style="color: #969896;">the port your site will be served on</span>
-    <span style="color: #0068ee;">listen</span>     <span style="color: #0086b3;">8000</span>;
-    <span style="color: #d30080;">server_name</span>        <span style="color: #0086b3;">[</span><span style="color: #317a00;">ip-address</span><span style="color: #0086b3;">]</span>;  <span style="color: #969896;"># </span><span style="color: #969896;">your ip address here</span>
-    <span style="color: #8947cf;">charset</span>            <span style="color: #008015;">utf-8</span>;
+    listen     <span style="color: #0086b3;">8000</span>;
+    server_name        <span style="color: #0086b3;">[</span>ip-address<span style="color: #0086b3;">]</span>;  <span style="color: #969896;"># </span><span style="color: #969896;">your ip address here</span>
+    charset            utf-8;
 
     <span style="color: #969896;"># </span><span style="color: #969896;">Max upload size</span>
-    <span style="color: #008458;">client_max_body_size</span> <span style="color: #0086b3;">80M</span>;
+    client_max_body_size <span style="color: #0086b3;">80M</span>;
 
     <span style="color: #969896;"># </span><span style="color: #969896;">Django media</span>
-    <span style="color: #007fe5;">location</span> <span style="color: #c017a3;">/media</span> <span style="color: #0086b3;">{</span>
-        <span style="color: #a71d5d;">alias</span> <span style="color: #0071f2;">/home/aprilwith/myapp/media</span>;
+    location /media <span style="color: #0086b3;">{</span>
+        <span style="color: #a71d5d;">alias</span> /home/aprilwith/myapp/media;
     <span style="color: #0086b3;">}</span>
 
-    <span style="color: #007fe5;">location</span> <span style="color: #0085a4;">/static</span> <span style="color: #0086b3;">{</span>
-        <span style="color: #a71d5d;">alias</span> <span style="color: #0075f2;">/home/aprilwith/myapp/static</span>;
+    location /static <span style="color: #0086b3;">{</span>
+        <span style="color: #a71d5d;">alias</span> /home/aprilwith/myapp/static;
     <span style="color: #0086b3;">}</span>
 
     <span style="color: #969896;"># </span><span style="color: #969896;">Finally, send all non-media requests to the Django server</span>
-    <span style="color: #007fe5;">location</span> <span style="color: #d8006e;">/</span> <span style="color: #0086b3;">{</span>
-        <span style="color: #6e6f00;">uwsgi_pass</span> <span style="color: #6d6f00;">django</span>;
-        <span style="color: #008599;">include</span>    <span style="color: #00822c;">/home/aprilwith/myapp/uwsgi_params</span>;
+    location / <span style="color: #0086b3;">{</span>
+        uwsgi_pass django;
+        include    /home/aprilwith/myapp/uwsgi_params;
     <span style="color: #0086b3;">}</span>
 <span style="color: #969896;">}</span>
 </pre>
@@ -504,13 +504,13 @@ vacuum = true
 </ul>
 <div class="org-src-container">
 <pre class="src src-yaml">[uwsgi]
-<span style="color: #969896;"># </span><span style="color: #969896;">Django-related settings</span>
-<span style="color: #969896;"># </span><span style="color: #969896;">the base directory (full path)</span>
+# Django-related settings
+# the base directory (full path)
 chdir  = /home/aprilwith/myapp
-<span style="color: #969896;"># </span><span style="color: #969896;">Django's wsgi file</span>
+# Django's wsgi file
 wsgi-file = /home/aprilwith/myapp/myapp/wsgi.py
 
-<span style="color: #969896;"># </span><span style="color: #969896;">Process-related settings</span>
+# Process-related settings
 master = true
 processes = 4
 
@@ -541,11 +541,11 @@ do the following:
 </blockquote>
 
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #cf0089;">cd</span> <span style="color: #af4e00;">/usr/local/nginx</span>
-<span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #da005c;">mkdir</span> <span style="color: #c43700;">conf.d</span>
-<span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #cf0089;">cd</span> <span style="color: #c43700;">conf.d</span>
-<span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #377900;">cp</span> <span style="color: #007ced;">/home/aprilwith/myapp/myapp_nginx.conf</span> <span style="color: #006cf0;">.</span>
-<span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #c92f09;">emacs</span> <span style="color: #b22bb3;">../conf/nginx.conf</span>
+<pre class="src src-sh"><span style="color: #969896;">(</span>aprilwith.me<span style="color: #969896;">)</span> $ cd /usr/local/nginx
+<span style="color: #969896;">(</span>aprilwith.me<span style="color: #969896;">)</span> $ mkdir conf.d
+<span style="color: #969896;">(</span>aprilwith.me<span style="color: #969896;">)</span> $ cd conf.d
+<span style="color: #969896;">(</span>aprilwith.me<span style="color: #969896;">)</span> $ cp /home/aprilwith/myapp/myapp_nginx.conf .
+<span style="color: #969896;">(</span>aprilwith.me<span style="color: #969896;">)</span> $ emacs ../conf/nginx.conf
 <span style="color: #969896;"># </span><span style="color: #969896;">adding blew into the http block of `/usr/local/nginx/conf/nginx.conf`</span>
 <span style="color: #969896;"># </span><span style="color: #969896;">include /usr/local/nginx/conf.d/*.conf;</span>
 </pre>
@@ -553,15 +553,15 @@ do the following:
 </div>
 </div>
 
-<div id="outline-container-org9807686" class="outline-3">
-<h3 id="org9807686">部署static文件</h3>
-<div class="outline-text-3" id="text-org9807686">
+<div id="outline-container-orgf599203" class="outline-3">
+<h3 id="orgf599203">部署static文件</h3>
+<div class="outline-text-3" id="text-orgf599203">
 <p>
 在你的 <code>Django</code> 项目的 <code>settings.py</code> 文件最后添加下面一行代码：
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #007deb;">STATIC_ROOT</span> = <span style="color: #007aef;">os</span>.<span style="color: #6854dc;">path</span>.<span style="color: #0085a5;">join</span><span style="color: #969896;">(</span><span style="color: #0083cf;">BASE_DIR</span>, <span style="color: #183691;">"static/"</span><span style="color: #969896;">)</span>
+<pre class="src src-python"><span style="color: #333333;">STATIC_ROOT</span> = os.path.join<span style="color: #969896;">(</span>BASE_DIR, <span style="color: #183691;">"static/"</span><span style="color: #969896;">)</span>
 </pre>
 </div>
 
@@ -570,7 +570,7 @@ do the following:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #008578;">python</span> <span style="color: #c33800;">manage.py</span> <span style="color: #0082db;">collectstatic</span>
+<pre class="src src-sh"><span style="color: #969896;">(</span>aprilwith.me<span style="color: #969896;">)</span> $ python manage.py collectstatic
 </pre>
 </div>
 
@@ -583,21 +583,21 @@ do the following:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #4d5ae2;">ALLOWED_HOSTS</span> = <span style="color: #969896;">[</span><span style="color: #183691;">'*'</span><span style="color: #969896;">]</span>
+<pre class="src src-python"><span style="color: #333333;">ALLOWED_HOSTS</span> = <span style="color: #969896;">[</span><span style="color: #183691;">'*'</span><span style="color: #969896;">]</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgd222769" class="outline-3">
-<h3 id="orgd222769">测试 Nginx 是否部署成功</h3>
-<div class="outline-text-3" id="text-orgd222769">
+<div id="outline-container-orgac113a0" class="outline-3">
+<h3 id="orgac113a0">测试 Nginx 是否部署成功</h3>
+<div class="outline-text-3" id="text-orgac113a0">
 <p>
 首先关闭 <code>Nginx</code> 服务
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">$ <span style="color: #00822c;">/usr/local/nginx/sbin/nginx</span> <span style="color: #0085ac;">-s</span> <span style="color: #985d00;">stop</span>
+<pre class="src src-sh">$ /usr/local/nginx/sbin/nginx -s stop
 </pre>
 </div>
 
@@ -606,7 +606,7 @@ do the following:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">$ <span style="color: #00822c;">/usr/local/nginx/sbin/nginx</span> <span style="color: #d10086;">-t</span>
+<pre class="src src-sh">$ /usr/local/nginx/sbin/nginx -t
 </pre>
 </div>
 
@@ -631,27 +631,27 @@ do the following:
 <pre class="src src-python"><span style="color: #969896;"># </span><span style="color: #969896;">-*- coding: utf-8 -*-</span>
 <span style="color: #969896;"># </span><span style="color: #969896;">myapp/myapp/search.py</span>
 
-<span style="color: #da0048;">from</span> <span style="color: #6d6f00;">django</span>.<span style="color: #00811d;">shortcuts</span> <span style="color: #c63400;">import</span> <span style="color: #0072f2;">render</span>
-<span style="color: #da0048;">from</span> <span style="color: #6d6f00;">django</span>.<span style="color: #d8006c;">template</span>.<span style="color: #876500;">context_processors</span> <span style="color: #c63400;">import</span> <span style="color: #00856c;">csrf</span>
+<span style="color: #a71d5d;">from</span> django.shortcuts <span style="color: #a71d5d;">import</span> render
+<span style="color: #a71d5d;">from</span> django.template.context_processors <span style="color: #a71d5d;">import</span> csrf
 
-<span style="color: #2f7a00;">def</span> <span style="color: #d8003e;">search_post</span><span style="color: #969896;">(</span><span style="color: #008004;">request</span><span style="color: #969896;">)</span>:
-    <span style="color: #00859d;">ctx</span> = <span style="color: #969896;">{}</span>
-    <span style="color: #00859d;">ctx</span>.<span style="color: #b84500;">update</span><span style="color: #969896;">(</span><span style="color: #00856c;">csrf</span><span style="color: #0086b3;">(</span><span style="color: #008004;">request</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>
-    <span style="color: #0083d2;">if</span> <span style="color: #008004;">request</span>.<span style="color: #b02db5;">POST</span>:
-        <span style="color: #00859d;">ctx</span><span style="color: #969896;">[</span><span style="color: #183691;">'rlt'</span><span style="color: #969896;">]</span> = <span style="color: #008004;">request</span>.<span style="color: #b02db5;">POST</span><span style="color: #969896;">[</span><span style="color: #183691;">'q'</span><span style="color: #969896;">]</span>
-    <span style="color: #0085a3;">return</span> <span style="color: #0072f2;">render</span><span style="color: #969896;">(</span><span style="color: #008004;">request</span>, <span style="color: #183691;">"post.html"</span>, <span style="color: #00859d;">ctx</span><span style="color: #969896;">)</span>
+<span style="color: #a71d5d;">def</span> <span style="color: #795da3;">search_post</span><span style="color: #969896;">(</span>request<span style="color: #969896;">)</span>:
+    <span style="color: #333333;">ctx</span> = <span style="color: #969896;">{}</span>
+    ctx.update<span style="color: #969896;">(</span>csrf<span style="color: #0086b3;">(</span>request<span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>
+    <span style="color: #a71d5d;">if</span> request.POST:
+        <span style="color: #333333;">ctx</span><span style="color: #969896;">[</span><span style="color: #183691;">'rlt'</span><span style="color: #969896;">]</span> = request.POST<span style="color: #969896;">[</span><span style="color: #183691;">'q'</span><span style="color: #969896;">]</span>
+    <span style="color: #a71d5d;">return</span> render<span style="color: #969896;">(</span>request, <span style="color: #183691;">"post.html"</span>, ctx<span style="color: #969896;">)</span>
 </pre>
 </div>
 
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #969896;"># </span><span style="color: #969896;">myapp/myapp/urls.py</span>
-<span style="color: #da0048;">from</span> <span style="color: #6d6f00;">django</span>.<span style="color: #0083d4;">conf</span>.<span style="color: #9641c8;">urls</span> <span style="color: #c63400;">import</span> <span style="color: #8a47ce;">url</span>
-<span style="color: #da0048;">from</span> <span style="color: #6d6f00;">django</span>.<span style="color: #0064eb;">contrib</span> <span style="color: #c63400;">import</span> <span style="color: #0081dd;">admin</span>
-<span style="color: #da0048;">from</span> <span style="color: #cb2a12;">myapp</span>.<span style="color: #008588;">search</span> <span style="color: #c63400;">import</span> <span style="color: #d8003e;">search_post</span>  <span style="color: #969896;"># </span><span style="color: #969896;">&#24403;&#28982;&#38656;&#35201;&#23548;&#20837;</span>
+<span style="color: #a71d5d;">from</span> django.conf.urls <span style="color: #a71d5d;">import</span> url
+<span style="color: #a71d5d;">from</span> django.contrib <span style="color: #a71d5d;">import</span> admin
+<span style="color: #a71d5d;">from</span> myapp.search <span style="color: #a71d5d;">import</span> search_post  <span style="color: #969896;"># </span><span style="color: #969896;">&#24403;&#28982;&#38656;&#35201;&#23548;&#20837;</span>
 
-<span style="color: #6b53db;">urlpatterns</span> = <span style="color: #969896;">[</span>
-    <span style="color: #8a47ce;">url</span><span style="color: #0086b3;">(</span><span style="color: #006ff1;">r</span><span style="color: #183691;">'^admin/'</span>, <span style="color: #0081dd;">admin</span>.<span style="color: #9f5900;">site</span>.<span style="color: #9641c8;">urls</span><span style="color: #0086b3;">)</span>,
-    <span style="color: #8a47ce;">url</span><span style="color: #0086b3;">(</span><span style="color: #006ff1;">r</span><span style="color: #183691;">'^search-post/'</span>, <span style="color: #d8003e;">search_post</span><span style="color: #0086b3;">)</span>,  <span style="color: #969896;"># </span><span style="color: #969896;">&#28155;&#21152;&#36825;&#19968;&#27573;</span>
+<span style="color: #333333;">urlpatterns</span> = <span style="color: #969896;">[</span>
+    url<span style="color: #0086b3;">(</span>r<span style="color: #183691;">'^admin/'</span>, admin.site.urls<span style="color: #0086b3;">)</span>,
+    url<span style="color: #0086b3;">(</span>r<span style="color: #183691;">'^search-post/'</span>, search_post<span style="color: #0086b3;">)</span>,  <span style="color: #969896;"># </span><span style="color: #969896;">&#28155;&#21152;&#36825;&#19968;&#27573;</span>
 <span style="color: #969896;">]</span>
 </pre>
 </div>
@@ -691,7 +691,7 @@ do the following:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #cd2617;">aprilwith.me</span><span style="color: #969896;">)</span> $ <span style="color: #325ee6;">uwsgi</span> <span style="color: #0085b4;">--ini</span> <span style="color: #854ad1;">uwsgi.ini</span>
+<pre class="src src-sh"><span style="color: #969896;">(</span>aprilwith.me<span style="color: #969896;">)</span> $ uwsgi --ini uwsgi.ini
 </pre>
 </div>
 

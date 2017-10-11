@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-16 Sun 16:24 -->
+<!-- 2017-10-11 Wed 21:10 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>《 UNIX 编程艺术》 读书笔记</title>
@@ -231,7 +231,7 @@ for the JavaScript code in this tag.
 <body>
 <div id="preamble" class="status">
 <div class="header">
-              <a href="https://aprilwith.me">自在随心</a> | <a href="http://github.com/qiaoin">Github</a>
+              <a href="http://aprilwith.me">自在随心</a> | <a href="https://github.com/qiaoin">Github</a>
           </div>
 </div>
 <div id="content">
@@ -240,28 +240,28 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgd5e90c2">模块性：保持清晰，保持简洁 (chapter4)</a>
+<li><a href="#org9f0cdbf">模块性：保持清晰，保持简洁 (chapter4)</a>
 <ul>
-<li><a href="#org88847fd">封装和最佳模块大小</a></li>
-<li><a href="#org7528524">紧凑性和正交性</a>
+<li><a href="#orgd5dbd20">封装和最佳模块大小</a></li>
+<li><a href="#org3f42de7">紧凑性和正交性</a>
 <ul>
-<li><a href="#org53f59e0">紧凑性</a></li>
-<li><a href="#org8fef281">正交性</a></li>
-<li><a href="#org58f868f">SPOT 原则</a></li>
-<li><a href="#orgf0eb28f">紧凑性和强单一中心</a></li>
-<li><a href="#org9062763">分离的价值</a></li>
+<li><a href="#orga0b9644">紧凑性</a></li>
+<li><a href="#orgc7ee8f5">正交性</a></li>
+<li><a href="#orgc19e2f2">SPOT 原则</a></li>
+<li><a href="#orgc9dba0a">紧凑性和强单一中心</a></li>
+<li><a href="#orgaeced4a">分离的价值</a></li>
 </ul>
 </li>
-<li><a href="#org7be93bc">软件是多层的</a>
+<li><a href="#org9f00348">软件是多层的</a>
 <ul>
-<li><a href="#orgb13a649">自顶向下和自底向上</a></li>
-<li><a href="#org1e8269a">胶合层</a></li>
-<li><a href="#org8964572">实例分析：被视为薄胶合层的 C 语言</a></li>
+<li><a href="#orgb261e89">自顶向下和自底向上</a></li>
+<li><a href="#org3fbf0ee">胶合层</a></li>
+<li><a href="#orgf8bd29a">实例分析：被视为薄胶合层的 C 语言</a></li>
 </ul>
 </li>
-<li><a href="#org31160ad">程序库</a></li>
-<li><a href="#org31377f7">Unix 和面向对象语言</a></li>
-<li><a href="#org466148c">模块式编码</a></li>
+<li><a href="#org476e9fa">程序库</a></li>
+<li><a href="#org1de395c">Unix 和面向对象语言</a></li>
+<li><a href="#orgda36fdc">模块式编码</a></li>
 </ul>
 </li>
 </ul>
@@ -269,9 +269,9 @@ for the JavaScript code in this tag.
 </div>
 
 
-<div id="outline-container-orgd5e90c2" class="outline-2">
-<h2 id="orgd5e90c2">模块性：保持清晰，保持简洁 (chapter4)</h2>
-<div class="outline-text-2" id="text-orgd5e90c2">
+<div id="outline-container-org9f0cdbf" class="outline-2">
+<h2 id="org9f0cdbf">模块性：保持清晰，保持简洁 (chapter4)</h2>
+<div class="outline-text-2" id="text-org9f0cdbf">
 <blockquote>
 <p>
 There are two ways of constructing a software design. One is to make it so simple 
@@ -296,9 +296,9 @@ that there are no obvious deficiencies. The first method is far more difficult.
 </p>
 </div>
 
-<div id="outline-container-org88847fd" class="outline-3">
-<h3 id="org88847fd">封装和最佳模块大小</h3>
-<div class="outline-text-3" id="text-org88847fd">
+<div id="outline-container-orgd5dbd20" class="outline-3">
+<h3 id="orgd5dbd20">封装和最佳模块大小</h3>
+<div class="outline-text-3" id="text-orgd5dbd20">
 <p>
 模块化代码的首要特质就是封装。封装良好的模块不会过多向外部披露自身的细节，不会直接
 调用其他模块的实现码，也不会胡乱共享全部数据。模块之间通过应用程序编程接口（ API ）
@@ -333,18 +333,18 @@ API 在模块间扮演双重角色。在实现层面，作为模块之间的滞�
 </div>
 
 
-<div id="outline-container-org7528524" class="outline-3">
-<h3 id="org7528524">紧凑性和正交性</h3>
-<div class="outline-text-3" id="text-org7528524">
+<div id="outline-container-org3f42de7" class="outline-3">
+<h3 id="org3f42de7">紧凑性和正交性</h3>
+<div class="outline-text-3" id="text-org3f42de7">
 <p>
 具有最佳尺寸的模块并不意味着代码有高质量。因此，在设计 API、命令集、协议以及其它让
 计算机工作的方法时，还要考虑另外两个特性：紧凑性和正交性。
 </p>
 </div>
 
-<div id="outline-container-org53f59e0" class="outline-4">
-<h4 id="org53f59e0">紧凑性</h4>
-<div class="outline-text-4" id="text-org53f59e0">
+<div id="outline-container-orga0b9644" class="outline-4">
+<h4 id="orga0b9644">紧凑性</h4>
+<div class="outline-text-4" id="text-orga0b9644">
 <p>
 紧凑性就是一个设计是否能装进人脑中的特性。测试软件紧凑性的一个很使用的好方法是：有
 经验的用户通常需要操作手册吗？如果不需要，那么这个设计（或者至少这个设计的涵盖正常
@@ -385,9 +385,9 @@ API 在模块间扮演双重角色。在实现层面，作为模块之间的滞�
 </div>
 
 
-<div id="outline-container-org8fef281" class="outline-4">
-<h4 id="org8fef281">正交性</h4>
-<div class="outline-text-4" id="text-org8fef281">
+<div id="outline-container-orgc7ee8f5" class="outline-4">
+<h4 id="orgc7ee8f5">正交性</h4>
+<div class="outline-text-4" id="text-orgc7ee8f5">
 <p>
 正交性是有助于使复杂设计也能紧凑的最重要特性之一。在纯粹的正交设计中，任何操作均无副作用；
 每一个动作（无论是 API 调用、宏调用还是语言运算）只改变一件事，不会影响其它。无论你控制
@@ -442,9 +442,9 @@ Unix 程序员，Unix API 也值得学习（ <b>TODO</b> ），因为从中可�
 </div>
 
 
-<div id="outline-container-org58f868f" class="outline-4">
-<h4 id="org58f868f">SPOT 原则</h4>
-<div class="outline-text-4" id="text-org58f868f">
+<div id="outline-container-orgc19e2f2" class="outline-4">
+<h4 id="orgc19e2f2">SPOT 原则</h4>
+<div class="outline-text-4" id="text-orgc19e2f2">
 <p>
 《程序员修炼之道》针对一类特别重要的正交性明确提出了一条原则 —— “不要重复自身
 （ Don't Repeat Yourself ）”，意思是说： <b>任何一个知识点在系统内部都应当有唯一、</b> 
@@ -504,9 +504,9 @@ Unix 程序员，Unix API 也值得学习（ <b>TODO</b> ），因为从中可�
 </div>
 
 
-<div id="outline-container-orgf0eb28f" class="outline-4">
-<h4 id="orgf0eb28f">紧凑性和强单一中心</h4>
-<div class="outline-text-4" id="text-orgf0eb28f">
+<div id="outline-container-orgc9dba0a" class="outline-4">
+<h4 id="orgc9dba0a">紧凑性和强单一中心</h4>
+<div class="outline-text-4" id="text-orgc9dba0a">
 <p>
 要提高设计的紧凑性，有一个精妙且强大的方法，就是围绕“解决一个定义明确的问题”的强核心
 算法组织设计，避免臆断和捏造。
@@ -527,9 +527,9 @@ Unix 程序员，Unix API 也值得学习（ <b>TODO</b> ），因为从中可�
 </div>
 
 
-<div id="outline-container-org9062763" class="outline-4">
-<h4 id="org9062763">分离的价值</h4>
-<div class="outline-text-4" id="text-org9062763">
+<div id="outline-container-orgaeced4a" class="outline-4">
+<h4 id="orgaeced4a">分离的价值</h4>
+<div class="outline-text-4" id="text-orgaeced4a">
 <div class="org-center">
 <p>
 “……限制不仅提倡了经济性，而且某种程度上提倡了设计的优雅。”
@@ -552,18 +552,18 @@ Unix 程序员，Unix API 也值得学习（ <b>TODO</b> ），因为从中可�
 </div>
 
 
-<div id="outline-container-org7be93bc" class="outline-3">
-<h3 id="org7be93bc">软件是多层的</h3>
-<div class="outline-text-3" id="text-org7be93bc">
+<div id="outline-container-org9f00348" class="outline-3">
+<h3 id="org9f00348">软件是多层的</h3>
+<div class="outline-text-3" id="text-org9f00348">
 <p>
 一般来说，设计函数或对象的层次结构可以选择两个方向。选择何种方向、何时选择，对代码
 的分层有着深远的影响。
 </p>
 </div>
 
-<div id="outline-container-orgb13a649" class="outline-4">
-<h4 id="orgb13a649">自顶向下和自底向上</h4>
-<div class="outline-text-4" id="text-orgb13a649">
+<div id="outline-container-orgb261e89" class="outline-4">
+<h4 id="orgb261e89">自顶向下和自底向上</h4>
+<div class="outline-text-4" id="text-orgb261e89">
 <p>
 一个方向是自底向上，从具体到抽象 —— 从问题域中你确定要进行的具体操作开始，向上进行。
 例如，如果为一个磁盘驱动器设计固件，一些底层的原语可能包括“磁头移动至物理块”、“读
@@ -605,9 +605,9 @@ Unix 程序员，Unix API 也值得学习（ <b>TODO</b> ），因为从中可�
 </div>
 
 
-<div id="outline-container-org1e8269a" class="outline-4">
-<h4 id="org1e8269a">胶合层</h4>
-<div class="outline-text-4" id="text-org1e8269a">
+<div id="outline-container-org3fbf0ee" class="outline-4">
+<h4 id="org3fbf0ee">胶合层</h4>
+<div class="outline-text-4" id="text-org3fbf0ee">
 <p>
 当自顶向下和自底向上发生冲突时，其结果往往是一团糟。顶层的应用逻辑和底层的域原语集
 必须用胶合逻辑层来进行阻抗匹配（ impedance match ）。
@@ -627,9 +627,9 @@ Unix 程序员几十年的教训之一就是：胶合层是个挺讨厌的东西
 </div>
 
 
-<div id="outline-container-org8964572" class="outline-4">
-<h4 id="org8964572">实例分析：被视为薄胶合层的 C 语言</h4>
-<div class="outline-text-4" id="text-org8964572">
+<div id="outline-container-orgf8bd29a" class="outline-4">
+<h4 id="orgf8bd29a">实例分析：被视为薄胶合层的 C 语言</h4>
+<div class="outline-text-4" id="text-orgf8bd29a">
 <p>
 C 语言本身就是一个体现薄粘合层有效性的良好例子。
 </p>
@@ -649,9 +649,9 @@ Ritchie 和 Thompson 坚信该格言。即便当早期 Unix 软件所受的种�
 </div>
 
 
-<div id="outline-container-org31160ad" class="outline-3">
-<h3 id="org31160ad">程序库</h3>
-<div class="outline-text-3" id="text-org31160ad">
+<div id="outline-container-org476e9fa" class="outline-3">
+<h3 id="org476e9fa">程序库</h3>
+<div class="outline-text-3" id="text-org476e9fa">
 <p>
 Unix 编程风格强调模块性和定义良好的 API，它所产生的影响之一就是：强烈倾向于把程序
 分解成由胶合层连接的库集合，特别是共享库（在 Windows 和其它操作系统下叫做“动态连接
@@ -667,9 +667,9 @@ Unix 编程风格强调模块性和定义良好的 API，它所产生的影响�
 </div>
 
 
-<div id="outline-container-org31377f7" class="outline-3">
-<h3 id="org31377f7">Unix 和面向对象语言</h3>
-<div class="outline-text-3" id="text-org31377f7">
+<div id="outline-container-org1de395c" class="outline-3">
+<h3 id="org1de395c">Unix 和面向对象语言</h3>
+<div class="outline-text-3" id="text-org1de395c">
 <p>
 前面我们提到，Unix 的模块化传统就是薄胶合层原则，也就是说，硬件和程序顶层对象之间的
 抽象层越少越好（这部分是因为 C 语言的影响）。
@@ -696,9 +696,9 @@ Unix 风格程序设计所面临的 <b>主要挑战</b> 就是如何将分离法
 </div>
 
 
-<div id="outline-container-org466148c" class="outline-3">
-<h3 id="org466148c">模块式编码</h3>
-<div class="outline-text-3" id="text-org466148c">
+<div id="outline-container-orgda36fdc" class="outline-3">
+<h3 id="orgda36fdc">模块式编码</h3>
+<div class="outline-text-3" id="text-orgda36fdc">
 <p>
 模块性体现在良好的代码中，但首先来自良好的设计。在编写代码时，问问自己以下这些问题，
 可能会有助于提高代码的模块性：

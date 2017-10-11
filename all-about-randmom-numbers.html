@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-15 Sat 17:14 -->
+<!-- 2017-10-11 Wed 21:10 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>随机数——僭越之罪</title>
@@ -253,7 +253,7 @@ for the JavaScript code in this tag.
 <body>
 <div id="preamble" class="status">
 <div class="header">
-              <a href="https://aprilwith.me">自在随心</a> | <a href="http://github.com/qiaoin">Github</a>
+              <a href="http://aprilwith.me">自在随心</a> | <a href="https://github.com/qiaoin">Github</a>
           </div>
 </div>
 <div id="content">
@@ -262,15 +262,15 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org494c82e">在Java中使用随机数</a></li>
-<li><a href="#orgdd5bf82">TAOCP中线性同余法摘记</a>
+<li><a href="#orgf5c151a">在Java中使用随机数</a></li>
+<li><a href="#orgfe312b7">TAOCP中线性同余法摘记</a>
 <ul>
-<li><a href="#org2686b2d">3.2.1 线性同余法 P8</a></li>
-<li><a href="#org19d8a21">3.2.1.2 乘数的选择 定理A P15</a></li>
-<li><a href="#org1ff32b1">3.6 小结 P163</a></li>
+<li><a href="#org841596c">3.2.1 线性同余法 P8</a></li>
+<li><a href="#org58a1c20">3.2.1.2 乘数的选择 定理A P15</a></li>
+<li><a href="#org08cf1e2">3.6 小结 P163</a></li>
 </ul>
 </li>
-<li><a href="#orgac04e6e">从 Java 源代码看线性同余法</a></li>
+<li><a href="#org748acdc">从 Java 源代码看线性同余法</a></li>
 </ul>
 </div>
 </div>
@@ -297,15 +297,15 @@ for the JavaScript code in this tag.
 在之前，玩炉石开卡包拼人品，总是开出一蓝四白，于是开始怀疑这玩的不是同一个游戏，终于弃坑，现在想想，暴雪这个随机数生成程序的实现也许随机性不是很好。当然，这只是猜想。
 </p>
 
-<div id="outline-container-org494c82e" class="outline-2">
-<h2 id="org494c82e">在Java中使用随机数</h2>
-<div class="outline-text-2" id="text-org494c82e">
+<div id="outline-container-orgf5c151a" class="outline-2">
+<h2 id="orgf5c151a">在Java中使用随机数</h2>
+<div class="outline-text-2" id="text-orgf5c151a">
 <p>
 在Java中使用随机数只需调用：
 </p>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #0086b3;">double</span> <span style="color: #0085b0;">m</span> = <span style="color: #007f00;">Math</span>.<span style="color: #ce231b;">random</span><span style="color: #969896;">()</span>;
+<pre class="src src-java"><span style="color: #0086b3;">double</span> <span style="color: #333333;">m</span> = Math.random<span style="color: #969896;">()</span>;
 </pre>
 </div>
 
@@ -314,8 +314,8 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #007f00;">public</span> <span style="color: #00845b;">static</span> <span style="color: #0086b3;">double</span> <span style="color: #ce231b;">random</span><span style="color: #969896;">()</span> <span style="color: #969896;">{</span>
-    <span style="color: #0085a3;">return</span> <span style="color: #ca0094;">RandomNumberGeneratorHolder</span>.<span style="color: #d90040;">randomNumberGenerator</span>.<span style="color: #da005a;">nextDouble</span><span style="color: #0086b3;">()</span>;
+<pre class="src src-java"><span style="color: #a71d5d;">public</span> <span style="color: #a71d5d;">static</span> <span style="color: #0086b3;">double</span> <span style="color: #795da3;">random</span><span style="color: #969896;">()</span> <span style="color: #969896;">{</span>
+    <span style="color: #a71d5d;">return</span> RandomNumberGeneratorHolder.randomNumberGenerator.nextDouble<span style="color: #0086b3;">()</span>;
 <span style="color: #969896;">}</span>
 </pre>
 </div>
@@ -325,8 +325,8 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #4e5ae2;">private</span> <span style="color: #00845b;">static</span> <span style="color: #0069ee;">final</span> <span style="color: #cd008e;">class</span> <span style="color: #0086b3;">RandomNumberGeneratorHolder</span> <span style="color: #969896;">{</span>
-    <span style="color: #00845b;">static</span> <span style="color: #0069ee;">final</span> <span style="color: #0086b3;">Random</span> <span style="color: #d90040;">randomNumberGenerator</span> = <span style="color: #d90067;">new</span> <span style="color: #0086b3;">Random</span><span style="color: #0086b3;">()</span>;
+<pre class="src src-java"><span style="color: #a71d5d;">private</span> <span style="color: #a71d5d;">static</span> <span style="color: #a71d5d;">final</span> <span style="color: #a71d5d;">class</span> <span style="color: #0086b3;">RandomNumberGeneratorHolder</span> <span style="color: #969896;">{</span>
+    <span style="color: #a71d5d;">static</span> <span style="color: #a71d5d;">final</span> <span style="color: #0086b3;">Random</span> <span style="color: #333333;">randomNumberGenerator</span> = <span style="color: #a71d5d;">new</span> <span style="color: #0086b3;">Random</span><span style="color: #0086b3;">()</span>;
 <span style="color: #969896;">}</span>
 </pre>
 </div>
@@ -355,30 +355,30 @@ exactly as if by the expression. This new pseudorandom-number generator is used 
 
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #969896;">/* </span><span style="color: #969896;">1.&#21019;&#24314;Random&#23545;&#35937;&#65292;&#25552;&#20379;&#20004;&#20010;&#26500;&#36896;&#26041;&#27861; */</span>
-<span style="color: #0086b3;">Random</span> <span style="color: #ce231b;">random</span> = <span style="color: #d90067;">new</span> <span style="color: #0086b3;">Random</span><span style="color: #969896;">()</span>;      <span style="color: #969896;">// </span><span style="color: #969896;">&#40664;&#35748;&#26500;&#36896;&#26041;&#27861;</span>
+<span style="color: #0086b3;">Random</span> <span style="color: #333333;">random</span> = <span style="color: #a71d5d;">new</span> <span style="color: #0086b3;">Random</span><span style="color: #969896;">()</span>;      <span style="color: #969896;">// </span><span style="color: #969896;">&#40664;&#35748;&#26500;&#36896;&#26041;&#27861;</span>
 <span style="color: #969896;">//</span><span style="color: #969896;">Random random = new Random(1000);  // &#25351;&#23450;&#31181;&#23376;&#25968;&#23383;</span>
 <span style="color: #969896;">/* </span><span style="color: #969896;">2.&#36890;&#36807;Random&#23454;&#20363;&#33719;&#21462;&#25152;&#38656;&#35201;&#30340;&#38543;&#26426;&#25968;&#65292;&#25552;&#20379;&#22810;&#31181;&#31867;&#22411;&#30340;&#38543;&#26426;&#25968;&#31867;&#22411;&#65306;boolean&#65292;byte&#65292;int&#65292;long&#65292;float&#65292;double */</span>
 <span style="color: #969896;">// </span><span style="color: #969896;">&#24471;&#21040;&#19968;&#20010;int&#31867;&#22411;&#38543;&#26426;&#25968;&#65292;&#22914;&#19979;&#65307;</span>
-<span style="color: #0086b3;">int</span> <span style="color: #0076f2;">n</span> = <span style="color: #ce231b;">random</span>.<span style="color: #d21627;">nextInt</span><span style="color: #969896;">()</span>;
+<span style="color: #0086b3;">int</span> <span style="color: #333333;">n</span> = random.nextInt<span style="color: #969896;">()</span>;
 <span style="color: #969896;">// </span><span style="color: #969896;">&#24471;&#21040;&#19968;&#20010;[0, 1000)int&#31867;&#22411;&#30340;&#38543;&#26426;&#25968;&#65292;&#22914;&#19979;&#65307;</span>
-<span style="color: #0086b3;">int</span> <span style="color: #0085b0;">m</span> = <span style="color: #ce231b;">random</span>.<span style="color: #d21627;">nextInt</span><span style="color: #969896;">(</span><span style="color: #0086b3;">1000</span><span style="color: #969896;">)</span>;
+<span style="color: #0086b3;">int</span> <span style="color: #333333;">m</span> = random.nextInt<span style="color: #969896;">(</span><span style="color: #0086b3;">1000</span><span style="color: #969896;">)</span>;
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgdd5bf82" class="outline-2">
-<h2 id="orgdd5bf82">TAOCP中线性同余法摘记</h2>
-<div class="outline-text-2" id="text-orgdd5bf82">
+<div id="outline-container-orgfe312b7" class="outline-2">
+<h2 id="orgfe312b7">TAOCP中线性同余法摘记</h2>
+<div class="outline-text-2" id="text-orgfe312b7">
 <p>
 最近花时间过了一下 TAOCP 第二卷的随机数一章，数学证明太多，我也仅是想知道随机数的产生，也可以算是目的已经达到了，
 下面将书上这一章关于线性同余法的介绍摘录如下（ TAOCP 第二卷，半数值算法，第三版，国防工业出版社）。
 </p>
 </div>
 
-<div id="outline-container-org2686b2d" class="outline-3">
-<h3 id="org2686b2d">3.2.1 线性同余法 P8</h3>
-<div class="outline-text-3" id="text-org2686b2d">
+<div id="outline-container-org841596c" class="outline-3">
+<h3 id="org841596c">3.2.1 线性同余法 P8</h3>
+<div class="outline-text-3" id="text-org841596c">
 <p>
 当今使用的最流行的随机数生成程序是 D.H.Lehmer 1949年介绍过的方案的特殊情况。我们选择 4 个魔术整数：
 </p>
@@ -419,9 +419,9 @@ exactly as if by the expression. This new pseudorandom-number generator is used 
 </div>
 </div>
 
-<div id="outline-container-org19d8a21" class="outline-3">
-<h3 id="org19d8a21">3.2.1.2 乘数的选择 定理A P15</h3>
-<div class="outline-text-3" id="text-org19d8a21">
+<div id="outline-container-org58a1c20" class="outline-3">
+<h3 id="org58a1c20">3.2.1.2 乘数的选择 定理A P15</h3>
+<div class="outline-text-3" id="text-org58a1c20">
 <p>
 由 \(m\) ， \(a\) ， \(c\) 和 \(X_0\) 所定义的线性同余序列有周期长度 \(m\) 当且仅当
 </p>
@@ -434,9 +434,9 @@ exactly as if by the expression. This new pseudorandom-number generator is used 
 </div>
 </div>
 
-<div id="outline-container-org1ff32b1" class="outline-3">
-<h3 id="org1ff32b1">3.6 小结 P163</h3>
-<div class="outline-text-3" id="text-org1ff32b1">
+<div id="outline-container-org08cf1e2" class="outline-3">
+<h3 id="org08cf1e2">3.6 小结 P163</h3>
+<div class="outline-text-3" id="text-org08cf1e2">
 <p>
 在这一章中我们叙述了相当大量的课题：怎样生成随机数，怎样检验它们，怎样在应用中修正它们，以及怎样推导关于它们的理论等。
 也许在许多读者的心目中，主要的问题是：“什么是整个理论的结果？什么是在我的程序中可以使用的简单而良好的生成程序，以便有一个可靠的随机数的来源？”
@@ -460,22 +460,22 @@ exactly as if by the expression. This new pseudorandom-number generator is used 
 </div>
 </div>
 
-<div id="outline-container-orgac04e6e" class="outline-2">
-<h2 id="orgac04e6e">从 Java 源代码看线性同余法</h2>
-<div class="outline-text-2" id="text-orgac04e6e">
+<div id="outline-container-org748acdc" class="outline-2">
+<h2 id="org748acdc">从 Java 源代码看线性同余法</h2>
+<div class="outline-text-2" id="text-org748acdc">
 <p>
 如上所述，Java 中两种生成随机数的方法，均是在使用 <code>java.util.Random</code> 这个类所提供的方法。为了方便描述，将上面使用随机数的代码（依次编号为0，1，2，3）拷贝在下面：
 </p>
 
 <div class="org-src-container">
 <pre class="src src-java"><span style="color: #969896;">/* </span><span style="color: #969896;">1.&#21019;&#24314;Random&#23545;&#35937;&#65292;&#25552;&#20379;&#20004;&#20010;&#26500;&#36896;&#26041;&#27861; */</span>
-<span style="color: #0086b3;">Random</span> <span style="color: #ce231b;">random</span> = <span style="color: #d90067;">new</span> <span style="color: #0086b3;">Random</span><span style="color: #969896;">()</span>;        <span style="color: #969896;">// </span><span style="color: #969896;">&#40664;&#35748;&#26500;&#36896;&#26041;&#27861;     *********&#65288;0&#65289;</span>
+<span style="color: #0086b3;">Random</span> <span style="color: #333333;">random</span> = <span style="color: #a71d5d;">new</span> <span style="color: #0086b3;">Random</span><span style="color: #969896;">()</span>;        <span style="color: #969896;">// </span><span style="color: #969896;">&#40664;&#35748;&#26500;&#36896;&#26041;&#27861;     *********&#65288;0&#65289;</span>
 <span style="color: #969896;">//</span><span style="color: #969896;">Random random = new Random(1000);  // &#25351;&#23450;&#31181;&#23376;&#25968;&#23383;     *********&#65288;1&#65289;</span>
 <span style="color: #969896;">/* </span><span style="color: #969896;">2.&#36890;&#36807;Random&#23454;&#20363;&#33719;&#21462;&#25152;&#38656;&#35201;&#30340;&#38543;&#26426;&#25968;&#65292;&#25552;&#20379;&#22810;&#31181;&#31867;&#22411;&#30340;&#38543;&#26426;&#25968;&#31867;&#22411;&#65306;boolean&#65292;byte&#65292;int&#65292;long&#65292;float&#65292;double */</span>
 <span style="color: #969896;">// </span><span style="color: #969896;">&#24471;&#21040;&#19968;&#20010;int&#31867;&#22411;&#38543;&#26426;&#25968;&#65292;&#22914;&#19979;&#65307;</span>
-<span style="color: #0086b3;">int</span> <span style="color: #0076f2;">n</span> = <span style="color: #ce231b;">random</span>.<span style="color: #d21627;">nextInt</span><span style="color: #969896;">()</span>;            <span style="color: #969896;">//                 </span><span style="color: #969896;">*********&#65288;2&#65289;</span>
+<span style="color: #0086b3;">int</span> <span style="color: #333333;">n</span> = random.nextInt<span style="color: #969896;">()</span>;            <span style="color: #969896;">//                 </span><span style="color: #969896;">*********&#65288;2&#65289;</span>
 <span style="color: #969896;">// </span><span style="color: #969896;">&#24471;&#21040;&#19968;&#20010;[0, 1000)int&#31867;&#22411;&#30340;&#38543;&#26426;&#25968;&#65292;&#22914;&#19979;&#65307;</span>
-<span style="color: #0086b3;">int</span> <span style="color: #0085b0;">m</span> = <span style="color: #ce231b;">random</span>.<span style="color: #d21627;">nextInt</span><span style="color: #969896;">(</span><span style="color: #0086b3;">1000</span><span style="color: #969896;">)</span>;        <span style="color: #969896;">//                 </span><span style="color: #969896;">*********&#65288;3&#65289;</span>
+<span style="color: #0086b3;">int</span> <span style="color: #333333;">m</span> = random.nextInt<span style="color: #969896;">(</span><span style="color: #0086b3;">1000</span><span style="color: #969896;">)</span>;        <span style="color: #969896;">//                 </span><span style="color: #969896;">*********&#65288;3&#65289;</span>
 </pre>
 </div>
 
@@ -506,35 +506,35 @@ An instance of this class is used to generate a stream of <b>pseudorandom</b> nu
 </p>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #007f00;">public</span> <span style="color: #896500;">Random</span><span style="color: #969896;">()</span> <span style="color: #969896;">{</span>
-    <span style="color: #da0046;">this</span><span style="color: #0086b3;">(</span><span style="color: #5658e0;">seedUniquifier</span><span style="color: #969896;">()</span> ^ <span style="color: #008012;">System</span>.<span style="color: #7b6a00;">nanoTime</span><span style="color: #969896;">()</span><span style="color: #0086b3;">)</span>;
+<pre class="src src-java"><span style="color: #a71d5d;">public</span> <span style="color: #795da3;">Random</span><span style="color: #969896;">()</span> <span style="color: #969896;">{</span>
+    <span style="color: #a71d5d;">this</span><span style="color: #0086b3;">(</span>seedUniquifier<span style="color: #969896;">()</span> ^ System.nanoTime<span style="color: #969896;">()</span><span style="color: #0086b3;">)</span>;
 <span style="color: #969896;">}</span>
 
-<span style="color: #4e5ae2;">private</span> <span style="color: #00845b;">static</span> <span style="color: #0086b3;">long</span> <span style="color: #5658e0;">seedUniquifier</span><span style="color: #969896;">()</span> <span style="color: #969896;">{</span>
+<span style="color: #a71d5d;">private</span> <span style="color: #a71d5d;">static</span> <span style="color: #0086b3;">long</span> <span style="color: #795da3;">seedUniquifier</span><span style="color: #969896;">()</span> <span style="color: #969896;">{</span>
     <span style="color: #969896;">// </span><span style="color: #969896;">L'Ecuyer, "Tables of Linear Congruential Generators of</span>
     <span style="color: #969896;">// </span><span style="color: #969896;">Different Sizes and Good Lattice Structure", 1999</span>
-    <span style="color: #0082da;">for</span> <span style="color: #0086b3;">(</span>;;<span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
-        <span style="color: #0086b3;">long</span> <span style="color: #6953db;">current</span> = <span style="color: #5658e0;">seedUniquifier</span>.<span style="color: #607200;">get</span><span style="color: #969896;">()</span>;
-        <span style="color: #0086b3;">long</span> <span style="color: #985d00;">next</span> = <span style="color: #6953db;">current</span> * <span style="color: #0086b3;">181783497276652981L</span>;
-        <span style="color: #0083d2;">if</span> <span style="color: #969896;">(</span><span style="color: #5658e0;">seedUniquifier</span>.<span style="color: #00857d;">compareAndSet</span><span style="color: #795da3;">(</span><span style="color: #6953db;">current</span>, <span style="color: #985d00;">next</span><span style="color: #795da3;">)</span><span style="color: #969896;">)</span>
-            <span style="color: #0085a3;">return</span> <span style="color: #985d00;">next</span>;
+    <span style="color: #a71d5d;">for</span> <span style="color: #0086b3;">(</span>;;<span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
+        <span style="color: #0086b3;">long</span> <span style="color: #333333;">current</span> = seedUniquifier.get<span style="color: #969896;">()</span>;
+        <span style="color: #0086b3;">long</span> <span style="color: #333333;">next</span> = current * <span style="color: #0086b3;">181783497276652981L</span>;
+        <span style="color: #a71d5d;">if</span> <span style="color: #969896;">(</span>seedUniquifier.compareAndSet<span style="color: #795da3;">(</span>current, next<span style="color: #795da3;">)</span><span style="color: #969896;">)</span>
+            <span style="color: #a71d5d;">return</span> next;
     <span style="color: #0086b3;">}</span>
 <span style="color: #969896;">}</span>
 
-<span style="color: #4e5ae2;">private</span> <span style="color: #00845b;">static</span> <span style="color: #0069ee;">final</span> <span style="color: #0086b3;">AtomicLong</span> <span style="color: #5658e0;">seedUniquifier</span> = <span style="color: #d90067;">new</span> <span style="color: #0086b3;">AtomicLong</span><span style="color: #969896;">(</span><span style="color: #0086b3;">8682522807148012L</span><span style="color: #969896;">)</span>;
+<span style="color: #a71d5d;">private</span> <span style="color: #a71d5d;">static</span> <span style="color: #a71d5d;">final</span> <span style="color: #0086b3;">AtomicLong</span> <span style="color: #333333;">seedUniquifier</span> = <span style="color: #a71d5d;">new</span> <span style="color: #0086b3;">AtomicLong</span><span style="color: #969896;">(</span><span style="color: #0086b3;">8682522807148012L</span><span style="color: #969896;">)</span>;
 
-<span style="color: #007f00;">public</span> <span style="color: #896500;">Random</span><span style="color: #969896;">(</span><span style="color: #0086b3;">long</span> <span style="color: #007ced;">seed</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
-    <span style="color: #0083d2;">if</span> <span style="color: #0086b3;">(</span><span style="color: #0083ce;">getClass</span><span style="color: #969896;">()</span> == <span style="color: #896500;">Random</span>.<span style="color: #cd008e;">class</span><span style="color: #0086b3;">)</span>
-        <span style="color: #da0046;">this</span>.<span style="color: #007ced;">seed</span> = <span style="color: #d90067;">new</span> <span style="color: #0086b3;">AtomicLong</span><span style="color: #0086b3;">(</span><span style="color: #0085a6;">initialScramble</span><span style="color: #969896;">(</span><span style="color: #007ced;">seed</span><span style="color: #969896;">)</span><span style="color: #0086b3;">)</span>;
-    <span style="color: #0084c9;">else</span> <span style="color: #0086b3;">{</span>
+<span style="color: #a71d5d;">public</span> <span style="color: #795da3;">Random</span><span style="color: #969896;">(</span><span style="color: #0086b3;">long</span> <span style="color: #333333;">seed</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+    <span style="color: #a71d5d;">if</span> <span style="color: #0086b3;">(</span>getClass<span style="color: #969896;">()</span> == Random.<span style="color: #a71d5d;">class</span><span style="color: #0086b3;">)</span>
+        <span style="color: #a71d5d;">this</span>.seed = <span style="color: #a71d5d;">new</span> <span style="color: #0086b3;">AtomicLong</span><span style="color: #0086b3;">(</span>initialScramble<span style="color: #969896;">(</span>seed<span style="color: #969896;">)</span><span style="color: #0086b3;">)</span>;
+    <span style="color: #a71d5d;">else</span> <span style="color: #0086b3;">{</span>
         <span style="color: #969896;">// </span><span style="color: #969896;">subclass might have overriden setSeed</span>
-        <span style="color: #da0046;">this</span>.<span style="color: #007ced;">seed</span> = <span style="color: #d90067;">new</span> <span style="color: #0086b3;">AtomicLong</span><span style="color: #969896;">()</span>;
-        <span style="color: #3b7900;">setSeed</span><span style="color: #969896;">(</span><span style="color: #007ced;">seed</span><span style="color: #969896;">)</span>;
+        <span style="color: #a71d5d;">this</span>.seed = <span style="color: #a71d5d;">new</span> <span style="color: #0086b3;">AtomicLong</span><span style="color: #969896;">()</span>;
+        setSeed<span style="color: #969896;">(</span>seed<span style="color: #969896;">)</span>;
     <span style="color: #0086b3;">}</span>
 <span style="color: #969896;">}</span>
 
-<span style="color: #4e5ae2;">private</span> <span style="color: #00845b;">static</span> <span style="color: #0086b3;">long</span> <span style="color: #0085a6;">initialScramble</span><span style="color: #969896;">(</span><span style="color: #0086b3;">long</span> <span style="color: #007ced;">seed</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
-    <span style="color: #0085a3;">return</span> <span style="color: #0086b3;">(</span><span style="color: #007ced;">seed</span> ^ <span style="color: #796b00;">multiplier</span><span style="color: #0086b3;">)</span> &amp; <span style="color: #0085ac;">mask</span>;
+<span style="color: #a71d5d;">private</span> <span style="color: #a71d5d;">static</span> <span style="color: #0086b3;">long</span> <span style="color: #795da3;">initialScramble</span><span style="color: #969896;">(</span><span style="color: #0086b3;">long</span> <span style="color: #333333;">seed</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+    <span style="color: #a71d5d;">return</span> <span style="color: #0086b3;">(</span>seed ^ multiplier<span style="color: #0086b3;">)</span> &amp; mask;
 <span style="color: #969896;">}</span>
 </pre>
 </div>
@@ -561,8 +561,8 @@ An instance of this class is used to generate a stream of <b>pseudorandom</b> nu
 </p>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #007f00;">public</span> <span style="color: #0086b3;">int</span> <span style="color: #d21627;">nextInt</span><span style="color: #969896;">()</span> <span style="color: #969896;">{</span>
-    <span style="color: #0085a3;">return</span> <span style="color: #985d00;">next</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">32</span><span style="color: #0086b3;">)</span>;
+<pre class="src src-java"><span style="color: #a71d5d;">public</span> <span style="color: #0086b3;">int</span> <span style="color: #795da3;">nextInt</span><span style="color: #969896;">()</span> <span style="color: #969896;">{</span>
+    <span style="color: #a71d5d;">return</span> next<span style="color: #0086b3;">(</span><span style="color: #0086b3;">32</span><span style="color: #0086b3;">)</span>;
 <span style="color: #969896;">}</span>
 </pre>
 </div>
@@ -572,20 +572,20 @@ An instance of this class is used to generate a stream of <b>pseudorandom</b> nu
 </p>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #008580;">protected</span> <span style="color: #0086b3;">int</span> <span style="color: #985d00;">next</span><span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #008466;">bits</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
-    <span style="color: #0086b3;">long</span> <span style="color: #008468;">oldseed</span>, <span style="color: #007fe5;">nextseed</span>;
-    <span style="color: #0086b3;">AtomicLong</span> <span style="color: #007ced;">seed</span> = <span style="color: #da0046;">this</span>.<span style="color: #007ced;">seed</span>;
-    <span style="color: #d60035;">do</span> <span style="color: #0086b3;">{</span>
-        <span style="color: #008468;">oldseed</span> = <span style="color: #007ced;">seed</span>.<span style="color: #607200;">get</span><span style="color: #969896;">()</span>;
-        <span style="color: #007fe5;">nextseed</span> = <span style="color: #969896;">(</span><span style="color: #008468;">oldseed</span> * <span style="color: #796b00;">multiplier</span> + <span style="color: #bd4000;">addend</span><span style="color: #969896;">)</span> &amp; <span style="color: #0085ac;">mask</span>;
-    <span style="color: #0086b3;">}</span> <span style="color: #c73204;">while</span> <span style="color: #0086b3;">(</span><span style="color: #a71d5d;">!</span><span style="color: #007ced;">seed</span>.<span style="color: #00857d;">compareAndSet</span><span style="color: #969896;">(</span><span style="color: #008468;">oldseed</span>, <span style="color: #007fe5;">nextseed</span><span style="color: #969896;">)</span><span style="color: #0086b3;">)</span>;
-    <span style="color: #0085a3;">return</span> <span style="color: #0086b3;">(</span><span style="color: #0086b3;">int</span><span style="color: #0086b3;">)(</span><span style="color: #007fe5;">nextseed</span> &gt;&gt;&gt; <span style="color: #969896;">(</span><span style="color: #0086b3;">48</span> - <span style="color: #008466;">bits</span><span style="color: #969896;">)</span><span style="color: #0086b3;">)</span>;
+<pre class="src src-java"><span style="color: #a71d5d;">protected</span> <span style="color: #0086b3;">int</span> <span style="color: #795da3;">next</span><span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #333333;">bits</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+    <span style="color: #0086b3;">long</span> <span style="color: #333333;">oldseed</span>, <span style="color: #333333;">nextseed</span>;
+    <span style="color: #0086b3;">AtomicLong</span> <span style="color: #333333;">seed</span> = <span style="color: #a71d5d;">this</span>.seed;
+    <span style="color: #a71d5d;">do</span> <span style="color: #0086b3;">{</span>
+        oldseed = seed.get<span style="color: #969896;">()</span>;
+        nextseed = <span style="color: #969896;">(</span>oldseed * multiplier + addend<span style="color: #969896;">)</span> &amp; mask;
+    <span style="color: #0086b3;">}</span> <span style="color: #a71d5d;">while</span> <span style="color: #0086b3;">(</span><span style="color: #a71d5d;">!</span>seed.compareAndSet<span style="color: #969896;">(</span>oldseed, nextseed<span style="color: #969896;">)</span><span style="color: #0086b3;">)</span>;
+    <span style="color: #a71d5d;">return</span> <span style="color: #0086b3;">(</span><span style="color: #0086b3;">int</span><span style="color: #0086b3;">)(</span>nextseed &gt;&gt;&gt; <span style="color: #969896;">(</span><span style="color: #0086b3;">48</span> - bits<span style="color: #969896;">)</span><span style="color: #0086b3;">)</span>;
 <span style="color: #969896;">}</span>
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #007fe5;">nextseed</span> = <span style="color: #969896;">(</span><span style="color: #008468;">oldseed</span> * <span style="color: #796b00;">multiplier</span> + <span style="color: #bd4000;">addend</span><span style="color: #969896;">)</span> &amp; <span style="color: #0085ac;">mask</span>;
+<pre class="src src-java">nextseed = <span style="color: #969896;">(</span>oldseed * multiplier + addend<span style="color: #969896;">)</span> &amp; mask;
 </pre>
 </div>
 
@@ -598,10 +598,10 @@ An instance of this class is used to generate a stream of <b>pseudorandom</b> nu
 </p>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #4e5ae2;">private</span> <span style="color: #0069ee;">final</span> <span style="color: #0086b3;">AtomicLong</span> <span style="color: #007ced;">seed</span>;
-<span style="color: #4e5ae2;">private</span> <span style="color: #00845b;">static</span> <span style="color: #0069ee;">final</span> <span style="color: #0086b3;">long</span> <span style="color: #796b00;">multiplier</span> = <span style="color: #0086b3;">0x5DEECE66DL</span>;
-<span style="color: #4e5ae2;">private</span> <span style="color: #00845b;">static</span> <span style="color: #0069ee;">final</span> <span style="color: #0086b3;">long</span> <span style="color: #bd4000;">addend</span> = <span style="color: #0086b3;">0xBL</span>;
-<span style="color: #4e5ae2;">private</span> <span style="color: #00845b;">static</span> <span style="color: #0069ee;">final</span> <span style="color: #0086b3;">long</span> <span style="color: #0085ac;">mask</span> = <span style="color: #969896;">(</span><span style="color: #0086b3;">1L</span> &lt;&lt; <span style="color: #0086b3;">48</span><span style="color: #969896;">)</span> - <span style="color: #0086b3;">1</span>;
+<pre class="src src-java"><span style="color: #a71d5d;">private</span> <span style="color: #a71d5d;">final</span> <span style="color: #0086b3;">AtomicLong</span> <span style="color: #333333;">seed</span>;
+<span style="color: #a71d5d;">private</span> <span style="color: #a71d5d;">static</span> <span style="color: #a71d5d;">final</span> <span style="color: #0086b3;">long</span> <span style="color: #333333;">multiplier</span> = <span style="color: #0086b3;">0x5DEECE66DL</span>;
+<span style="color: #a71d5d;">private</span> <span style="color: #a71d5d;">static</span> <span style="color: #a71d5d;">final</span> <span style="color: #0086b3;">long</span> <span style="color: #333333;">addend</span> = <span style="color: #0086b3;">0xBL</span>;
+<span style="color: #a71d5d;">private</span> <span style="color: #a71d5d;">static</span> <span style="color: #a71d5d;">final</span> <span style="color: #0086b3;">long</span> <span style="color: #333333;">mask</span> = <span style="color: #969896;">(</span><span style="color: #0086b3;">1L</span> &lt;&lt; <span style="color: #0086b3;">48</span><span style="color: #969896;">)</span> - <span style="color: #0086b3;">1</span>;
 </pre>
 </div>
 
@@ -613,7 +613,7 @@ An instance of this class is used to generate a stream of <b>pseudorandom</b> nu
 
 <ol class="org-ol">
 <li>将第 48 位及比 48 位高的各位数值置为 0；</li>
-<li>低 47 位保持原值不变。 <br /></li>
+<li>低 47 位保持原值不变。 <br  /></li>
 </ol>
 <p>
 <b>注</b> ： <code>mod</code> 取余， <code>a mod b</code> ，假设 <code>a = n * b + c</code> ，则 <code>a mod b = c</code> ； <code>&amp;</code> 异或运算， <code>a &amp; 0 = a</code> ， <code>a &amp; 1 = 0</code> 。
@@ -624,20 +624,20 @@ An instance of this class is used to generate a stream of <b>pseudorandom</b> nu
 </p>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #007f00;">public</span> <span style="color: #0086b3;">int</span> <span style="color: #d21627;">nextInt</span><span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #8f6200;">bound</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
-    <span style="color: #0083d2;">if</span> <span style="color: #0086b3;">(</span><span style="color: #8f6200;">bound</span> &lt;= <span style="color: #0086b3;">0</span><span style="color: #0086b3;">)</span>
-        <span style="color: #0069ee;">throw</span> <span style="color: #d90067;">new</span> <span style="color: #0086b3;">IllegalArgumentException</span><span style="color: #0086b3;">(</span><span style="color: #6e6e00;">BadBound</span><span style="color: #0086b3;">)</span>;
-    <span style="color: #0086b3;">int</span> <span style="color: #006ff1;">r</span> = <span style="color: #985d00;">next</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">31</span><span style="color: #0086b3;">)</span>;
-    <span style="color: #0086b3;">int</span> <span style="color: #0085b0;">m</span> = <span style="color: #8f6200;">bound</span> - <span style="color: #0086b3;">1</span>;
-    <span style="color: #0083d2;">if</span> <span style="color: #0086b3;">(</span><span style="color: #969896;">(</span><span style="color: #8f6200;">bound</span> &amp; <span style="color: #0085b0;">m</span><span style="color: #969896;">)</span> == <span style="color: #0086b3;">0</span><span style="color: #0086b3;">)</span>  <span style="color: #969896;">// </span><span style="color: #969896;">i.e., bound is a power of 2</span>
-        <span style="color: #006ff1;">r</span> = <span style="color: #0086b3;">(</span><span style="color: #0086b3;">int</span><span style="color: #0086b3;">)(</span><span style="color: #969896;">(</span><span style="color: #8f6200;">bound</span> * <span style="color: #795da3;">(</span><span style="color: #0086b3;">long</span><span style="color: #795da3;">)</span><span style="color: #006ff1;">r</span><span style="color: #969896;">)</span> &gt;&gt; <span style="color: #0086b3;">31</span><span style="color: #0086b3;">)</span>;
-    <span style="color: #0084c9;">else</span> <span style="color: #0086b3;">{</span>
-        <span style="color: #0082da;">for</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #0080e2;">u</span> = <span style="color: #006ff1;">r</span>;
-             <span style="color: #0080e2;">u</span> - <span style="color: #795da3;">(</span><span style="color: #006ff1;">r</span> = <span style="color: #0080e2;">u</span> % <span style="color: #8f6200;">bound</span><span style="color: #795da3;">)</span> + <span style="color: #0085b0;">m</span> &lt; <span style="color: #0086b3;">0</span>;
-             <span style="color: #0080e2;">u</span> = <span style="color: #985d00;">next</span><span style="color: #795da3;">(</span><span style="color: #0086b3;">31</span><span style="color: #795da3;">)</span><span style="color: #969896;">)</span>
+<pre class="src src-java"><span style="color: #a71d5d;">public</span> <span style="color: #0086b3;">int</span> <span style="color: #795da3;">nextInt</span><span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #333333;">bound</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+    <span style="color: #a71d5d;">if</span> <span style="color: #0086b3;">(</span>bound &lt;= <span style="color: #0086b3;">0</span><span style="color: #0086b3;">)</span>
+        <span style="color: #a71d5d;">throw</span> <span style="color: #a71d5d;">new</span> <span style="color: #0086b3;">IllegalArgumentException</span><span style="color: #0086b3;">(</span>BadBound<span style="color: #0086b3;">)</span>;
+    <span style="color: #0086b3;">int</span> <span style="color: #333333;">r</span> = next<span style="color: #0086b3;">(</span><span style="color: #0086b3;">31</span><span style="color: #0086b3;">)</span>;
+    <span style="color: #0086b3;">int</span> <span style="color: #333333;">m</span> = bound - <span style="color: #0086b3;">1</span>;
+    <span style="color: #a71d5d;">if</span> <span style="color: #0086b3;">(</span><span style="color: #969896;">(</span>bound &amp; m<span style="color: #969896;">)</span> == <span style="color: #0086b3;">0</span><span style="color: #0086b3;">)</span>  <span style="color: #969896;">// </span><span style="color: #969896;">i.e., bound is a power of 2</span>
+        r = <span style="color: #0086b3;">(</span><span style="color: #0086b3;">int</span><span style="color: #0086b3;">)(</span><span style="color: #969896;">(</span>bound * <span style="color: #795da3;">(</span><span style="color: #0086b3;">long</span><span style="color: #795da3;">)</span>r<span style="color: #969896;">)</span> &gt;&gt; <span style="color: #0086b3;">31</span><span style="color: #0086b3;">)</span>;
+    <span style="color: #a71d5d;">else</span> <span style="color: #0086b3;">{</span>
+        <span style="color: #a71d5d;">for</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #333333;">u</span> = r;
+             u - <span style="color: #795da3;">(</span>r = u % bound<span style="color: #795da3;">)</span> + m &lt; <span style="color: #0086b3;">0</span>;
+             u = next<span style="color: #795da3;">(</span><span style="color: #0086b3;">31</span><span style="color: #795da3;">)</span><span style="color: #969896;">)</span>
              ;
     <span style="color: #0086b3;">}</span>
-    <span style="color: #0085a3;">return</span> <span style="color: #006ff1;">r</span>;
+    <span style="color: #a71d5d;">return</span> r;
 <span style="color: #969896;">}</span>
 </pre>
 </div>
@@ -662,8 +662,8 @@ An instance of this class is used to generate a stream of <b>pseudorandom</b> nu
 </p>
 
 <div class="org-src-container">
-<pre class="src src-java"><span style="color: #0082da;">for</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #0080e2;">u</span> = <span style="color: #985d00;">next</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">31</span><span style="color: #0086b3;">)</span>; <span style="color: #0080e2;">u</span> - <span style="color: #006ff1;">r</span> + <span style="color: #0086b3;">(</span><span style="color: #8f6200;">bound</span> - <span style="color: #0086b3;">1</span><span style="color: #0086b3;">)</span> &lt; <span style="color: #0086b3;">0</span>; <span style="color: #0080e2;">u</span> = <span style="color: #985d00;">next</span><span style="color: #0086b3;">(</span><span style="color: #0086b3;">31</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>
-    <span style="color: #006ff1;">r</span> = <span style="color: #0080e2;">u</span> % <span style="color: #8f6200;">bound</span>;
+<pre class="src src-java"><span style="color: #a71d5d;">for</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #333333;">u</span> = next<span style="color: #0086b3;">(</span><span style="color: #0086b3;">31</span><span style="color: #0086b3;">)</span>; u - r + <span style="color: #0086b3;">(</span>bound - <span style="color: #0086b3;">1</span><span style="color: #0086b3;">)</span> &lt; <span style="color: #0086b3;">0</span>; u = next<span style="color: #0086b3;">(</span><span style="color: #0086b3;">31</span><span style="color: #0086b3;">)</span><span style="color: #969896;">)</span>
+    r = u % bound;
 </pre>
 </div>
 

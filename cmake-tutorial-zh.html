@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-15 Sat 17:14 -->
+<!-- 2017-10-11 Wed 21:10 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>CMake Tutorial 翻译及整理</title>
@@ -231,7 +231,7 @@ for the JavaScript code in this tag.
 <body>
 <div id="preamble" class="status">
 <div class="header">
-              <a href="https://aprilwith.me">自在随心</a> | <a href="http://github.com/qiaoin">Github</a>
+              <a href="http://aprilwith.me">自在随心</a> | <a href="https://github.com/qiaoin">Github</a>
           </div>
 </div>
 <div id="content">
@@ -244,22 +244,22 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org5af8cc3">Step1 Hello, CMake!</a>
+<li><a href="#org3140f3c">Step1 Hello, CMake!</a>
 <ul>
-<li><a href="#org2f8efdf">添加版本号和配置文件</a></li>
+<li><a href="#org8414ec7">添加版本号和配置文件</a></li>
 </ul>
 </li>
-<li><a href="#orga251919">Step2 添加内库</a></li>
-<li><a href="#org3be05da">Step3 安装及测试</a>
+<li><a href="#org1d96567">Step2 添加内库</a></li>
+<li><a href="#orgdb183dd">Step3 安装及测试</a>
 <ul>
-<li><a href="#org433d937">安装</a></li>
-<li><a href="#orgea9fa75">测试</a></li>
+<li><a href="#org6cd289d">安装</a></li>
+<li><a href="#orgeb7ce51">测试</a></li>
 </ul>
 </li>
-<li><a href="#orgb7bddc9">Step4 添加系统自省检查</a></li>
-<li><a href="#orga63a9ea">Step5 添加生成器</a></li>
-<li><a href="#orgeccc924">Step6 安装器</a></li>
-<li><a href="#orgb62a0d3">Step7</a></li>
+<li><a href="#orga642ad5">Step4 添加系统自省检查</a></li>
+<li><a href="#org0af044e">Step5 添加生成器</a></li>
+<li><a href="#org3ac9676">Step6 安装器</a></li>
+<li><a href="#org5f15b93">Step7</a></li>
 </ul>
 </div>
 </div>
@@ -268,16 +268,16 @@ for the JavaScript code in this tag.
 下文为一个 step-by-step 的 CMake 使用入门教程，它包含了我们使用 CMake 来构建系统所需要使用的一些常用命令。我们在这个教程中所使用到的所有文件都可以在 <a href="https://gitlab.kitware.com/cmake/cmake/tree/master/Tests/Tutorial/">Tests/Tutorial</a> 文件夹下找到，对应每一步都有一个单独的文件夹。
 </p>
 
-<div id="outline-container-org5af8cc3" class="outline-2">
-<h2 id="org5af8cc3">Step1 Hello, CMake!</h2>
-<div class="outline-text-2" id="text-org5af8cc3">
+<div id="outline-container-org3140f3c" class="outline-2">
+<h2 id="org3140f3c">Step1 Hello, CMake!</h2>
+<div class="outline-text-2" id="text-org3140f3c">
 <p>
 我们从最为简单的一个项目开始着手，其包含一些源代码文件，用来产生最后的可执行文件。那么，在 <code>CMakeLists.txt</code> 文件中仅需包含三条语句就可以了：
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #008341;">cmake_minimum_required</span> <span style="color: #969896;">(</span><span style="color: #00833d;">VERSION</span> <span style="color: #0086b3;">2.6</span><span style="color: #969896;">)</span>
-<span style="color: #bd1da7;">project</span> <span style="color: #969896;">(</span><span style="color: #0074f2;">Tutorial</span><span style="color: #969896;">)</span>
-<span style="color: #0084bf;">add_executable</span><span style="color: #969896;">(</span><span style="color: #0074f2;">Tutorial</span> <span style="color: #d10084;">tutorial.cxx</span><span style="color: #969896;">)</span>
+<pre class="src src-sh"><span style="color: #795da3;">cmake_minimum_required</span> <span style="color: #969896;">(</span>VERSION <span style="color: #0086b3;">2.6</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">project</span> <span style="color: #969896;">(</span>Tutorial<span style="color: #969896;">)</span>
+<span style="color: #795da3;">add_executable</span><span style="color: #969896;">(</span>Tutorial tutorial.cxx<span style="color: #969896;">)</span>
 </pre>
 </div>
 <p>
@@ -293,49 +293,49 @@ for the JavaScript code in this tag.
 <span style="color: #a71d5d;">#include</span> <span style="color: #969896;">&lt;</span><span style="color: #183691;">stdlib.h</span><span style="color: #969896;">&gt;</span>
 <span style="color: #a71d5d;">#include</span> <span style="color: #969896;">&lt;</span><span style="color: #183691;">math.h</span><span style="color: #969896;">&gt;</span>
 
-<span style="color: #0086b3;">int</span> <span style="color: #d5062f;">main</span><span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #9c5b00;">argc</span>, <span style="color: #0086b3;">char</span> *<span style="color: #d8003c;">argv</span><span style="color: #0086b3;">[]</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
-  <span style="color: #0083d2;">if</span> <span style="color: #0086b3;">(</span><span style="color: #9c5b00;">argc</span> &lt; <span style="color: #0086b3;">2</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
-    <span style="color: #c63301;">fprintf</span><span style="color: #969896;">(</span><span style="color: #916100;">stdout</span>, <span style="color: #183691;">"Usage: %s number\n"</span>, <span style="color: #d8003c;">argv</span><span style="color: #795da3;">[</span><span style="color: #0086b3;">0</span><span style="color: #795da3;">]</span><span style="color: #969896;">)</span>;
-    <span style="color: #0085a3;">return</span> <span style="color: #0086b3;">1</span>;
+<span style="color: #0086b3;">int</span> <span style="color: #795da3;">main</span><span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #333333;">argc</span>, <span style="color: #0086b3;">char</span> *<span style="color: #333333;">argv</span><span style="color: #0086b3;">[]</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+  <span style="color: #a71d5d;">if</span> <span style="color: #0086b3;">(</span>argc &lt; <span style="color: #0086b3;">2</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
+    fprintf<span style="color: #969896;">(</span>stdout, <span style="color: #183691;">"Usage: %s number\n"</span>, argv<span style="color: #795da3;">[</span><span style="color: #0086b3;">0</span><span style="color: #795da3;">]</span><span style="color: #969896;">)</span>;
+    <span style="color: #a71d5d;">return</span> <span style="color: #0086b3;">1</span>;
   <span style="color: #0086b3;">}</span>
 
-  <span style="color: #0086b3;">double</span> <span style="color: #007f00;">input_value</span> = <span style="color: #d40d2c;">atof</span><span style="color: #0086b3;">(</span><span style="color: #d8003c;">argv</span><span style="color: #969896;">[</span><span style="color: #0086b3;">1</span><span style="color: #969896;">]</span><span style="color: #0086b3;">)</span>;
-  <span style="color: #0086b3;">double</span> <span style="color: #0085b7;">output_value</span> = <span style="color: #7e6900;">sqrt</span><span style="color: #0086b3;">(</span><span style="color: #007f00;">input_value</span><span style="color: #0086b3;">)</span>;
-  <span style="color: #c63301;">fprintf</span><span style="color: #0086b3;">(</span><span style="color: #916100;">stdout</span>, <span style="color: #183691;">"The square root of %g is %g\n"</span>, <span style="color: #007f00;">input_value</span>, <span style="color: #0085b7;">output_value</span><span style="color: #0086b3;">)</span>;
+  <span style="color: #0086b3;">double</span> <span style="color: #333333;">input_value</span> = atof<span style="color: #0086b3;">(</span>argv<span style="color: #969896;">[</span><span style="color: #0086b3;">1</span><span style="color: #969896;">]</span><span style="color: #0086b3;">)</span>;
+  <span style="color: #0086b3;">double</span> <span style="color: #333333;">output_value</span> = sqrt<span style="color: #0086b3;">(</span>input_value<span style="color: #0086b3;">)</span>;
+  fprintf<span style="color: #0086b3;">(</span>stdout, <span style="color: #183691;">"The square root of %g is %g\n"</span>, input_value, output_value<span style="color: #0086b3;">)</span>;
 
-  <span style="color: #0085a3;">return</span> <span style="color: #0086b3;">0</span>;
+  <span style="color: #a71d5d;">return</span> <span style="color: #0086b3;">0</span>;
 <span style="color: #969896;">}</span>
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org2f8efdf" class="outline-3">
-<h3 id="org2f8efdf">添加版本号和配置文件</h3>
-<div class="outline-text-3" id="text-org2f8efdf">
+<div id="outline-container-org8414ec7" class="outline-3">
+<h3 id="org8414ec7">添加版本号和配置文件</h3>
+<div class="outline-text-3" id="text-org8414ec7">
 <p>
 接下来我们为这个项目添加第一个特性——版本号。虽然我们可以直接在源文件代码中写明，但使用 <code>CMake</code> 来实现可以提供更大的灵活性。修改之后的 <code>CMakeLists.txt</code> 如下：
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #008341;">cmake_minimum_required</span> <span style="color: #969896;">(</span><span style="color: #00833d;">VERSION</span> <span style="color: #0086b3;">2.6</span><span style="color: #969896;">)</span>
-<span style="color: #bd1da7;">project</span> <span style="color: #969896;">(</span><span style="color: #0074f2;">Tutorial</span><span style="color: #969896;">)</span>
+<pre class="src src-sh"><span style="color: #795da3;">cmake_minimum_required</span> <span style="color: #969896;">(</span>VERSION <span style="color: #0086b3;">2.6</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">project</span> <span style="color: #969896;">(</span>Tutorial<span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">The version number.</span>
-<span style="color: #a71d5d;">set</span> <span style="color: #969896;">(</span><span style="color: #b22bb2;">TUTORIAL_VERSION_MAJOR</span> <span style="color: #0086b3;">1</span><span style="color: #969896;">)</span>
-<span style="color: #a71d5d;">set</span> <span style="color: #969896;">(</span><span style="color: #00857d;">TUTORIAL_VERSION_MINOR</span> <span style="color: #0086b3;">0</span><span style="color: #969896;">)</span>
+<span style="color: #a71d5d;">set</span> <span style="color: #969896;">(</span>TUTORIAL_VERSION_MAJOR <span style="color: #0086b3;">1</span><span style="color: #969896;">)</span>
+<span style="color: #a71d5d;">set</span> <span style="color: #969896;">(</span>TUTORIAL_VERSION_MINOR <span style="color: #0086b3;">0</span><span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">configure a header file to pass some of the CMake settings</span>
 <span style="color: #969896;"># </span><span style="color: #969896;">to the source code</span>
-<span style="color: #cc0090;">configure_file</span> <span style="color: #969896;">(</span>
+<span style="color: #795da3;">configure_file</span> <span style="color: #969896;">(</span>
   <span style="color: #183691;">"${PROJECT_SOURCE_DIR}/TutorialConfig.h.in"</span>
   <span style="color: #183691;">"${PROJECT_BINARY_DIR}/TutorialConfig.h"</span>
   <span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">add the binary tree to the search path for include files</span>
 <span style="color: #969896;"># </span><span style="color: #969896;">so that we will find TutorialConfig.h</span>
-<span style="color: #1d60e7;">include_directories</span><span style="color: #969896;">(</span><span style="color: #183691;">"${PROJECT_BINARY_DIR}"</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">include_directories</span><span style="color: #969896;">(</span><span style="color: #183691;">"${PROJECT_BINARY_DIR}"</span><span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">add the executable</span>
-<span style="color: #0084bf;">add_executable</span><span style="color: #969896;">(</span><span style="color: #0074f2;">Tutorial</span> <span style="color: #d10084;">tutorial.cxx</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">add_executable</span><span style="color: #969896;">(</span>Tutorial tutorial.cxx<span style="color: #969896;">)</span>
 </pre>
 </div>
 <p>
@@ -347,8 +347,8 @@ for the JavaScript code in this tag.
 </p>
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #969896;">// </span><span style="color: #969896;">the configured options and settings for Tutorial</span>
-<span style="color: #a71d5d;">#define</span> <span style="color: #b22bb2;">TUTORIAL_VERSION_MAJOR</span> @<span style="color: #b22bb2;">TUTORIAL_VERSION_MAJOR</span>@
-<span style="color: #a71d5d;">#define</span> <span style="color: #00857d;">TUTORIAL_VERSION_MINOR</span> @<span style="color: #00857d;">TUTORIAL_VERSION_MINOR</span>@
+<span style="color: #a71d5d;">#define</span> <span style="color: #333333;">TUTORIAL_VERSION_MAJOR</span> @TUTORIAL_VERSION_MAJOR@
+<span style="color: #a71d5d;">#define</span> <span style="color: #333333;">TUTORIAL_VERSION_MINOR</span> @TUTORIAL_VERSION_MINOR@
 </pre>
 </div>
 <p>
@@ -365,18 +365,18 @@ for the JavaScript code in this tag.
 <span style="color: #a71d5d;">#include</span> <span style="color: #969896;">&lt;</span><span style="color: #183691;">math.h</span><span style="color: #969896;">&gt;</span>
 <span style="color: #a71d5d;">#include</span> <span style="color: #183691;">"TutorialConfig.h"</span>
 
-<span style="color: #0086b3;">int</span> <span style="color: #d5062f;">main</span><span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #9c5b00;">argc</span>, <span style="color: #0086b3;">char</span> *<span style="color: #d8003c;">argv</span><span style="color: #0086b3;">[]</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
-  <span style="color: #0083d2;">if</span> <span style="color: #0086b3;">(</span><span style="color: #9c5b00;">argc</span> &lt; <span style="color: #0086b3;">2</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
-    <span style="color: #c63301;">fprintf</span><span style="color: #969896;">(</span><span style="color: #916100;">stdout</span>,<span style="color: #183691;">"%s Version %d.%d\n"</span>, <span style="color: #d8003c;">argv</span><span style="color: #795da3;">[</span><span style="color: #0086b3;">0</span><span style="color: #795da3;">]</span>, <span style="color: #b22bb2;">TUTORIAL_VERSION_MAJOR</span>, <span style="color: #00857d;">TUTORIAL_VERSION_MINOR</span><span style="color: #969896;">)</span>;
-    <span style="color: #c63301;">fprintf</span><span style="color: #969896;">(</span><span style="color: #916100;">stdout</span>, <span style="color: #183691;">"Usage: %s number\n"</span>, <span style="color: #d8003c;">argv</span><span style="color: #795da3;">[</span><span style="color: #0086b3;">0</span><span style="color: #795da3;">]</span><span style="color: #969896;">)</span>;
-    <span style="color: #0085a3;">return</span> <span style="color: #0086b3;">1</span>;
+<span style="color: #0086b3;">int</span> <span style="color: #795da3;">main</span><span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #333333;">argc</span>, <span style="color: #0086b3;">char</span> *<span style="color: #333333;">argv</span><span style="color: #0086b3;">[]</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+  <span style="color: #a71d5d;">if</span> <span style="color: #0086b3;">(</span>argc &lt; <span style="color: #0086b3;">2</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
+    fprintf<span style="color: #969896;">(</span>stdout,<span style="color: #183691;">"%s Version %d.%d\n"</span>, argv<span style="color: #795da3;">[</span><span style="color: #0086b3;">0</span><span style="color: #795da3;">]</span>, TUTORIAL_VERSION_MAJOR, TUTORIAL_VERSION_MINOR<span style="color: #969896;">)</span>;
+    fprintf<span style="color: #969896;">(</span>stdout, <span style="color: #183691;">"Usage: %s number\n"</span>, argv<span style="color: #795da3;">[</span><span style="color: #0086b3;">0</span><span style="color: #795da3;">]</span><span style="color: #969896;">)</span>;
+    <span style="color: #a71d5d;">return</span> <span style="color: #0086b3;">1</span>;
   <span style="color: #0086b3;">}</span>
 
-  <span style="color: #0086b3;">double</span> <span style="color: #007f00;">input_value</span> = <span style="color: #d40d2c;">atof</span><span style="color: #0086b3;">(</span><span style="color: #d8003c;">argv</span><span style="color: #969896;">[</span><span style="color: #0086b3;">1</span><span style="color: #969896;">]</span><span style="color: #0086b3;">)</span>;
-  <span style="color: #0086b3;">double</span> <span style="color: #0085b7;">output_value</span> = <span style="color: #7e6900;">sqrt</span><span style="color: #0086b3;">(</span><span style="color: #007f00;">input_value</span><span style="color: #0086b3;">)</span>;
-  <span style="color: #c63301;">fprintf</span><span style="color: #0086b3;">(</span><span style="color: #916100;">stdout</span>, <span style="color: #183691;">"The square root of %g is %g\n"</span>, <span style="color: #007f00;">input_value</span>, <span style="color: #0085b7;">output_value</span><span style="color: #0086b3;">)</span>;
+  <span style="color: #0086b3;">double</span> <span style="color: #333333;">input_value</span> = atof<span style="color: #0086b3;">(</span>argv<span style="color: #969896;">[</span><span style="color: #0086b3;">1</span><span style="color: #969896;">]</span><span style="color: #0086b3;">)</span>;
+  <span style="color: #0086b3;">double</span> <span style="color: #333333;">output_value</span> = sqrt<span style="color: #0086b3;">(</span>input_value<span style="color: #0086b3;">)</span>;
+  fprintf<span style="color: #0086b3;">(</span>stdout, <span style="color: #183691;">"The square root of %g is %g\n"</span>, input_value, output_value<span style="color: #0086b3;">)</span>;
 
-  <span style="color: #0085a3;">return</span> <span style="color: #0086b3;">0</span>;
+  <span style="color: #a71d5d;">return</span> <span style="color: #0086b3;">0</span>;
 <span style="color: #969896;">}</span>
 </pre>
 </div>
@@ -388,11 +388,11 @@ for the JavaScript code in this tag.
 <b>提示</b> 我们可以使用以下命令来验证我们的配置：
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">$ <span style="color: #cf0089;">cd</span> <span style="color: #007f00;">~/cmake-tutorial</span>
-$ <span style="color: #da005c;">mkdir</span> <span style="color: #008579;">build</span>
-$ <span style="color: #cf0089;">cd</span> <span style="color: #008127;">bulid</span>
-$ <span style="color: #7550d8;">cmake</span> <span style="color: #008125;">-DCMAKE_BUILD_TYPE</span>=<span style="color: #00859c;">Debug</span> <span style="color: #00846a;">..</span>
-$ <span style="color: #d90068;">make</span>
+<pre class="src src-sh">$ cd ~/cmake-tutorial
+$ mkdir build
+$ cd bulid
+$ cmake -DCMAKE_BUILD_TYPE=Debug ..
+$ make
 </pre>
 </div>
 <p>
@@ -403,23 +403,23 @@ $ <span style="color: #d90068;">make</span>
 </div>
 
 
-<div id="outline-container-orga251919" class="outline-2">
-<h2 id="orga251919">Step2 添加内库</h2>
-<div class="outline-text-2" id="text-orga251919">
+<div id="outline-container-org1d96567" class="outline-2">
+<h2 id="org1d96567">Step2 添加内库</h2>
+<div class="outline-text-2" id="text-org1d96567">
 <p>
 第二步，向项目中添加内库。这个内库包含我们自己实现的平方根计算函数，可以使用这个实现去替代 <code>#include &lt;math.h&gt;</code> 中的 <code>sqrt()</code> 。在本教程中，我们在项目主目录下新建 <code>MathFunctions</code> 文件夹用来存放内库。由此，项目结构如下：
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">$ <span style="color: #da0050;">tree</span> <span style="color: #006cf0;">.</span>
-<span style="color: #006cf0;">.</span>
-<span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #b44900;">CMakeLists.txt</span>
-<span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #896500;">MathFunctions</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #b44900;">CMakeLists.txt</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #0081df;">MathFunctions.h</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #567400;">&#9492;&#9472;&#9472;</span> <span style="color: #8d6300;">mysqrt.cxx</span>
-<span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #008342;">TutorialConfig.h.in</span>
-<span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #007e00;">build/</span>
-<span style="color: #567400;">&#9492;&#9472;&#9472;</span> <span style="color: #d10084;">tutorial.cxx</span>
+<pre class="src src-sh">$ tree .
+.
+&#9500;&#9472;&#9472; CMakeLists.txt
+&#9500;&#9472;&#9472; MathFunctions
+&#9474;&#160;&#160; &#9500;&#9472;&#9472; CMakeLists.txt
+&#9474;&#160;&#160; &#9500;&#9472;&#9472; MathFunctions.h
+&#9474;&#160;&#160; &#9492;&#9472;&#9472; mysqrt.cxx
+&#9500;&#9472;&#9472; TutorialConfig.h.in
+&#9500;&#9472;&#9472; build/
+&#9492;&#9472;&#9472; tutorial.cxx
 </pre>
 </div>
 
@@ -427,7 +427,7 @@ $ <span style="color: #d90068;">make</span>
 对于 <code>MathFunctions</code> 目录下的 <code>CMakeLists.txt</code> 加入下面一行：
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #9442c9;">add_library</span><span style="color: #969896;">(</span><span style="color: #896500;">MathFunctions</span> <span style="color: #8d6300;">mysqrt.cxx</span><span style="color: #969896;">)</span>
+<pre class="src src-sh"><span style="color: #795da3;">add_library</span><span style="color: #969896;">(</span>MathFunctions mysqrt.cxx<span style="color: #969896;">)</span>
 </pre>
 </div>
 <p>
@@ -438,12 +438,12 @@ $ <span style="color: #d90068;">make</span>
 对于项目主目录下的 <code>CMakeLists.txt</code> ，使用 <code>add_subdirectory</code> 命令将内库给包含进来，使用 <code>include_directories</code> 命令添加另外的 <code>include</code> 目录，这样使得在编译时能够在 <code>MathFunctions/MathFunctions.h</code> 头文件中找到对应的 <code>mysqrt()</code> 函数原型。另外，在创建可执行文件时，使用 <code>target_link_libraries</code> 命令将内库给链接进来。因此，项目主目录下的 <code>CMakeLists.txt</code> 的最后几行配置为：
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #1d60e7;">include_directories</span> <span style="color: #969896;">(</span><span style="color: #183691;">"${PROJECT_SOURCE_DIR}/MathFunctions"</span><span style="color: #969896;">)</span>
-<span style="color: #a338bf;">add_subdirectory</span> <span style="color: #969896;">(</span><span style="color: #896500;">MathFunctions</span><span style="color: #969896;">)</span> 
+<pre class="src src-sh"><span style="color: #795da3;">include_directories</span> <span style="color: #969896;">(</span><span style="color: #183691;">"${PROJECT_SOURCE_DIR}/MathFunctions"</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">add_subdirectory</span> <span style="color: #969896;">(</span>MathFunctions<span style="color: #969896;">)</span> 
 
 <span style="color: #969896;"># </span><span style="color: #969896;">add the executable</span>
-<span style="color: #0084bf;">add_executable</span> <span style="color: #969896;">(</span><span style="color: #0074f2;">Tutorial</span> <span style="color: #d10084;">tutorial.cxx</span><span style="color: #969896;">)</span>
-<span style="color: #00811b;">target_link_libraries</span> <span style="color: #969896;">(</span><span style="color: #0074f2;">Tutorial</span> <span style="color: #896500;">MathFunctions</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">add_executable</span> <span style="color: #969896;">(</span>Tutorial tutorial.cxx<span style="color: #969896;">)</span>
+<span style="color: #795da3;">target_link_libraries</span> <span style="color: #969896;">(</span>Tutorial MathFunctions<span style="color: #969896;">)</span>
 </pre>
 </div>
 
@@ -456,8 +456,8 @@ $ <span style="color: #d90068;">make</span>
 </p>
 <div class="org-src-container">
 <pre class="src src-sh"><span style="color: #969896;"># </span><span style="color: #969896;">should we use our own math functions?</span>
-<span style="color: #007e00;">option</span> <span style="color: #969896;">(</span><span style="color: #c5079b;">USE_MYMATH</span> 
-        <span style="color: #183691;">"Use tutorial provided math implementation"</span> <span style="color: #0062e9;">ON</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">option</span> <span style="color: #969896;">(</span>USE_MYMATH 
+        <span style="color: #183691;">"Use tutorial provided math implementation"</span> ON<span style="color: #969896;">)</span>
 </pre>
 </div>
 <p>
@@ -465,15 +465,15 @@ $ <span style="color: #d90068;">make</span>
 </p>
 <div class="org-src-container">
 <pre class="src src-sh"><span style="color: #969896;"># </span><span style="color: #969896;">add the MathFunctions library?</span>
-<span style="color: #0083d2;">if</span> <span style="color: #969896;">(</span><span style="color: #c5079b;">USE_MYMATH</span><span style="color: #969896;">)</span>
-  <span style="color: #1d60e7;">include_directories</span> <span style="color: #969896;">(</span><span style="color: #183691;">"${PROJECT_SOURCE_DIR}/MathFunctions"</span><span style="color: #969896;">)</span>
-  <span style="color: #a338bf;">add_subdirectory</span> <span style="color: #969896;">(</span><span style="color: #896500;">MathFunctions</span><span style="color: #969896;">)</span>
-  <span style="color: #a71d5d;">set</span> <span style="color: #969896;">(</span><span style="color: #da0060;">EXTRA_LIBS</span> $<span style="color: #0086b3;">{</span><span style="color: #da0060;">EXTRA_LIBS</span><span style="color: #0086b3;">}</span> <span style="color: #896500;">MathFunctions</span><span style="color: #969896;">)</span>
-<span style="color: #d00086;">endif</span> <span style="color: #969896;">(</span><span style="color: #c5079b;">USE_MYMATH</span><span style="color: #969896;">)</span>
+<span style="color: #a71d5d;">if</span> <span style="color: #969896;">(</span>USE_MYMATH<span style="color: #969896;">)</span>
+  include_directories <span style="color: #969896;">(</span><span style="color: #183691;">"${PROJECT_SOURCE_DIR}/MathFunctions"</span><span style="color: #969896;">)</span>
+  add_subdirectory <span style="color: #969896;">(</span>MathFunctions<span style="color: #969896;">)</span>
+  <span style="color: #a71d5d;">set</span> <span style="color: #969896;">(</span>EXTRA_LIBS $<span style="color: #0086b3;">{</span><span style="color: #333333;">EXTRA_LIBS</span><span style="color: #0086b3;">}</span> MathFunctions<span style="color: #969896;">)</span>
+<span style="color: #795da3;">endif</span> <span style="color: #969896;">(</span>USE_MYMATH<span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">add the executable</span>
-<span style="color: #0084bf;">add_executable</span> <span style="color: #969896;">(</span><span style="color: #0074f2;">Tutorial</span> <span style="color: #d10084;">tutorial.cxx</span><span style="color: #969896;">)</span>
-<span style="color: #00811b;">target_link_libraries</span> <span style="color: #969896;">(</span><span style="color: #0074f2;">Tutorial</span>  $<span style="color: #0086b3;">{</span><span style="color: #da0060;">EXTRA_LIBS</span><span style="color: #0086b3;">}</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">add_executable</span> <span style="color: #969896;">(</span>Tutorial tutorial.cxx<span style="color: #969896;">)</span>
+<span style="color: #795da3;">target_link_libraries</span> <span style="color: #969896;">(</span>Tutorial  $<span style="color: #0086b3;">{</span><span style="color: #333333;">EXTRA_LIBS</span><span style="color: #0086b3;">}</span><span style="color: #969896;">)</span>
 </pre>
 </div>
 <p>
@@ -490,33 +490,33 @@ $ <span style="color: #d90068;">make</span>
 <span style="color: #a71d5d;">#include</span> <span style="color: #969896;">&lt;</span><span style="color: #183691;">math.h</span><span style="color: #969896;">&gt;</span>
 <span style="color: #a71d5d;">#include</span> <span style="color: #183691;">"TutorialConfig.h"</span>
 
-<span style="color: #a71d5d;">#ifdef</span> <span style="color: #c5079b;">USE_MYMATH</span>
+<span style="color: #a71d5d;">#ifdef</span> USE_MYMATH
 <span style="color: #a71d5d;">#include</span> <span style="color: #183691;">"MathFunctions.h"</span>
 <span style="color: #a71d5d;">#endif</span>
 
-<span style="color: #0086b3;">int</span> <span style="color: #d5062f;">main</span><span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #9c5b00;">argc</span>, <span style="color: #0086b3;">char</span> *<span style="color: #d8003c;">argv</span><span style="color: #0086b3;">[]</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
-  <span style="color: #0083d2;">if</span> <span style="color: #0086b3;">(</span><span style="color: #9c5b00;">argc</span> &lt; <span style="color: #0086b3;">2</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
-    <span style="color: #c63301;">fprintf</span><span style="color: #969896;">(</span><span style="color: #916100;">stdout</span>,<span style="color: #183691;">"%s Version %d.%d\n"</span>, <span style="color: #d8003c;">argv</span><span style="color: #795da3;">[</span><span style="color: #0086b3;">0</span><span style="color: #795da3;">]</span>, <span style="color: #b22bb2;">TUTORIAL_VERSION_MAJOR</span>, <span style="color: #00857d;">TUTORIAL_VERSION_MINOR</span><span style="color: #969896;">)</span>;
-    <span style="color: #c63301;">fprintf</span><span style="color: #969896;">(</span><span style="color: #916100;">stdout</span>, <span style="color: #183691;">"Usage: %s number\n"</span>, <span style="color: #d8003c;">argv</span><span style="color: #795da3;">[</span><span style="color: #0086b3;">0</span><span style="color: #795da3;">]</span><span style="color: #969896;">)</span>;
-    <span style="color: #0085a3;">return</span> <span style="color: #0086b3;">1</span>;
+<span style="color: #0086b3;">int</span> <span style="color: #795da3;">main</span><span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #333333;">argc</span>, <span style="color: #0086b3;">char</span> *<span style="color: #333333;">argv</span><span style="color: #0086b3;">[]</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+  <span style="color: #a71d5d;">if</span> <span style="color: #0086b3;">(</span>argc &lt; <span style="color: #0086b3;">2</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
+    fprintf<span style="color: #969896;">(</span>stdout,<span style="color: #183691;">"%s Version %d.%d\n"</span>, argv<span style="color: #795da3;">[</span><span style="color: #0086b3;">0</span><span style="color: #795da3;">]</span>, TUTORIAL_VERSION_MAJOR, TUTORIAL_VERSION_MINOR<span style="color: #969896;">)</span>;
+    fprintf<span style="color: #969896;">(</span>stdout, <span style="color: #183691;">"Usage: %s number\n"</span>, argv<span style="color: #795da3;">[</span><span style="color: #0086b3;">0</span><span style="color: #795da3;">]</span><span style="color: #969896;">)</span>;
+    <span style="color: #a71d5d;">return</span> <span style="color: #0086b3;">1</span>;
   <span style="color: #0086b3;">}</span>
 
-  <span style="color: #0086b3;">double</span> <span style="color: #007f00;">input_value</span> = <span style="color: #d40d2c;">atof</span><span style="color: #0086b3;">(</span><span style="color: #d8003c;">argv</span><span style="color: #969896;">[</span><span style="color: #0086b3;">1</span><span style="color: #969896;">]</span><span style="color: #0086b3;">)</span>;
-  <span style="color: #0086b3;">double</span> <span style="color: #0085b7;">output_value</span> = <span style="color: #0086b3;">0</span>;
+  <span style="color: #0086b3;">double</span> <span style="color: #333333;">input_value</span> = atof<span style="color: #0086b3;">(</span>argv<span style="color: #969896;">[</span><span style="color: #0086b3;">1</span><span style="color: #969896;">]</span><span style="color: #0086b3;">)</span>;
+  <span style="color: #0086b3;">double</span> <span style="color: #333333;">output_value</span> = <span style="color: #0086b3;">0</span>;
 
-  <span style="color: #0083d2;">if</span> <span style="color: #0086b3;">(</span><span style="color: #007f00;">input_value</span> &gt;= <span style="color: #0086b3;">0</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
-<span style="color: #a71d5d;">#ifdef</span> <span style="color: #c5079b;">USE_MYMATH</span>
-    <span style="color: #0085b7;">output_value</span> = <span style="color: #926100;">mysqrt</span><span style="color: #969896;">(</span><span style="color: #007f00;">input_value</span><span style="color: #969896;">)</span>;
-    <span style="color: #9e5a00;">printf</span><span style="color: #969896;">(</span><span style="color: #183691;">"mysqrt\n"</span><span style="color: #969896;">)</span>;
+  <span style="color: #a71d5d;">if</span> <span style="color: #0086b3;">(</span>input_value &gt;= <span style="color: #0086b3;">0</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
+<span style="color: #a71d5d;">#ifdef</span> USE_MYMATH
+    output_value = mysqrt<span style="color: #969896;">(</span>input_value<span style="color: #969896;">)</span>;
+    printf<span style="color: #969896;">(</span><span style="color: #183691;">"mysqrt\n"</span><span style="color: #969896;">)</span>;
 <span style="color: #a71d5d;">#else</span>
-    <span style="color: #0085b7;">output_value</span> = <span style="color: #7e6900;">sqrt</span><span style="color: #969896;">(</span><span style="color: #007f00;">input_value</span><span style="color: #969896;">)</span>;
-    <span style="color: #9e5a00;">printf</span><span style="color: #969896;">(</span><span style="color: #183691;">"math.sqrt\n"</span><span style="color: #969896;">)</span>;
+    output_value = sqrt<span style="color: #969896;">(</span>input_value<span style="color: #969896;">)</span>;
+    printf<span style="color: #969896;">(</span><span style="color: #183691;">"math.sqrt\n"</span><span style="color: #969896;">)</span>;
 <span style="color: #a71d5d;">#endif</span>
   <span style="color: #0086b3;">}</span>
 
-  <span style="color: #c63301;">fprintf</span><span style="color: #0086b3;">(</span><span style="color: #916100;">stdout</span>, <span style="color: #183691;">"The square root of %g is %g\n"</span>, <span style="color: #007f00;">input_value</span>, <span style="color: #0085b7;">output_value</span><span style="color: #0086b3;">)</span>;
+  fprintf<span style="color: #0086b3;">(</span>stdout, <span style="color: #183691;">"The square root of %g is %g\n"</span>, input_value, output_value<span style="color: #0086b3;">)</span>;
 
-  <span style="color: #0085a3;">return</span> <span style="color: #0086b3;">0</span>;
+  <span style="color: #a71d5d;">return</span> <span style="color: #0086b3;">0</span>;
 <span style="color: #969896;">}</span>
 </pre>
 </div>
@@ -534,23 +534,23 @@ $ <span style="color: #d90068;">make</span>
 </div>
 
 
-<div id="outline-container-org3be05da" class="outline-2">
-<h2 id="org3be05da">Step3 安装及测试</h2>
-<div class="outline-text-2" id="text-org3be05da">
+<div id="outline-container-orgdb183dd" class="outline-2">
+<h2 id="orgdb183dd">Step3 安装及测试</h2>
+<div class="outline-text-2" id="text-orgdb183dd">
 <p>
 接下来，我们为项目添加安装规则以及测试。
 </p>
 </div>
 
-<div id="outline-container-org433d937" class="outline-3">
-<h3 id="org433d937">安装</h3>
-<div class="outline-text-3" id="text-org433d937">
+<div id="outline-container-org6cd289d" class="outline-3">
+<h3 id="org6cd289d">安装</h3>
+<div class="outline-text-3" id="text-org6cd289d">
 <p>
 安装很直截了当，在 <code>MathFunctions</code> 目录下的 <code>CMakeLists.txt</code> 中添加：
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #d8003c;">install</span> <span style="color: #969896;">(</span><span style="color: #007cec;">TARGETS</span> <span style="color: #896500;">MathFunctions</span> <span style="color: #9442c9;">DESTINATION</span> <span style="color: #d8006e;">bin</span><span style="color: #969896;">)</span>
-<span style="color: #d8003c;">install</span> <span style="color: #969896;">(</span><span style="color: #497700;">FILES</span> <span style="color: #0081df;">MathFunctions.h</span> <span style="color: #9442c9;">DESTINATION</span> <span style="color: #008599;">include</span><span style="color: #969896;">)</span>
+<pre class="src src-sh"><span style="color: #795da3;">install</span> <span style="color: #969896;">(</span>TARGETS MathFunctions DESTINATION bin<span style="color: #969896;">)</span>
+<span style="color: #795da3;">install</span> <span style="color: #969896;">(</span>FILES MathFunctions.h DESTINATION include<span style="color: #969896;">)</span>
 </pre>
 </div>
 <p>
@@ -558,9 +558,9 @@ $ <span style="color: #d90068;">make</span>
 </p>
 <div class="org-src-container">
 <pre class="src src-sh"><span style="color: #969896;"># </span><span style="color: #969896;">add the install targets</span>
-<span style="color: #d8003c;">install</span> <span style="color: #969896;">(</span><span style="color: #007cec;">TARGETS</span> <span style="color: #0074f2;">Tutorial</span> <span style="color: #9442c9;">DESTINATION</span> <span style="color: #d8006e;">bin</span><span style="color: #969896;">)</span>
-<span style="color: #d8003c;">install</span> <span style="color: #969896;">(</span><span style="color: #497700;">FILES</span> <span style="color: #183691;">"${PROJECT_BINARY_DIR}/TutorialConfig.h"</span>        
-         <span style="color: #9442c9;">DESTINATION</span> <span style="color: #008599;">include</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">install</span> <span style="color: #969896;">(</span>TARGETS Tutorial DESTINATION bin<span style="color: #969896;">)</span>
+<span style="color: #795da3;">install</span> <span style="color: #969896;">(</span>FILES <span style="color: #183691;">"${PROJECT_BINARY_DIR}/TutorialConfig.h"</span>        
+         DESTINATION include<span style="color: #969896;">)</span>
 </pre>
 </div>
 
@@ -568,55 +568,55 @@ $ <span style="color: #d90068;">make</span>
 这样描述可能有点抽象，接下来我们来实际操作一下，假设我们当前所在目录为 <code>~/cmake-tutorial/</code> ，目录结构如下：
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">$ <span style="color: #da0050;">tree</span> <span style="color: #006cf0;">.</span>
-<span style="color: #006cf0;">.</span>
-<span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #b44900;">CMakeLists.txt</span>
-<span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #896500;">MathFunctions</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #b44900;">CMakeLists.txt</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #0081df;">MathFunctions.h</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #567400;">&#9492;&#9472;&#9472;</span> <span style="color: #8d6300;">mysqrt.cxx</span>
-<span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #008342;">TutorialConfig.h.in</span>
-<span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #007e00;">build/</span>
-<span style="color: #567400;">&#9492;&#9472;&#9472;</span> <span style="color: #d10084;">tutorial.cxx</span>
+<pre class="src src-sh">$ tree .
+.
+&#9500;&#9472;&#9472; CMakeLists.txt
+&#9500;&#9472;&#9472; MathFunctions
+&#9474;&#160;&#160; &#9500;&#9472;&#9472; CMakeLists.txt
+&#9474;&#160;&#160; &#9500;&#9472;&#9472; MathFunctions.h
+&#9474;&#160;&#160; &#9492;&#9472;&#9472; mysqrt.cxx
+&#9500;&#9472;&#9472; TutorialConfig.h.in
+&#9500;&#9472;&#9472; build/
+&#9492;&#9472;&#9472; tutorial.cxx
 </pre>
 </div>
 <p>
 使用下面命令：
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">$ <span style="color: #7550d8;">cmake</span> <span style="color: #007fe5;">-DCMAKE_INSTALL_PREFIX</span>=<span style="color: #177c00;">~/cmake-tutorial/build</span> <span style="color: #00846a;">..</span>
-$ <span style="color: #d90068;">make</span> <span style="color: #d8003c;">install</span>
+<pre class="src src-sh">$ cmake -DCMAKE_INSTALL_PREFIX=~/cmake-tutorial/build ..
+$ make install
 </pre>
 </div>
 <p>
 当然，这里推荐使用绝对路径，使用相对路径也没有多大的问题。执行这两条语句之后，由于我们使用 <code>CMAKE_INSTALL_PREFIX</code> 参数指定了生成的目标文件和头文件的存储地址（ <code>~/cmake-tutorial/build</code> ），目录结构变为（仅列出了 <code>build</code> 目录下与当前安装有关的文件）：
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">$ <span style="color: #da0050;">tree</span> <span style="color: #006cf0;">.</span>
-<span style="color: #006cf0;">.</span>
-<span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #b44900;">CMakeLists.txt</span>
-<span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #896500;">MathFunctions</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #b44900;">CMakeLists.txt</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #0081df;">MathFunctions.h</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #567400;">&#9492;&#9472;&#9472;</span> <span style="color: #8d6300;">mysqrt.cxx</span>
-<span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #008342;">TutorialConfig.h.in</span>
-<span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #008579;">build</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #0074f2;">CMakeCache.txt</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #a933ba;">CMakeFiles</span> <span style="color: #969896;">(</span><span style="color: #0d61e8;">leave</span> <span style="color: #816800;">out</span><span style="color: #969896;">)</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #c6079b;">Makefile</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #896500;">MathFunctions</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #a933ba;">CMakeFiles</span> <span style="color: #969896;">(</span><span style="color: #0d61e8;">leave</span> <span style="color: #816800;">out</span><span style="color: #969896;">)</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #0074f2;">Tutorial</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #0084c5;">TutorialConfig.h</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #d8006e;">bin</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #0074f2;">Tutorial</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #567400;">&#9492;&#9472;&#9472;</span> <span style="color: #475be3;">libMathFunctions.a</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #d8006e;">cmake_install.cmake</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #008599;">include</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #6a7000;">&#9500;&#9472;&#9472;</span> <span style="color: #0081df;">MathFunctions.h</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #567400;">&#9492;&#9472;&#9472;</span> <span style="color: #0084c5;">TutorialConfig.h</span>
-<span style="color: #008342;">&#9474;</span>&#160;&#160; <span style="color: #567400;">&#9492;&#9472;&#9472;</span> <span style="color: #6e6f00;">install_manifest.txt</span>
-<span style="color: #567400;">&#9492;&#9472;&#9472;</span> <span style="color: #d10084;">tutorial.cxx</span>
+<pre class="src src-sh">$ tree .
+.
+&#9500;&#9472;&#9472; CMakeLists.txt
+&#9500;&#9472;&#9472; MathFunctions
+&#9474;&#160;&#160; &#9500;&#9472;&#9472; CMakeLists.txt
+&#9474;&#160;&#160; &#9500;&#9472;&#9472; MathFunctions.h
+&#9474;&#160;&#160; &#9492;&#9472;&#9472; mysqrt.cxx
+&#9500;&#9472;&#9472; TutorialConfig.h.in
+&#9500;&#9472;&#9472; build
+&#9474;&#160;&#160; &#9500;&#9472;&#9472; CMakeCache.txt
+&#9474;&#160;&#160; &#9500;&#9472;&#9472; CMakeFiles <span style="color: #969896;">(</span>leave out<span style="color: #969896;">)</span>
+&#9474;&#160;&#160; &#9500;&#9472;&#9472; Makefile
+&#9474;&#160;&#160; &#9500;&#9472;&#9472; MathFunctions
+&#9474;&#160;&#160; &#9474;&#160;&#160; &#9500;&#9472;&#9472; CMakeFiles <span style="color: #969896;">(</span>leave out<span style="color: #969896;">)</span>
+&#9474;&#160;&#160; &#9500;&#9472;&#9472; Tutorial
+&#9474;&#160;&#160; &#9500;&#9472;&#9472; TutorialConfig.h
+&#9474;&#160;&#160; &#9500;&#9472;&#9472; bin
+&#9474;&#160;&#160; &#9474;&#160;&#160; &#9500;&#9472;&#9472; Tutorial
+&#9474;&#160;&#160; &#9474;&#160;&#160; &#9492;&#9472;&#9472; libMathFunctions.a
+&#9474;&#160;&#160; &#9500;&#9472;&#9472; cmake_install.cmake
+&#9474;&#160;&#160; &#9500;&#9472;&#9472; include
+&#9474;&#160;&#160; &#9474;&#160;&#160; &#9500;&#9472;&#9472; MathFunctions.h
+&#9474;&#160;&#160; &#9474;&#160;&#160; &#9492;&#9472;&#9472; TutorialConfig.h
+&#9474;&#160;&#160; &#9492;&#9472;&#9472; install_manifest.txt
+&#9492;&#9472;&#9472; tutorial.cxx
 </pre>
 </div>
 <p>
@@ -625,33 +625,33 @@ $ <span style="color: #d90068;">make</span> <span style="color: #d8003c;">instal
 </div>
 </div>
 
-<div id="outline-container-orgea9fa75" class="outline-3">
-<h3 id="orgea9fa75">测试</h3>
-<div class="outline-text-3" id="text-orgea9fa75">
+<div id="outline-container-orgeb7ce51" class="outline-3">
+<h3 id="orgeb7ce51">测试</h3>
+<div class="outline-text-3" id="text-orgeb7ce51">
 <p>
 在项目的主目录下的 <code>CMakeLists.txt</code> 中添加一些基本测试用例去验证应用是否能够正确的运行：
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #008599;">include</span><span style="color: #969896;">(</span><span style="color: #0066ec;">CTest</span><span style="color: #969896;">)</span>
+<pre class="src src-sh"><span style="color: #795da3;">include</span><span style="color: #969896;">(</span>CTest<span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">does the application run</span>
-<span style="color: #0063ea;">add_test</span> <span style="color: #969896;">(</span><span style="color: #00833c;">TutorialRuns</span> <span style="color: #0074f2;">Tutorial</span> <span style="color: #0086b3;">25</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">add_test</span> <span style="color: #969896;">(</span>TutorialRuns Tutorial <span style="color: #0086b3;">25</span><span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">does it sqrt of 25</span>
-<span style="color: #0063ea;">add_test</span> <span style="color: #969896;">(</span><span style="color: #a85300;">TutorialComp25</span> <span style="color: #0074f2;">Tutorial</span> <span style="color: #0086b3;">25</span><span style="color: #969896;">)</span>
-<span style="color: #007dea;">set_tests_properties</span> <span style="color: #969896;">(</span><span style="color: #a85300;">TutorialComp25</span> <span style="color: #ce008b;">PROPERTIES</span> <span style="color: #0085ac;">PASS_REGULAR_EXPRESSION</span> <span style="color: #183691;">"25 is 5"</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">add_test</span> <span style="color: #969896;">(</span>TutorialComp25 Tutorial <span style="color: #0086b3;">25</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">set_tests_properties</span> <span style="color: #969896;">(</span>TutorialComp25 PROPERTIES PASS_REGULAR_EXPRESSION <span style="color: #183691;">"25 is 5"</span><span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">does it handle negative numbers</span>
-<span style="color: #0063ea;">add_test</span> <span style="color: #969896;">(</span><span style="color: #4f7600;">TutorialNegative</span> <span style="color: #0074f2;">Tutorial</span> <span style="color: #007f00;">-25</span><span style="color: #969896;">)</span>
-<span style="color: #007dea;">set_tests_properties</span> <span style="color: #969896;">(</span><span style="color: #4f7600;">TutorialNegative</span> <span style="color: #ce008b;">PROPERTIES</span> <span style="color: #0085ac;">PASS_REGULAR_EXPRESSION</span> <span style="color: #183691;">"-25 is 0"</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">add_test</span> <span style="color: #969896;">(</span>TutorialNegative Tutorial -25<span style="color: #969896;">)</span>
+<span style="color: #795da3;">set_tests_properties</span> <span style="color: #969896;">(</span>TutorialNegative PROPERTIES PASS_REGULAR_EXPRESSION <span style="color: #183691;">"-25 is 0"</span><span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">does it handle small numbers</span>
-<span style="color: #0063ea;">add_test</span> <span style="color: #969896;">(</span><span style="color: #0e7c00;">TutorialSmall</span> <span style="color: #0074f2;">Tutorial</span> <span style="color: #0086b3;">0.0001</span><span style="color: #969896;">)</span>
-<span style="color: #007dea;">set_tests_properties</span> <span style="color: #969896;">(</span><span style="color: #0e7c00;">TutorialSmall</span> <span style="color: #ce008b;">PROPERTIES</span> <span style="color: #0085ac;">PASS_REGULAR_EXPRESSION</span> <span style="color: #183691;">"0.0001 is 0.01"</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">add_test</span> <span style="color: #969896;">(</span>TutorialSmall Tutorial <span style="color: #0086b3;">0.0001</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">set_tests_properties</span> <span style="color: #969896;">(</span>TutorialSmall PROPERTIES PASS_REGULAR_EXPRESSION <span style="color: #183691;">"0.0001 is 0.01"</span><span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">does the usage message work?</span>
-<span style="color: #0063ea;">add_test</span> <span style="color: #969896;">(</span><span style="color: #008009;">TutorialUsage</span> <span style="color: #0074f2;">Tutorial</span><span style="color: #969896;">)</span>
-<span style="color: #007dea;">set_tests_properties</span> <span style="color: #969896;">(</span><span style="color: #008009;">TutorialUsage</span> <span style="color: #ce008b;">PROPERTIES</span> <span style="color: #0085ac;">PASS_REGULAR_EXPRESSION</span> <span style="color: #183691;">"Usage:.*number"</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">add_test</span> <span style="color: #969896;">(</span>TutorialUsage Tutorial<span style="color: #969896;">)</span>
+<span style="color: #795da3;">set_tests_properties</span> <span style="color: #969896;">(</span>TutorialUsage PROPERTIES PASS_REGULAR_EXPRESSION <span style="color: #183691;">"Usage:.*number"</span><span style="color: #969896;">)</span>
 </pre>
 </div>
 <p>
@@ -659,14 +659,14 @@ $ <span style="color: #d90068;">make</span> <span style="color: #d8003c;">instal
 </p>
 <div class="org-src-container">
 <pre class="src src-sh"><span style="color: #969896;">#</span><span style="color: #969896;">define a macro to simplify adding tests, then use it</span>
-<span style="color: #be3f00;">macro</span> <span style="color: #969896;">(</span><span style="color: #0085a0;">do_test</span> <span style="color: #d90067;">arg</span> <span style="color: #007d00;">result</span><span style="color: #969896;">)</span>
-  <span style="color: #0063ea;">add_test</span> <span style="color: #969896;">(</span><span style="color: #0085a9;">TutorialComp</span>$<span style="color: #0086b3;">{</span><span style="color: #d90067;">arg</span><span style="color: #0086b3;">}</span> <span style="color: #0074f2;">Tutorial</span> $<span style="color: #0086b3;">{</span><span style="color: #d90067;">arg</span><span style="color: #0086b3;">}</span><span style="color: #969896;">)</span>
-  <span style="color: #007dea;">set_tests_properties</span> <span style="color: #969896;">(</span><span style="color: #0085a9;">TutorialComp</span>$<span style="color: #0086b3;">{</span><span style="color: #d90067;">arg</span><span style="color: #0086b3;">}</span> <span style="color: #ce008b;">PROPERTIES</span> <span style="color: #0085ac;">PASS_REGULAR_EXPRESSION</span> $<span style="color: #0086b3;">{</span><span style="color: #007d00;">result</span><span style="color: #0086b3;">}</span><span style="color: #969896;">)</span>
-<span style="color: #008011;">endmacro</span> <span style="color: #969896;">(</span><span style="color: #0085a0;">do_test</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">macro</span> <span style="color: #969896;">(</span>do_test arg result<span style="color: #969896;">)</span>
+  add_test <span style="color: #969896;">(</span>TutorialComp$<span style="color: #0086b3;">{</span><span style="color: #333333;">arg</span><span style="color: #0086b3;">}</span> Tutorial $<span style="color: #0086b3;">{</span><span style="color: #333333;">arg</span><span style="color: #0086b3;">}</span><span style="color: #969896;">)</span>
+  set_tests_properties <span style="color: #969896;">(</span>TutorialComp$<span style="color: #0086b3;">{</span><span style="color: #333333;">arg</span><span style="color: #0086b3;">}</span> PROPERTIES PASS_REGULAR_EXPRESSION $<span style="color: #0086b3;">{</span><span style="color: #333333;">result</span><span style="color: #0086b3;">}</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">endmacro</span> <span style="color: #969896;">(</span>do_test<span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">do a bunch of result based tests</span>
-<span style="color: #0085a0;">do_test</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">25</span> <span style="color: #183691;">"25 is 5"</span><span style="color: #969896;">)</span>
-<span style="color: #0085a0;">do_test</span> <span style="color: #969896;">(</span><span style="color: #007f00;">-25</span> <span style="color: #183691;">"-25 is 0"</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">do_test</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">25</span> <span style="color: #183691;">"25 is 5"</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">do_test</span> <span style="color: #969896;">(</span>-25 <span style="color: #183691;">"-25 is 0"</span><span style="color: #969896;">)</span>
 </pre>
 </div>
 </div>
@@ -674,9 +674,9 @@ $ <span style="color: #d90068;">make</span> <span style="color: #d8003c;">instal
 </div>
 
 
-<div id="outline-container-orgb7bddc9" class="outline-2">
-<h2 id="orgb7bddc9">Step4 添加系统自省检查</h2>
-<div class="outline-text-2" id="text-orgb7bddc9">
+<div id="outline-container-orga642ad5" class="outline-2">
+<h2 id="orga642ad5">Step4 添加系统自省检查</h2>
+<div class="outline-text-2" id="text-orga642ad5">
 <p>
 系统自省（System Introspection），就是去检查要使用的某些特性在特定平台上是否有提供支持。在本教程中，我们要去检查目标平台上是否有提供 <code>log</code> 和 <code>exp</code> 函数支持。当然，这两个函数作为 <code>math.h</code> 中的函数，基本上所有的平台都会给出支持，这里为了举例的方便，假设大多数平台上未提供 <code>log</code> 和 <code>exp</code> 函数支持。若某一平台上有 <code>log</code> 和 <code>exp</code> 函数，就使用它们在 <code>mysqrt</code> 函数中计算平方根，否则使用迭代的方法去计算平方根。
 </p>
@@ -686,9 +686,9 @@ $ <span style="color: #d90068;">make</span> <span style="color: #d8003c;">instal
 </p>
 <div class="org-src-container">
 <pre class="src src-sh"><span style="color: #969896;"># </span><span style="color: #969896;">does this system provide the log and exp functions?</span>
-<span style="color: #008599;">include</span> <span style="color: #969896;">(</span><span style="color: #00845e;">CheckFunctionExists</span><span style="color: #969896;">)</span>
-<span style="color: #d70071;">check_function_exists</span> <span style="color: #969896;">(</span><span style="color: #a71d5d;">log</span> <span style="color: #d20083;">HAVE_LOG</span><span style="color: #969896;">)</span>
-<span style="color: #d70071;">check_function_exists</span> <span style="color: #969896;">(</span><span style="color: #786b00;">exp</span> <span style="color: #d21725;">HAVE_EXP</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">include</span> <span style="color: #969896;">(</span>CheckFunctionExists<span style="color: #969896;">)</span>
+<span style="color: #795da3;">check_function_exists</span> <span style="color: #969896;">(</span><span style="color: #a71d5d;">log</span> HAVE_LOG<span style="color: #969896;">)</span>
+<span style="color: #795da3;">check_function_exists</span> <span style="color: #969896;">(</span>exp HAVE_EXP<span style="color: #969896;">)</span>
 </pre>
 </div>
 
@@ -696,7 +696,7 @@ $ <span style="color: #d90068;">make</span> <span style="color: #d8003c;">instal
 在 <code>TutorialConfig.h.in</code> 中定义 <code>HAVE_LOG</code> 和 <code>HAVE_EXP</code> 变量，这样当 <code>CMake</code> 发现该特定平台上有提供对 <code>log</code> 和 <code>exp</code> 的支持时，可以使用这两个变量。
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #5e56de;">//</span> <span style="color: #0079f0;">does</span> <span style="color: #b627af;">the</span> <span style="color: #ab32b9;">platform</span> <span style="color: #da004c;">provide</span> <span style="color: #786b00;">exp</span> <span style="color: #007bee;">and</span> <span style="color: #d70039;">log</span> <span style="color: #008232;">functions</span>?
+<pre class="src src-sh">// does the platform provide exp and log functions?
 <span style="color: #969896;">#</span><span style="color: #969896;">cmakedefine HAVE_LOG</span>
 <span style="color: #969896;">#</span><span style="color: #969896;">cmakedefine HAVE_EXP</span>
 </pre>
@@ -711,8 +711,8 @@ $ <span style="color: #d90068;">make</span> <span style="color: #d8003c;">instal
 </p>
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #969896;">// </span><span style="color: #969896;">if we have both log and exp then use them</span>
-<span style="color: #a71d5d;">#if</span> <span style="color: #a71d5d;">defined</span> <span style="color: #969896;">(</span><span style="color: #d20083;">HAVE_LOG</span><span style="color: #969896;">)</span> &amp;&amp; <span style="color: #a71d5d;">defined</span> <span style="color: #969896;">(</span><span style="color: #d21725;">HAVE_EXP</span><span style="color: #969896;">)</span>
-  <span style="color: #007d00;">result</span> = <span style="color: #786b00;">exp</span><span style="color: #969896;">(</span><span style="color: #d70039;">log</span><span style="color: #0086b3;">(</span><span style="color: #c63400;">x</span><span style="color: #0086b3;">)</span>*<span style="color: #0086b3;">0.5</span><span style="color: #969896;">)</span>;
+<span style="color: #a71d5d;">#if</span> <span style="color: #a71d5d;">defined</span> <span style="color: #969896;">(</span>HAVE_LOG<span style="color: #969896;">)</span> &amp;&amp; <span style="color: #a71d5d;">defined</span> <span style="color: #969896;">(</span>HAVE_EXP<span style="color: #969896;">)</span>
+  result = exp<span style="color: #969896;">(</span>log<span style="color: #0086b3;">(</span>x<span style="color: #0086b3;">)</span>*<span style="color: #0086b3;">0.5</span><span style="color: #969896;">)</span>;
 <span style="color: #a71d5d;">#else</span> <span style="color: #969896;">// </span><span style="color: #969896;">otherwise use an iterative approach</span>
   ...
 </pre>
@@ -721,9 +721,9 @@ $ <span style="color: #d90068;">make</span> <span style="color: #d8003c;">instal
 </div>
 
 
-<div id="outline-container-orga63a9ea" class="outline-2">
-<h2 id="orga63a9ea">Step5 添加生成器</h2>
-<div class="outline-text-2" id="text-orga63a9ea">
+<div id="outline-container-org0af044e" class="outline-2">
+<h2 id="org0af044e">Step5 添加生成器</h2>
+<div class="outline-text-2" id="text-org0af044e">
 <p>
 接下来，我们为项目添加一个生成器（Generator）。在本教程中，我们创建一个预先计算好的平方根表格，若输入数值（待计算其平方根）包含在预处理的表格中，直接查表即可得到其平方根；若不在表格中，就调用 <code>mysqrt()</code> 进行计算，这在大型项目中可以节省很多计算开销。首先，在 <code>MathFunctions</code> 文件夹下新建 <code>MakeTable.cxx</code> 源文件来生成这个预先计算好了的平方根表格。
 </p>
@@ -733,33 +733,33 @@ $ <span style="color: #d90068;">make</span> <span style="color: #d8003c;">instal
 <span style="color: #a71d5d;">#include</span> <span style="color: #969896;">&lt;</span><span style="color: #183691;">stdlib.h</span><span style="color: #969896;">&gt;</span>
 <span style="color: #a71d5d;">#include</span> <span style="color: #969896;">&lt;</span><span style="color: #183691;">math.h</span><span style="color: #969896;">&gt;</span>
 
-<span style="color: #0086b3;">int</span> <span style="color: #d5062f;">main</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #9c5b00;">argc</span>, <span style="color: #0086b3;">char</span> *<span style="color: #d8003c;">argv</span><span style="color: #0086b3;">[]</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
-  <span style="color: #0086b3;">int</span> <span style="color: #796b00;">i</span>;
-  <span style="color: #0086b3;">double</span> <span style="color: #007d00;">result</span>;
+<span style="color: #0086b3;">int</span> <span style="color: #795da3;">main</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #333333;">argc</span>, <span style="color: #0086b3;">char</span> *<span style="color: #333333;">argv</span><span style="color: #0086b3;">[]</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+  <span style="color: #0086b3;">int</span> <span style="color: #333333;">i</span>;
+  <span style="color: #0086b3;">double</span> <span style="color: #333333;">result</span>;
 
   <span style="color: #969896;">// </span><span style="color: #969896;">make sure we have enough arguments</span>
-  <span style="color: #0083d2;">if</span> <span style="color: #0086b3;">(</span><span style="color: #9c5b00;">argc</span> &lt; <span style="color: #0086b3;">2</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
-      <span style="color: #0085a3;">return</span> <span style="color: #0086b3;">1</span>;
+  <span style="color: #a71d5d;">if</span> <span style="color: #0086b3;">(</span>argc &lt; <span style="color: #0086b3;">2</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
+      <span style="color: #a71d5d;">return</span> <span style="color: #0086b3;">1</span>;
   <span style="color: #0086b3;">}</span>
 
   <span style="color: #969896;">// </span><span style="color: #969896;">open the output file</span>
-  <span style="color: #0086b3;">FILE</span> *<span style="color: #008237;">fout</span> = <span style="color: #c23a00;">fopen</span><span style="color: #0086b3;">(</span><span style="color: #d8003c;">argv</span><span style="color: #969896;">[</span><span style="color: #0086b3;">1</span><span style="color: #969896;">]</span>, <span style="color: #183691;">"w"</span><span style="color: #0086b3;">)</span>;
-  <span style="color: #0083d2;">if</span> <span style="color: #0086b3;">(</span><span style="color: #a71d5d;">!</span><span style="color: #008237;">fout</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
-      <span style="color: #0085a3;">return</span> <span style="color: #0086b3;">1</span>;
+  <span style="color: #0086b3;">FILE</span> *<span style="color: #333333;">fout</span> = fopen<span style="color: #0086b3;">(</span>argv<span style="color: #969896;">[</span><span style="color: #0086b3;">1</span><span style="color: #969896;">]</span>, <span style="color: #183691;">"w"</span><span style="color: #0086b3;">)</span>;
+  <span style="color: #a71d5d;">if</span> <span style="color: #0086b3;">(</span><span style="color: #a71d5d;">!</span>fout<span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
+      <span style="color: #a71d5d;">return</span> <span style="color: #0086b3;">1</span>;
   <span style="color: #0086b3;">}</span>
 
   <span style="color: #969896;">// </span><span style="color: #969896;">create a source file with a table of square roots</span>
-  <span style="color: #c63301;">fprintf</span><span style="color: #0086b3;">(</span><span style="color: #008237;">fout</span>, <span style="color: #183691;">"double sqrtTable[] = {\n"</span><span style="color: #0086b3;">)</span>;
-  <span style="color: #0082da;">for</span> <span style="color: #0086b3;">(</span><span style="color: #796b00;">i</span> = <span style="color: #0086b3;">0</span>; <span style="color: #796b00;">i</span> &lt; <span style="color: #0086b3;">10</span>; ++<span style="color: #796b00;">i</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
-      <span style="color: #007d00;">result</span> = <span style="color: #7e6900;">sqrt</span><span style="color: #969896;">(</span><span style="color: #9f3bc2;">static_cast</span>&lt;<span style="color: #0086b3;">double</span>&gt;<span style="color: #795da3;">(</span><span style="color: #796b00;">i</span><span style="color: #795da3;">)</span><span style="color: #969896;">)</span>;
-      <span style="color: #c63301;">fprintf</span><span style="color: #969896;">(</span><span style="color: #008237;">fout</span>, <span style="color: #183691;">"%g,\n"</span>, <span style="color: #007d00;">result</span><span style="color: #969896;">)</span>;
+  fprintf<span style="color: #0086b3;">(</span>fout, <span style="color: #183691;">"double sqrtTable[] = {\n"</span><span style="color: #0086b3;">)</span>;
+  <span style="color: #a71d5d;">for</span> <span style="color: #0086b3;">(</span>i = <span style="color: #0086b3;">0</span>; i &lt; <span style="color: #0086b3;">10</span>; ++i<span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
+      result = sqrt<span style="color: #969896;">(</span>static_cast&lt;<span style="color: #0086b3;">double</span>&gt;<span style="color: #795da3;">(</span>i<span style="color: #795da3;">)</span><span style="color: #969896;">)</span>;
+      fprintf<span style="color: #969896;">(</span>fout, <span style="color: #183691;">"%g,\n"</span>, result<span style="color: #969896;">)</span>;
   <span style="color: #0086b3;">}</span>
 
   <span style="color: #969896;">// </span><span style="color: #969896;">close the table with a zero</span>
-  <span style="color: #c63301;">fprintf</span><span style="color: #0086b3;">(</span><span style="color: #008237;">fout</span>, <span style="color: #183691;">"0};\n"</span><span style="color: #0086b3;">)</span>;
-  <span style="color: #0078f1;">fclose</span><span style="color: #0086b3;">(</span><span style="color: #008237;">fout</span><span style="color: #0086b3;">)</span>;
+  fprintf<span style="color: #0086b3;">(</span>fout, <span style="color: #183691;">"0};\n"</span><span style="color: #0086b3;">)</span>;
+  fclose<span style="color: #0086b3;">(</span>fout<span style="color: #0086b3;">)</span>;
 
-  <span style="color: #0085a3;">return</span> <span style="color: #0086b3;">0</span>;
+  <span style="color: #a71d5d;">return</span> <span style="color: #0086b3;">0</span>;
 <span style="color: #969896;">}</span>
 </pre>
 </div>
@@ -769,21 +769,21 @@ $ <span style="color: #d90068;">make</span> <span style="color: #d8003c;">instal
 </p>
 <div class="org-src-container">
 <pre class="src src-sh"><span style="color: #969896;"># </span><span style="color: #969896;">first we add the executable that generates the table</span>
-<span style="color: #0084bf;">add_executable</span><span style="color: #969896;">(</span><span style="color: #d8006f;">MakeTable</span> <span style="color: #6255dd;">MakeTable.cxx</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">add_executable</span><span style="color: #969896;">(</span>MakeTable MakeTable.cxx<span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">add the command to generate the source code</span>
-<span style="color: #b54800;">add_custom_command</span> <span style="color: #969896;">(</span>
-  <span style="color: #0081dc;">OUTPUT</span> $<span style="color: #0086b3;">{</span><span style="color: #aa32b9;">CMAKE_CURRENT_BINARY_DIR</span><span style="color: #0086b3;">}</span><span style="color: #8749d0;">/Table.h</span>
-  <span style="color: #006ff1;">COMMAND</span> <span style="color: #d8006f;">MakeTable</span> $<span style="color: #0086b3;">{</span><span style="color: #aa32b9;">CMAKE_CURRENT_BINARY_DIR</span><span style="color: #0086b3;">}</span><span style="color: #8749d0;">/Table.h</span>
-  <span style="color: #c53600;">DEPENDS</span> <span style="color: #d8006f;">MakeTable</span>
+<span style="color: #795da3;">add_custom_command</span> <span style="color: #969896;">(</span>
+  OUTPUT $<span style="color: #0086b3;">{</span><span style="color: #333333;">CMAKE_CURRENT_BINARY_DIR</span><span style="color: #0086b3;">}</span>/Table.h
+  COMMAND MakeTable $<span style="color: #0086b3;">{</span><span style="color: #333333;">CMAKE_CURRENT_BINARY_DIR</span><span style="color: #0086b3;">}</span>/Table.h
+  DEPENDS MakeTable
   <span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">add the binary tree directory to the search path for </span>
 <span style="color: #969896;"># </span><span style="color: #969896;">include files</span>
-<span style="color: #1d60e7;">include_directories</span><span style="color: #969896;">(</span> $<span style="color: #0086b3;">{</span><span style="color: #aa32b9;">CMAKE_CURRENT_BINARY_DIR</span><span style="color: #0086b3;">}</span> <span style="color: #969896;">)</span>
+<span style="color: #795da3;">include_directories</span><span style="color: #969896;">(</span> $<span style="color: #0086b3;">{</span><span style="color: #333333;">CMAKE_CURRENT_BINARY_DIR</span><span style="color: #0086b3;">}</span> <span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">add the main library</span>
-<span style="color: #9442c9;">add_library</span><span style="color: #969896;">(</span><span style="color: #896500;">MathFunctions</span> <span style="color: #8d6300;">mysqrt.cxx</span> $<span style="color: #0086b3;">{</span><span style="color: #aa32b9;">CMAKE_CURRENT_BINARY_DIR</span><span style="color: #0086b3;">}</span><span style="color: #8749d0;">/Table.h</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">add_library</span><span style="color: #969896;">(</span>MathFunctions mysqrt.cxx $<span style="color: #0086b3;">{</span><span style="color: #333333;">CMAKE_CURRENT_BINARY_DIR</span><span style="color: #0086b3;">}</span>/Table.h<span style="color: #969896;">)</span>
 </pre>
 </div>
 <ol class="org-ol">
@@ -801,77 +801,77 @@ $ <span style="color: #d90068;">make</span> <span style="color: #d8003c;">instal
 至此，项目主目录下的的 <code>CMakeLists.txt</code> 为：
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #008341;">cmake_minimum_required</span> <span style="color: #969896;">(</span><span style="color: #00833d;">VERSION</span> <span style="color: #0086b3;">2.6</span><span style="color: #969896;">)</span>
-<span style="color: #bd1da7;">project</span> <span style="color: #969896;">(</span><span style="color: #0074f2;">Tutorial</span><span style="color: #969896;">)</span>
+<pre class="src src-sh"><span style="color: #795da3;">cmake_minimum_required</span> <span style="color: #969896;">(</span>VERSION <span style="color: #0086b3;">2.6</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">project</span> <span style="color: #969896;">(</span>Tutorial<span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">The version number.</span>
-<span style="color: #a71d5d;">set</span> <span style="color: #969896;">(</span><span style="color: #b22bb2;">TUTORIAL_VERSION_MAJOR</span> <span style="color: #0086b3;">1</span><span style="color: #969896;">)</span>
-<span style="color: #a71d5d;">set</span> <span style="color: #969896;">(</span><span style="color: #00857d;">TUTORIAL_VERSION_MINOR</span> <span style="color: #0086b3;">0</span><span style="color: #969896;">)</span>
+<span style="color: #a71d5d;">set</span> <span style="color: #969896;">(</span>TUTORIAL_VERSION_MAJOR <span style="color: #0086b3;">1</span><span style="color: #969896;">)</span>
+<span style="color: #a71d5d;">set</span> <span style="color: #969896;">(</span>TUTORIAL_VERSION_MINOR <span style="color: #0086b3;">0</span><span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">does this system provide the log and exp functions?</span>
-<span style="color: #008599;">include</span> <span style="color: #969896;">(</span>$<span style="color: #0086b3;">{</span><span style="color: #d5007a;">CMAKE_ROOT</span><span style="color: #0086b3;">}</span><span style="color: #d9006b;">/Modules/CheckFunctionExists.cmake</span><span style="color: #969896;">)</span>
-<span style="color: #d70071;">check_function_exists</span> <span style="color: #969896;">(</span><span style="color: #a71d5d;">log</span> <span style="color: #d20083;">HAVE_LOG</span><span style="color: #969896;">)</span>
-<span style="color: #d70071;">check_function_exists</span> <span style="color: #969896;">(</span><span style="color: #786b00;">exp</span> <span style="color: #d21725;">HAVE_EXP</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">include</span> <span style="color: #969896;">(</span>$<span style="color: #0086b3;">{</span><span style="color: #333333;">CMAKE_ROOT</span><span style="color: #0086b3;">}</span>/Modules/CheckFunctionExists.cmake<span style="color: #969896;">)</span>
+<span style="color: #795da3;">check_function_exists</span> <span style="color: #969896;">(</span><span style="color: #a71d5d;">log</span> HAVE_LOG<span style="color: #969896;">)</span>
+<span style="color: #795da3;">check_function_exists</span> <span style="color: #969896;">(</span>exp HAVE_EXP<span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">should we use our own math functions</span>
-<span style="color: #007e00;">option</span><span style="color: #969896;">(</span><span style="color: #c5079b;">USE_MYMATH</span> <span style="color: #183691;">"Use tutorial provided math implementation"</span> <span style="color: #0062e9;">ON</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">option</span><span style="color: #969896;">(</span>USE_MYMATH <span style="color: #183691;">"Use tutorial provided math implementation"</span> ON<span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">configure a header file to pass some of the CMake settings</span>
 <span style="color: #969896;"># </span><span style="color: #969896;">to the source code</span>
-<span style="color: #cc0090;">configure_file</span> <span style="color: #969896;">(</span>
+<span style="color: #795da3;">configure_file</span> <span style="color: #969896;">(</span>
   <span style="color: #183691;">"${PROJECT_SOURCE_DIR}/TutorialConfig.h.in"</span>
   <span style="color: #183691;">"${PROJECT_BINARY_DIR}/TutorialConfig.h"</span>
   <span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">add the binary tree to the search path for include files</span>
 <span style="color: #969896;"># </span><span style="color: #969896;">so that we will find TutorialConfig.h</span>
-<span style="color: #1d60e7;">include_directories</span><span style="color: #969896;">(</span><span style="color: #183691;">"${PROJECT_BINARY_DIR}"</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">include_directories</span><span style="color: #969896;">(</span><span style="color: #183691;">"${PROJECT_BINARY_DIR}"</span><span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">add the MathFunctions library?</span>
-<span style="color: #0083d2;">if</span> <span style="color: #969896;">(</span><span style="color: #c5079b;">USE_MYMATH</span><span style="color: #969896;">)</span>
-  <span style="color: #1d60e7;">include_directories</span> <span style="color: #969896;">(</span><span style="color: #183691;">"${PROJECT_SOURCE_DIR}/MathFunctions"</span><span style="color: #969896;">)</span>
-  <span style="color: #a338bf;">add_subdirectory</span> <span style="color: #969896;">(</span><span style="color: #896500;">MathFunctions</span><span style="color: #969896;">)</span>
-  <span style="color: #a71d5d;">set</span> <span style="color: #969896;">(</span><span style="color: #da0060;">EXTRA_LIBS</span> $<span style="color: #0086b3;">{</span><span style="color: #da0060;">EXTRA_LIBS</span><span style="color: #0086b3;">}</span> <span style="color: #896500;">MathFunctions</span><span style="color: #969896;">)</span>
-<span style="color: #d00086;">endif</span> <span style="color: #969896;">()</span>
+<span style="color: #a71d5d;">if</span> <span style="color: #969896;">(</span>USE_MYMATH<span style="color: #969896;">)</span>
+  include_directories <span style="color: #969896;">(</span><span style="color: #183691;">"${PROJECT_SOURCE_DIR}/MathFunctions"</span><span style="color: #969896;">)</span>
+  add_subdirectory <span style="color: #969896;">(</span>MathFunctions<span style="color: #969896;">)</span>
+  <span style="color: #a71d5d;">set</span> <span style="color: #969896;">(</span>EXTRA_LIBS $<span style="color: #0086b3;">{</span><span style="color: #333333;">EXTRA_LIBS</span><span style="color: #0086b3;">}</span> MathFunctions<span style="color: #969896;">)</span>
+<span style="color: #795da3;">endif</span> <span style="color: #969896;">()</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">add the executable</span>
-<span style="color: #0084bf;">add_executable</span><span style="color: #969896;">(</span><span style="color: #0074f2;">Tutorial</span> <span style="color: #d10084;">tutorial.cxx</span><span style="color: #969896;">)</span>
-<span style="color: #00811b;">target_link_libraries</span> <span style="color: #969896;">(</span><span style="color: #0074f2;">Tutorial</span>  $<span style="color: #0086b3;">{</span><span style="color: #da0060;">EXTRA_LIBS</span><span style="color: #0086b3;">}</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">add_executable</span><span style="color: #969896;">(</span>Tutorial tutorial.cxx<span style="color: #969896;">)</span>
+<span style="color: #795da3;">target_link_libraries</span> <span style="color: #969896;">(</span>Tutorial  $<span style="color: #0086b3;">{</span><span style="color: #333333;">EXTRA_LIBS</span><span style="color: #0086b3;">}</span><span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">add the install targets</span>
-<span style="color: #d8003c;">install</span> <span style="color: #969896;">(</span><span style="color: #007cec;">TARGETS</span> <span style="color: #0074f2;">Tutorial</span> <span style="color: #9442c9;">DESTINATION</span> <span style="color: #d8006e;">bin</span><span style="color: #969896;">)</span>
-<span style="color: #d8003c;">install</span> <span style="color: #969896;">(</span><span style="color: #497700;">FILES</span> <span style="color: #183691;">"${PROJECT_BINARY_DIR}/TutorialConfig.h"</span>
-  <span style="color: #9442c9;">DESTINATION</span> <span style="color: #008599;">include</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">install</span> <span style="color: #969896;">(</span>TARGETS Tutorial DESTINATION bin<span style="color: #969896;">)</span>
+<span style="color: #795da3;">install</span> <span style="color: #969896;">(</span>FILES <span style="color: #183691;">"${PROJECT_BINARY_DIR}/TutorialConfig.h"</span>
+  DESTINATION include<span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">enable testing</span>
-<span style="color: #0066ec;">enable_testing</span> <span style="color: #969896;">()</span>
+<span style="color: #795da3;">enable_testing</span> <span style="color: #969896;">()</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">does the application run</span>
-<span style="color: #0063ea;">add_test</span> <span style="color: #969896;">(</span><span style="color: #00833c;">TutorialRuns</span> <span style="color: #0074f2;">Tutorial</span> <span style="color: #0086b3;">25</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">add_test</span> <span style="color: #969896;">(</span>TutorialRuns Tutorial <span style="color: #0086b3;">25</span><span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">does the usage message work?</span>
-<span style="color: #0063ea;">add_test</span> <span style="color: #969896;">(</span><span style="color: #008009;">TutorialUsage</span> <span style="color: #0074f2;">Tutorial</span><span style="color: #969896;">)</span>
-<span style="color: #007dea;">set_tests_properties</span> <span style="color: #969896;">(</span><span style="color: #008009;">TutorialUsage</span>
-  <span style="color: #ce008b;">PROPERTIES</span>
-  <span style="color: #0085ac;">PASS_REGULAR_EXPRESSION</span> <span style="color: #183691;">"Usage:.*number"</span>
+<span style="color: #795da3;">add_test</span> <span style="color: #969896;">(</span>TutorialUsage Tutorial<span style="color: #969896;">)</span>
+<span style="color: #795da3;">set_tests_properties</span> <span style="color: #969896;">(</span>TutorialUsage
+  PROPERTIES
+  PASS_REGULAR_EXPRESSION <span style="color: #183691;">"Usage:.*number"</span>
   <span style="color: #969896;">)</span>
 
 <span style="color: #969896;">#</span><span style="color: #969896;">define a macro to simplify adding tests</span>
-<span style="color: #be3f00;">macro</span> <span style="color: #969896;">(</span><span style="color: #0085a0;">do_test</span> <span style="color: #d90067;">arg</span> <span style="color: #007d00;">result</span><span style="color: #969896;">)</span>
-  <span style="color: #0063ea;">add_test</span> <span style="color: #969896;">(</span><span style="color: #0085a9;">TutorialComp</span>$<span style="color: #0086b3;">{</span><span style="color: #d90067;">arg</span><span style="color: #0086b3;">}</span> <span style="color: #0074f2;">Tutorial</span> $<span style="color: #0086b3;">{</span><span style="color: #d90067;">arg</span><span style="color: #0086b3;">}</span><span style="color: #969896;">)</span>
-  <span style="color: #007dea;">set_tests_properties</span> <span style="color: #969896;">(</span><span style="color: #0085a9;">TutorialComp</span>$<span style="color: #0086b3;">{</span><span style="color: #d90067;">arg</span><span style="color: #0086b3;">}</span>
-    <span style="color: #ce008b;">PROPERTIES</span> <span style="color: #0085ac;">PASS_REGULAR_EXPRESSION</span> $<span style="color: #0086b3;">{</span><span style="color: #007d00;">result</span><span style="color: #0086b3;">}</span>
+<span style="color: #795da3;">macro</span> <span style="color: #969896;">(</span>do_test arg result<span style="color: #969896;">)</span>
+  add_test <span style="color: #969896;">(</span>TutorialComp$<span style="color: #0086b3;">{</span><span style="color: #333333;">arg</span><span style="color: #0086b3;">}</span> Tutorial $<span style="color: #0086b3;">{</span><span style="color: #333333;">arg</span><span style="color: #0086b3;">}</span><span style="color: #969896;">)</span>
+  set_tests_properties <span style="color: #969896;">(</span>TutorialComp$<span style="color: #0086b3;">{</span><span style="color: #333333;">arg</span><span style="color: #0086b3;">}</span>
+    PROPERTIES PASS_REGULAR_EXPRESSION $<span style="color: #0086b3;">{</span><span style="color: #333333;">result</span><span style="color: #0086b3;">}</span>
     <span style="color: #969896;">)</span>
-<span style="color: #008011;">endmacro</span> <span style="color: #969896;">()</span>
+<span style="color: #795da3;">endmacro</span> <span style="color: #969896;">()</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">do a bunch of result based tests</span>
-<span style="color: #0085a0;">do_test</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">4</span> <span style="color: #183691;">"4 is 2"</span><span style="color: #969896;">)</span>
-<span style="color: #0085a0;">do_test</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">9</span> <span style="color: #183691;">"9 is 3"</span><span style="color: #969896;">)</span>
-<span style="color: #0085a0;">do_test</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">5</span> <span style="color: #183691;">"5 is 2.236"</span><span style="color: #969896;">)</span>
-<span style="color: #0085a0;">do_test</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">7</span> <span style="color: #183691;">"7 is 2.645"</span><span style="color: #969896;">)</span>
-<span style="color: #0085a0;">do_test</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">25</span> <span style="color: #183691;">"25 is 5"</span><span style="color: #969896;">)</span>
-<span style="color: #0085a0;">do_test</span> <span style="color: #969896;">(</span><span style="color: #007f00;">-25</span> <span style="color: #183691;">"-25 is 0"</span><span style="color: #969896;">)</span>
-<span style="color: #0085a0;">do_test</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">0.0001</span> <span style="color: #183691;">"0.0001 is 0.01"</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">do_test</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">4</span> <span style="color: #183691;">"4 is 2"</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">do_test</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">9</span> <span style="color: #183691;">"9 is 3"</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">do_test</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">5</span> <span style="color: #183691;">"5 is 2.236"</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">do_test</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">7</span> <span style="color: #183691;">"7 is 2.645"</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">do_test</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">25</span> <span style="color: #183691;">"25 is 5"</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">do_test</span> <span style="color: #969896;">(</span>-25 <span style="color: #183691;">"-25 is 0"</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">do_test</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">0.0001</span> <span style="color: #183691;">"0.0001 is 0.01"</span><span style="color: #969896;">)</span>
 </pre>
 </div>
 <p>
@@ -879,13 +879,13 @@ $ <span style="color: #d90068;">make</span> <span style="color: #d8003c;">instal
 </p>
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #969896;">// </span><span style="color: #969896;">the configured options and settings for Tutorial</span>
-<span style="color: #a71d5d;">#define</span> <span style="color: #b22bb2;">TUTORIAL_VERSION_MAJOR</span> @<span style="color: #b22bb2;">TUTORIAL_VERSION_MAJOR</span>@
-<span style="color: #a71d5d;">#define</span> <span style="color: #00857d;">TUTORIAL_VERSION_MINOR</span> @<span style="color: #00857d;">TUTORIAL_VERSION_MINOR</span>@
-<span style="color: #a71d5d;">#cmakedefine</span> <span style="color: #c5079b;">USE_MYMATH</span>
+<span style="color: #a71d5d;">#define</span> <span style="color: #333333;">TUTORIAL_VERSION_MAJOR</span> @TUTORIAL_VERSION_MAJOR@
+<span style="color: #a71d5d;">#define</span> <span style="color: #333333;">TUTORIAL_VERSION_MINOR</span> @TUTORIAL_VERSION_MINOR@
+<span style="color: #a71d5d;">#cmakedefine</span> USE_MYMATH
 
 <span style="color: #969896;">// </span><span style="color: #969896;">does the platform provide exp and log functions?</span>
-<span style="color: #a71d5d;">#cmakedefine</span> <span style="color: #d20083;">HAVE_LOG</span>
-<span style="color: #a71d5d;">#cmakedefine</span> <span style="color: #d21725;">HAVE_EXP</span>
+<span style="color: #a71d5d;">#cmakedefine</span> HAVE_LOG
+<span style="color: #a71d5d;">#cmakedefine</span> HAVE_EXP
 </pre>
 </div>
 <p>
@@ -894,42 +894,42 @@ $ <span style="color: #d90068;">make</span> <span style="color: #d8003c;">instal
 <div class="org-src-container">
 <pre class="src src-sh"><span style="color: #969896;"># </span><span style="color: #969896;">first we add the executable that generates the table</span>
 <span style="color: #969896;"># </span><span style="color: #969896;">add the binary tree directory to the search path for include files</span>
-<span style="color: #1d60e7;">include_directories</span><span style="color: #969896;">(</span> $<span style="color: #0086b3;">{</span><span style="color: #aa32b9;">CMAKE_CURRENT_BINARY_DIR</span><span style="color: #0086b3;">}</span> <span style="color: #969896;">)</span>
+<span style="color: #795da3;">include_directories</span><span style="color: #969896;">(</span> $<span style="color: #0086b3;">{</span><span style="color: #333333;">CMAKE_CURRENT_BINARY_DIR</span><span style="color: #0086b3;">}</span> <span style="color: #969896;">)</span>
 
-<span style="color: #0084bf;">add_executable</span><span style="color: #969896;">(</span><span style="color: #d8006f;">MakeTable</span> <span style="color: #6255dd;">MakeTable.cxx</span> <span style="color: #969896;">)</span>
+<span style="color: #795da3;">add_executable</span><span style="color: #969896;">(</span>MakeTable MakeTable.cxx <span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">add the command to generate the source code</span>
-<span style="color: #b54800;">add_custom_command</span> <span style="color: #969896;">(</span>
-  <span style="color: #0081dc;">OUTPUT</span> $<span style="color: #0086b3;">{</span><span style="color: #aa32b9;">CMAKE_CURRENT_BINARY_DIR</span><span style="color: #0086b3;">}</span><span style="color: #8749d0;">/Table.h</span>
-  <span style="color: #006ff1;">COMMAND</span> <span style="color: #d8006f;">MakeTable</span> $<span style="color: #0086b3;">{</span><span style="color: #aa32b9;">CMAKE_CURRENT_BINARY_DIR</span><span style="color: #0086b3;">}</span><span style="color: #8749d0;">/Table.h</span>
-  <span style="color: #c53600;">DEPENDS</span> <span style="color: #d8006f;">MakeTable</span>
+<span style="color: #795da3;">add_custom_command</span> <span style="color: #969896;">(</span>
+  OUTPUT $<span style="color: #0086b3;">{</span><span style="color: #333333;">CMAKE_CURRENT_BINARY_DIR</span><span style="color: #0086b3;">}</span>/Table.h
+  COMMAND MakeTable $<span style="color: #0086b3;">{</span><span style="color: #333333;">CMAKE_CURRENT_BINARY_DIR</span><span style="color: #0086b3;">}</span>/Table.h
+  DEPENDS MakeTable
   <span style="color: #969896;">)</span>
 
 <span style="color: #969896;"># </span><span style="color: #969896;">add the main library</span>
-<span style="color: #9442c9;">add_library</span><span style="color: #969896;">(</span><span style="color: #896500;">MathFunctions</span> <span style="color: #8d6300;">mysqrt.cxx</span> $<span style="color: #0086b3;">{</span><span style="color: #aa32b9;">CMAKE_CURRENT_BINARY_DIR</span><span style="color: #0086b3;">}</span><span style="color: #8749d0;">/Table.h</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">add_library</span><span style="color: #969896;">(</span>MathFunctions mysqrt.cxx $<span style="color: #0086b3;">{</span><span style="color: #333333;">CMAKE_CURRENT_BINARY_DIR</span><span style="color: #0086b3;">}</span>/Table.h<span style="color: #969896;">)</span>
 
-<span style="color: #d8003c;">install</span> <span style="color: #969896;">(</span><span style="color: #007cec;">TARGETS</span> <span style="color: #896500;">MathFunctions</span> <span style="color: #9442c9;">DESTINATION</span> <span style="color: #d8006e;">bin</span><span style="color: #969896;">)</span>
-<span style="color: #d8003c;">install</span> <span style="color: #969896;">(</span><span style="color: #497700;">FILES</span> <span style="color: #0081df;">MathFunctions.h</span> <span style="color: #9442c9;">DESTINATION</span> <span style="color: #008599;">include</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">install</span> <span style="color: #969896;">(</span>TARGETS MathFunctions DESTINATION bin<span style="color: #969896;">)</span>
+<span style="color: #795da3;">install</span> <span style="color: #969896;">(</span>FILES MathFunctions.h DESTINATION include<span style="color: #969896;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-orgeccc924" class="outline-2">
-<h2 id="orgeccc924">Step6 安装器</h2>
-<div class="outline-text-2" id="text-orgeccc924">
+<div id="outline-container-org3ac9676" class="outline-2">
+<h2 id="org3ac9676">Step6 安装器</h2>
+<div class="outline-text-2" id="text-org3ac9676">
 <p>
 我们想要将项目给分发出去，为不同平台的用户提供二进制文件和源文件代码，这样用户就能够下载得到自己希望的 <code>distributions</code> 了。需要解释的是，在 <a href="https://aprilwith.me/2017/02/24/cmake-tutorial-zh/#sec-3-0-1">Step3</a> 中也执行了安装操作，将从源代码文件编译生成的可执行文件给安装到指定的 <code>bin</code> 目录下。而在本小节将要创建的项目分发不仅支持二进制安装，并且能够满足各大平台上包管理系统的特性。在这里，我们使用 <code>CMake</code> 提供的 <code>CPack</code> 工具去创建，需要在项目主目录下的 <code>CMakeLists.txt</code> 的末尾增加：
 </p>
 <div class="org-src-container">
 <pre class="src src-sh"><span style="color: #969896;"># </span><span style="color: #969896;">build a CPack driven installer package</span>
-<span style="color: #008599;">include</span> <span style="color: #969896;">(</span><span style="color: #008348;">InstallRequiredSystemLibraries</span><span style="color: #969896;">)</span>
-<span style="color: #a71d5d;">set</span> <span style="color: #969896;">(</span><span style="color: #ad30b7;">CPACK_RESOURCE_FILE_LICENSE</span>
+<span style="color: #795da3;">include</span> <span style="color: #969896;">(</span>InstallRequiredSystemLibraries<span style="color: #969896;">)</span>
+<span style="color: #a71d5d;">set</span> <span style="color: #969896;">(</span>CPACK_RESOURCE_FILE_LICENSE
   <span style="color: #183691;">"${CMAKE_CURRENT_SOURCE_DIR}/License.txt"</span><span style="color: #969896;">)</span>
-<span style="color: #a71d5d;">set</span> <span style="color: #969896;">(</span><span style="color: #4d7600;">CPACK_PACKAGE_VERSION_MAJOR</span> <span style="color: #183691;">"${TUTORIAL_VERSION_MAJOR}"</span><span style="color: #969896;">)</span>
-<span style="color: #a71d5d;">set</span> <span style="color: #969896;">(</span><span style="color: #0085ae;">CPACK_PACKAGE_VERSION_MINOR</span> <span style="color: #183691;">"${TUTORIAL_VERSION_MINOR}"</span><span style="color: #969896;">)</span>
-<span style="color: #008599;">include</span> <span style="color: #969896;">(</span><span style="color: #0083ce;">CPack</span><span style="color: #969896;">)</span>
+<span style="color: #a71d5d;">set</span> <span style="color: #969896;">(</span>CPACK_PACKAGE_VERSION_MAJOR <span style="color: #183691;">"${TUTORIAL_VERSION_MAJOR}"</span><span style="color: #969896;">)</span>
+<span style="color: #a71d5d;">set</span> <span style="color: #969896;">(</span>CPACK_PACKAGE_VERSION_MINOR <span style="color: #183691;">"${TUTORIAL_VERSION_MINOR}"</span><span style="color: #969896;">)</span>
+<span style="color: #795da3;">include</span> <span style="color: #969896;">(</span>CPack<span style="color: #969896;">)</span>
 </pre>
 </div>
 <ol class="org-ol">
@@ -942,19 +942,19 @@ $ <span style="color: #d90068;">make</span> <span style="color: #d8003c;">instal
 接下来，我们只需要 <code>build</code> 这个项目，然后运行 <code>CPack</code> 就可以了：
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">$ <span style="color: #cf0089;">cd</span> <span style="color: #008579;">build</span>
-$ <span style="color: #7550d8;">cmake</span> <span style="color: #00846a;">..</span>
-$ <span style="color: #a934bb;">cpack</span> <span style="color: #0069ee;">--config</span> <span style="color: #9044cc;">CPackConfig.cmake</span> <span style="color: #969896;"># </span><span style="color: #969896;">To build a binary distribution you would run</span>
-$ <span style="color: #a934bb;">cpack</span> <span style="color: #0069ee;">--config</span> <span style="color: #d90066;">CPackSourceConfig.cmake</span> <span style="color: #969896;"># </span><span style="color: #969896;">To create a source distribution you would type</span>
+<pre class="src src-sh">$ cd build
+$ cmake ..
+$ cpack --config CPackConfig.cmake <span style="color: #969896;"># </span><span style="color: #969896;">To build a binary distribution you would run</span>
+$ cpack --config CPackSourceConfig.cmake <span style="color: #969896;"># </span><span style="color: #969896;">To create a source distribution you would type</span>
 </pre>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-orgb62a0d3" class="outline-2">
-<h2 id="orgb62a0d3">Step7</h2>
-<div class="outline-text-2" id="text-orgb62a0d3">
+<div id="outline-container-org5f15b93" class="outline-2">
+<h2 id="org5f15b93">Step7</h2>
+<div class="outline-text-2" id="text-org5f15b93">
 <p>
 <b>TODO</b> 现在还没有认识到这一步的具体作用的是什么，是为了数据可视化展示呢？还是什么？之后使用到了，有了心得体会，再来补充。
 </p>

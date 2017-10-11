@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-15 Sat 17:14 -->
+<!-- 2017-10-11 Wed 21:10 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>二机制炸弹实验</title>
@@ -231,7 +231,7 @@ for the JavaScript code in this tag.
 <body>
 <div id="preamble" class="status">
 <div class="header">
-              <a href="https://aprilwith.me">自在随心</a> | <a href="http://github.com/qiaoin">Github</a>
+              <a href="http://aprilwith.me">自在随心</a> | <a href="https://github.com/qiaoin">Github</a>
           </div>
 </div>
 <div id="content">
@@ -244,24 +244,24 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org074f703">准备</a></li>
-<li><a href="#org166d00d">首先是尝试</a></li>
-<li><a href="#org59b1ff5"><code>phase_1</code></a></li>
-<li><a href="#orgb5146da"><code>phase_2</code></a></li>
-<li><a href="#orgaffbbbe"><code>phase_3</code></a></li>
-<li><a href="#org4d3565a"><code>phase_4</code></a></li>
-<li><a href="#orgbdb8edb"><code>phase_5</code></a></li>
-<li><a href="#org93a2d40"><code>phase_6</code></a></li>
-<li><a href="#orgd234925"><code>secret_phase</code></a></li>
-<li><a href="#orgcb7dd7a">总结</a></li>
-<li><a href="#org92a3ba2">参考资料</a></li>
+<li><a href="#orgf073f50">准备</a></li>
+<li><a href="#orge058fc7">首先是尝试</a></li>
+<li><a href="#orgf4a169f"><code>phase_1</code></a></li>
+<li><a href="#org1cf33d2"><code>phase_2</code></a></li>
+<li><a href="#org7d4f69d"><code>phase_3</code></a></li>
+<li><a href="#orgf9146b1"><code>phase_4</code></a></li>
+<li><a href="#org3caad20"><code>phase_5</code></a></li>
+<li><a href="#org95ab9df"><code>phase_6</code></a></li>
+<li><a href="#orgf28ae10"><code>secret_phase</code></a></li>
+<li><a href="#orgc4819e1">总结</a></li>
+<li><a href="#orge00e716">参考资料</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org074f703" class="outline-2">
-<h2 id="org074f703">准备</h2>
-<div class="outline-text-2" id="text-org074f703">
+<div id="outline-container-orgf073f50" class="outline-2">
+<h2 id="orgf073f50">准备</h2>
+<div class="outline-text-2" id="text-orgf073f50">
 <ul class="org-ul">
 <li>目标：
 <ul class="org-ul">
@@ -324,9 +324,9 @@ Here are some hints for what to think about at each stage:
 </div>
 
 
-<div id="outline-container-org166d00d" class="outline-2">
-<h2 id="org166d00d">首先是尝试</h2>
-<div class="outline-text-2" id="text-org166d00d">
+<div id="outline-container-orge058fc7" class="outline-2">
+<h2 id="orge058fc7">首先是尝试</h2>
+<div class="outline-text-2" id="text-orge058fc7">
 <ul class="org-ul">
 <li>使用 <code>objdump -t bomb &gt; system.txt</code> 输出 <code>bomb</code> 中的所有符号置 <code>symbol.txt</code> 文件；</li>
 <li>使用 <code>strings -t x bomb &gt; strigs.txt</code> 输出 <code>bomb</code> 中所有的可打印字符置 <code>stings.txt</code> 文件；</li>
@@ -340,9 +340,9 @@ Here are some hints for what to think about at each stage:
 </div>
 
 
-<div id="outline-container-org59b1ff5" class="outline-2">
-<h2 id="org59b1ff5"><code>phase_1</code></h2>
-<div class="outline-text-2" id="text-org59b1ff5">
+<div id="outline-container-orgf4a169f" class="outline-2">
+<h2 id="orgf4a169f"><code>phase_1</code></h2>
+<div class="outline-text-2" id="text-orgf4a169f">
 <p>
 在 <code>objdump-d.txt</code> 文件中，关于 <code>phase_1</code> 的汇编代码如下（删除了其中的机器代码表示，并且如同 CSAPP chapter3 的做法在每行汇编之后添加注释）：
 </p>
@@ -428,7 +428,7 @@ Here are some hints for what to think about at each stage:
 可以使用 <code>examine</code> 命令（简写是 <code>x</code> ）来查看内存地址中的值。 <code>x</code> 命令的语法如下所示：
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span style="color: #969896;">(</span><span style="color: #c33700;">gdb</span><span style="color: #969896;">)</span> <span style="color: #d31428;">x/</span>&lt;<span style="color: #00844f;">n/f/u</span>&gt; &lt;<span style="color: #0083d4;">addr</span>&gt;
+<pre class="src src-sh"><span style="color: #969896;">(</span>gdb<span style="color: #969896;">)</span> x/&lt;n/f/u&gt; &lt;addr&gt;
 </pre>
 </div>
 <p>
@@ -448,9 +448,9 @@ Here are some hints for what to think about at each stage:
 </div>
 
 
-<div id="outline-container-orgb5146da" class="outline-2">
-<h2 id="orgb5146da"><code>phase_2</code></h2>
-<div class="outline-text-2" id="text-orgb5146da">
+<div id="outline-container-org1cf33d2" class="outline-2">
+<h2 id="org1cf33d2"><code>phase_2</code></h2>
+<div class="outline-text-2" id="text-org1cf33d2">
 <p>
 <code>rdi</code> 始终保持着待比较字符串的首地址，而且作为多个函数的第一个传入参数。
 </p>
@@ -520,8 +520,8 @@ Here are some hints for what to think about at each stage:
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #a71d5d;">#include</span> <span style="color: #969896;">&lt;</span><span style="color: #183691;">stdio.h</span><span style="color: #969896;">&gt;</span>
 
-<span style="color: #0086b3;">int</span> <span style="color: #7e6900;">scanf</span><span style="color: #969896;">(</span><span style="color: #d31229;">const</span> <span style="color: #0086b3;">char</span> *<span style="color: #008341;">format</span>, ...<span style="color: #969896;">)</span>;
-<span style="color: #0086b3;">int</span> <span style="color: #6d6f00;">sscanf</span><span style="color: #969896;">(</span><span style="color: #d31229;">const</span> <span style="color: #0086b3;">char</span> *<span style="color: #00858b;">str</span>, <span style="color: #d31229;">const</span> <span style="color: #0086b3;">char</span> *<span style="color: #008341;">format</span>, ...<span style="color: #969896;">)</span>;
+<span style="color: #0086b3;">int</span> <span style="color: #795da3;">scanf</span><span style="color: #969896;">(</span><span style="color: #a71d5d;">const</span> <span style="color: #0086b3;">char</span> *<span style="color: #333333;">format</span>, ...<span style="color: #969896;">)</span>;
+<span style="color: #0086b3;">int</span> <span style="color: #795da3;">sscanf</span><span style="color: #969896;">(</span><span style="color: #a71d5d;">const</span> <span style="color: #0086b3;">char</span> *<span style="color: #333333;">str</span>, <span style="color: #a71d5d;">const</span> <span style="color: #0086b3;">char</span> *<span style="color: #333333;">format</span>, ...<span style="color: #969896;">)</span>;
 </pre>
 </div>
 <p>
@@ -570,18 +570,18 @@ Here are some hints for what to think about at each stage:
 根据对 <code>phase_2</code> 汇编代码的理解，写出大致的 C 语言等价形式（帮助理解）：
 </p>
 <div class="org-src-container">
-<pre class="src src-C"><span style="color: #00845b;">static</span> <span style="color: #0086b3;">void</span> <span style="color: #794ed6;">phase_2</span><span style="color: #969896;">(</span><span style="color: #d31229;">const</span> <span style="color: #0086b3;">char</span> *<span style="color: #00858b;">str</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
-  <span style="color: #0086b3;">int</span> <span style="color: #00800f;">a</span><span style="color: #0086b3;">[</span><span style="color: #0086b3;">6</span><span style="color: #0086b3;">]</span> = <span style="color: #0086b3;">{</span><span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span><span style="color: #0086b3;">}</span>;
-  <span style="color: #c33800;">read_six_number</span><span style="color: #0086b3;">(</span><span style="color: #00858b;">str</span>, <span style="color: #00800f;">a</span><span style="color: #0086b3;">)</span>;      <span style="color: #969896;">/* </span><span style="color: #969896;">1, 2, 4, 8, 16, 32 </span><span style="color: #969896;">*/</span>
-  <span style="color: #0083d2;">if</span> <span style="color: #0086b3;">(</span><span style="color: #00800f;">a</span><span style="color: #969896;">[</span><span style="color: #0086b3;">0</span><span style="color: #969896;">]</span> == <span style="color: #0086b3;">1</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
-    <span style="color: #0086b3;">size_t</span> <span style="color: #796b00;">i</span>;
-    <span style="color: #0082da;">for</span> <span style="color: #969896;">(</span><span style="color: #796b00;">i</span> = <span style="color: #0086b3;">1</span>; <span style="color: #796b00;">i</span> &lt; <span style="color: #0086b3;">6</span>; <span style="color: #796b00;">i</span>++<span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
-      <span style="color: #0083d2;">if</span> <span style="color: #795da3;">(</span><span style="color: #00800f;">a</span><span style="color: #969896;">[</span><span style="color: #796b00;">i</span><span style="color: #969896;">]</span> != <span style="color: #0086b3;">2</span>*<span style="color: #00800f;">a</span><span style="color: #969896;">[</span><span style="color: #796b00;">i</span>-<span style="color: #0086b3;">1</span><span style="color: #969896;">]</span><span style="color: #795da3;">)</span> <span style="color: #795da3;">{</span>
-        <span style="color: #d60075;">explode_bomb</span><span style="color: #969896;">()</span>;
+<pre class="src src-C"><span style="color: #a71d5d;">static</span> <span style="color: #0086b3;">void</span> <span style="color: #795da3;">phase_2</span><span style="color: #969896;">(</span><span style="color: #a71d5d;">const</span> <span style="color: #0086b3;">char</span> *<span style="color: #333333;">str</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+  <span style="color: #0086b3;">int</span> <span style="color: #333333;">a</span><span style="color: #0086b3;">[</span><span style="color: #0086b3;">6</span><span style="color: #0086b3;">]</span> = <span style="color: #0086b3;">{</span><span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span><span style="color: #0086b3;">}</span>;
+  read_six_number<span style="color: #0086b3;">(</span>str, a<span style="color: #0086b3;">)</span>;      <span style="color: #969896;">/* </span><span style="color: #969896;">1, 2, 4, 8, 16, 32 </span><span style="color: #969896;">*/</span>
+  <span style="color: #a71d5d;">if</span> <span style="color: #0086b3;">(</span>a<span style="color: #969896;">[</span><span style="color: #0086b3;">0</span><span style="color: #969896;">]</span> == <span style="color: #0086b3;">1</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
+    <span style="color: #0086b3;">size_t</span> <span style="color: #333333;">i</span>;
+    <span style="color: #a71d5d;">for</span> <span style="color: #969896;">(</span>i = <span style="color: #0086b3;">1</span>; i &lt; <span style="color: #0086b3;">6</span>; i++<span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+      <span style="color: #a71d5d;">if</span> <span style="color: #795da3;">(</span>a<span style="color: #969896;">[</span>i<span style="color: #969896;">]</span> != <span style="color: #0086b3;">2</span>*a<span style="color: #969896;">[</span>i-<span style="color: #0086b3;">1</span><span style="color: #969896;">]</span><span style="color: #795da3;">)</span> <span style="color: #795da3;">{</span>
+        explode_bomb<span style="color: #969896;">()</span>;
       <span style="color: #795da3;">}</span>
     <span style="color: #969896;">}</span>
-  <span style="color: #0086b3;">}</span> <span style="color: #0084c9;">else</span> <span style="color: #0086b3;">{</span>
-    <span style="color: #d60075;">explode_bomb</span><span style="color: #969896;">()</span>;
+  <span style="color: #0086b3;">}</span> <span style="color: #a71d5d;">else</span> <span style="color: #0086b3;">{</span>
+    explode_bomb<span style="color: #969896;">()</span>;
   <span style="color: #0086b3;">}</span>
 <span style="color: #969896;">}</span>
 </pre>
@@ -617,9 +617,9 @@ Here are some hints for what to think about at each stage:
 </div>
 
 
-<div id="outline-container-orgaffbbbe" class="outline-2">
-<h2 id="orgaffbbbe"><code>phase_3</code></h2>
-<div class="outline-text-2" id="text-orgaffbbbe">
+<div id="outline-container-org7d4f69d" class="outline-2">
+<h2 id="org7d4f69d"><code>phase_3</code></h2>
+<div class="outline-text-2" id="text-org7d4f69d">
 <p>
 有了之前两个 <code>phase</code> 的基础，这个就比较简单了（具体知识点，例如跳转表，可参考 CSAPP chapter3 3.6.8 switch 语句 P159）
 </p>
@@ -679,16 +679,16 @@ Here are some hints for what to think about at each stage:
 <li><code>si</code> : 单步执行，会来到 <code>ox400fb9</code> 处，并将设置 <code>eax</code> 为 <code>0x137</code> ；</li>
 <li><code>info r</code> : 得到 <code>rsp</code> 表示的内存地址为 <code>0x7fffffffdb30</code> ；</li>
 <li><code>set 0x7fffffffdb3c = 0x137</code> : 设置读入的第二个数为 <code>0x137</code> ；</li>
-<li><code>si</code> : 单步执行之后，到达 <code>0x400fc2</code> <code>0x400fc9</code> 说明我们设置的 1 和 <code>0x137</code> （311）满足要求。更一般地，这个 <code>switch</code> 语句有 7 组满足要求的解，以列表形式表示为： <br />
+<li><code>si</code> : 单步执行之后，到达 <code>0x400fc2</code> <code>0x400fc9</code> 说明我们设置的 1 和 <code>0x137</code> （311）满足要求。更一般地，这个 <code>switch</code> 语句有 7 组满足要求的解，以列表形式表示为： <br  />
 <code>[(0, 207), (1, 311), (2, 707), (3, 256), (4, 389), (5, 206), (6, 682), (7, 327)]</code></li>
 </ol>
 </div>
 </div>
 
 
-<div id="outline-container-org4d3565a" class="outline-2">
-<h2 id="org4d3565a"><code>phase_4</code></h2>
-<div class="outline-text-2" id="text-org4d3565a">
+<div id="outline-container-orgf9146b1" class="outline-2">
+<h2 id="orgf9146b1"><code>phase_4</code></h2>
+<div class="outline-text-2" id="text-orgf9146b1">
 <div class="org-src-container">
 <pre class="src src-ASM">000000000040100c &lt;phase_4&gt;:
   40100c:	sub    $0x18,%rsp                     ;; 分配栈帧
@@ -747,22 +747,22 @@ Here are some hints for what to think about at each stage:
 <code>func4</code> 对应的 C 语言描述：
 </p>
 <div class="org-src-container">
-<pre class="src src-C"><span style="color: #0086b3;">int</span> <span style="color: #b04c00;">func4</span><span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #756c00;">target</span>, <span style="color: #0086b3;">int</span> <span style="color: #637100;">step</span>, <span style="color: #0086b3;">int</span> <span style="color: #cb2a12;">limit</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+<pre class="src src-C"><span style="color: #0086b3;">int</span> <span style="color: #795da3;">func4</span><span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> <span style="color: #333333;">target</span>, <span style="color: #0086b3;">int</span> <span style="color: #333333;">step</span>, <span style="color: #0086b3;">int</span> <span style="color: #333333;">limit</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
   <span style="color: #969896;">/* </span><span style="color: #969896;">edi = target; esi = step; edx = limit </span><span style="color: #969896;">*/</span>
-  <span style="color: #0086b3;">int</span> <span style="color: #0085af;">temp</span> = <span style="color: #0086b3;">(</span><span style="color: #cb2a12;">limit</span> - <span style="color: #637100;">step</span><span style="color: #0086b3;">)</span> * <span style="color: #0086b3;">0.5</span>;
+  <span style="color: #0086b3;">int</span> <span style="color: #333333;">temp</span> = <span style="color: #0086b3;">(</span>limit - step<span style="color: #0086b3;">)</span> * <span style="color: #0086b3;">0.5</span>;
   <span style="color: #969896;">/* </span><span style="color: #969896;">all positive </span><span style="color: #969896;">*/</span>
-  <span style="color: #0086b3;">int</span> <span style="color: #d8003c;">mid</span> = <span style="color: #0085af;">temp</span> + <span style="color: #637100;">step</span>;
-  <span style="color: #0083d2;">if</span> <span style="color: #0086b3;">(</span><span style="color: #d8003c;">mid</span> &gt; <span style="color: #756c00;">target</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
-    <span style="color: #cb2a12;">limit</span> = <span style="color: #d8003c;">mid</span> - <span style="color: #0086b3;">1</span>;
-    <span style="color: #0086b3;">int</span> <span style="color: #b24b00;">ret1</span> = <span style="color: #b04c00;">func4</span><span style="color: #969896;">(</span><span style="color: #756c00;">target</span>, <span style="color: #637100;">step</span>, <span style="color: #cb2a12;">limit</span><span style="color: #969896;">)</span>;
-    <span style="color: #0085a3;">return</span> <span style="color: #0086b3;">2</span> * <span style="color: #b24b00;">ret1</span>;
-  <span style="color: #0086b3;">}</span> <span style="color: #0084c9;">else</span> <span style="color: #0086b3;">{</span>
-    <span style="color: #0083d2;">if</span> <span style="color: #969896;">(</span><span style="color: #d8003c;">mid</span> &gt;= <span style="color: #756c00;">target</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
-      <span style="color: #0085a3;">return</span> <span style="color: #0086b3;">0</span>;
-    <span style="color: #969896;">}</span> <span style="color: #0084c9;">else</span> <span style="color: #969896;">{</span>
-      <span style="color: #637100;">step</span> = <span style="color: #d8003c;">mid</span> + <span style="color: #0086b3;">1</span>;
-      <span style="color: #0086b3;">int</span> <span style="color: #047c00;">ret2</span> = <span style="color: #b04c00;">func4</span><span style="color: #795da3;">(</span><span style="color: #756c00;">target</span>, <span style="color: #637100;">step</span>, <span style="color: #cb2a12;">limit</span><span style="color: #795da3;">)</span>;
-      <span style="color: #0085a3;">return</span> <span style="color: #795da3;">(</span><span style="color: #0086b3;">2</span> * <span style="color: #047c00;">ret2</span> + <span style="color: #0086b3;">1</span><span style="color: #795da3;">)</span>;
+  <span style="color: #0086b3;">int</span> <span style="color: #333333;">mid</span> = temp + step;
+  <span style="color: #a71d5d;">if</span> <span style="color: #0086b3;">(</span>mid &gt; target<span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
+    limit = mid - <span style="color: #0086b3;">1</span>;
+    <span style="color: #0086b3;">int</span> <span style="color: #333333;">ret1</span> = func4<span style="color: #969896;">(</span>target, step, limit<span style="color: #969896;">)</span>;
+    <span style="color: #a71d5d;">return</span> <span style="color: #0086b3;">2</span> * ret1;
+  <span style="color: #0086b3;">}</span> <span style="color: #a71d5d;">else</span> <span style="color: #0086b3;">{</span>
+    <span style="color: #a71d5d;">if</span> <span style="color: #969896;">(</span>mid &gt;= target<span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+      <span style="color: #a71d5d;">return</span> <span style="color: #0086b3;">0</span>;
+    <span style="color: #969896;">}</span> <span style="color: #a71d5d;">else</span> <span style="color: #969896;">{</span>
+      step = mid + <span style="color: #0086b3;">1</span>;
+      <span style="color: #0086b3;">int</span> <span style="color: #333333;">ret2</span> = func4<span style="color: #795da3;">(</span>target, step, limit<span style="color: #795da3;">)</span>;
+      <span style="color: #a71d5d;">return</span> <span style="color: #795da3;">(</span><span style="color: #0086b3;">2</span> * ret2 + <span style="color: #0086b3;">1</span><span style="color: #795da3;">)</span>;
     <span style="color: #969896;">}</span>
   <span style="color: #0086b3;">}</span>
 <span style="color: #969896;">}</span>
@@ -774,7 +774,7 @@ Here are some hints for what to think about at each stage:
 </p>
 
 <p>
-有四组满足条件，以列表形式给出： <br />
+有四组满足条件，以列表形式给出： <br  />
 <code>[(0, 0), (1, 0), (3, 0), (7, 0)]</code>
 </p>
 
@@ -785,9 +785,9 @@ Here are some hints for what to think about at each stage:
 </div>
 
 
-<div id="outline-container-orgbdb8edb" class="outline-2">
-<h2 id="orgbdb8edb"><code>phase_5</code></h2>
-<div class="outline-text-2" id="text-orgbdb8edb">
+<div id="outline-container-org3caad20" class="outline-2">
+<h2 id="org3caad20"><code>phase_5</code></h2>
+<div class="outline-text-2" id="text-org3caad20">
 <p>
 将 <code>phase_5</code> 的汇编代码来进行分析：
 </p>
@@ -883,16 +883,16 @@ Here are some hints for what to think about at each stage:
 </p>
 
 <p>
-由上图可知，总共有 16 ( = 2 * 1 * 1 * 2 * 2 * 2) 中满足条件的输入字符串，以列表形式表示为： <br />
+由上图可知，总共有 16 ( = 2 * 1 * 1 * 2 * 2 * 2) 中满足条件的输入字符串，以列表形式表示为： <br  />
 ["yonefg", "yonefw", "yonevg", &#x2026;]
 </p>
 </div>
 </div>
 
 
-<div id="outline-container-org93a2d40" class="outline-2">
-<h2 id="org93a2d40"><code>phase_6</code></h2>
-<div class="outline-text-2" id="text-org93a2d40">
+<div id="outline-container-org95ab9df" class="outline-2">
+<h2 id="org95ab9df"><code>phase_6</code></h2>
+<div class="outline-text-2" id="text-org95ab9df">
 <div class="org-src-container">
 <pre class="src src-ASM">00000000004010f4 &lt;phase_6&gt;:
   4010f4:	push   %r14
@@ -988,45 +988,45 @@ Here are some hints for what to think about at each stage:
 对应的 C 语言描述为：
 </p>
 <div class="org-src-container">
-<pre class="src src-C"><span style="color: #00845b;">static</span> <span style="color: #0086b3;">void</span> <span style="color: #ba4300;">phase_6</span><span style="color: #969896;">(</span><span style="color: #d31229;">const</span> <span style="color: #0086b3;">char</span> *<span style="color: #00858b;">str</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
-  <span style="color: #0086b3;">int</span> <span style="color: #00800f;">a</span><span style="color: #0086b3;">[</span><span style="color: #0086b3;">6</span><span style="color: #0086b3;">]</span> = <span style="color: #0086b3;">{</span><span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span><span style="color: #0086b3;">}</span>;
-  <span style="color: #7251d9;">read_six_numbers</span><span style="color: #0086b3;">(</span><span style="color: #00858b;">str</span>, <span style="color: #00800f;">a</span><span style="color: #0086b3;">)</span>;
+<pre class="src src-C"><span style="color: #a71d5d;">static</span> <span style="color: #0086b3;">void</span> <span style="color: #795da3;">phase_6</span><span style="color: #969896;">(</span><span style="color: #a71d5d;">const</span> <span style="color: #0086b3;">char</span> *<span style="color: #333333;">str</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+  <span style="color: #0086b3;">int</span> <span style="color: #333333;">a</span><span style="color: #0086b3;">[</span><span style="color: #0086b3;">6</span><span style="color: #0086b3;">]</span> = <span style="color: #0086b3;">{</span><span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span>, <span style="color: #0086b3;">0</span><span style="color: #0086b3;">}</span>;
+  read_six_numbers<span style="color: #0086b3;">(</span>str, a<span style="color: #0086b3;">)</span>;
 
-  <span style="color: #0086b3;">int</span> *<span style="color: #447700;">t</span> = <span style="color: #00800f;">a</span>;              <span style="color: #969896;">/* </span><span style="color: #969896;">r13 </span><span style="color: #969896;">*/</span>
-  <span style="color: #0086b3;">int</span> *<span style="color: #0085b1;">p</span> = <span style="color: #00800f;">a</span>;              <span style="color: #969896;">/* </span><span style="color: #969896;">r14 </span><span style="color: #969896;">*/</span>
+  <span style="color: #0086b3;">int</span> *<span style="color: #333333;">t</span> = a;              <span style="color: #969896;">/* </span><span style="color: #969896;">r13 </span><span style="color: #969896;">*/</span>
+  <span style="color: #0086b3;">int</span> *<span style="color: #333333;">p</span> = a;              <span style="color: #969896;">/* </span><span style="color: #969896;">r14 </span><span style="color: #969896;">*/</span>
 
-  <span style="color: #0086b3;">int</span> <span style="color: #796b00;">i</span> = <span style="color: #0086b3;">0</span>;                    <span style="color: #969896;">/* </span><span style="color: #969896;">r12d </span><span style="color: #969896;">*/</span>
+  <span style="color: #0086b3;">int</span> <span style="color: #333333;">i</span> = <span style="color: #0086b3;">0</span>;                    <span style="color: #969896;">/* </span><span style="color: #969896;">r12d </span><span style="color: #969896;">*/</span>
 
-  <span style="color: #c73204;">while</span> <span style="color: #0086b3;">(</span><span style="color: #0086b3;">1</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
+  <span style="color: #a71d5d;">while</span> <span style="color: #0086b3;">(</span><span style="color: #0086b3;">1</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
     <span style="color: #969896;">/* </span><span style="color: #969896;">&#21028;&#26029;&#35835;&#20837;&#30340; 6 &#20010;&#25968;&#22343;&#19981;&#30456;&#21516;&#65292;&#19988;&#22343;&#23567;&#20110;&#31561;&#20110;6 </span><span style="color: #969896;">*/</span>
-    <span style="color: #0086b3;">int</span> *<span style="color: #756c00;">target</span> = <span style="color: #447700;">t</span>;              <span style="color: #969896;">/* </span><span style="color: #969896;">mov %r13,%rbp </span><span style="color: #969896;">*/</span>
+    <span style="color: #0086b3;">int</span> *<span style="color: #333333;">target</span> = t;              <span style="color: #969896;">/* </span><span style="color: #969896;">mov %r13,%rbp </span><span style="color: #969896;">*/</span>
 
-    <span style="color: #0086b3;">int</span> <span style="color: #008460;">tmp</span> = *<span style="color: #447700;">t</span> - <span style="color: #0086b3;">1</span>;
-    <span style="color: #0083d2;">if</span> <span style="color: #969896;">(</span><span style="color: #008460;">tmp</span> &lt;= <span style="color: #0086b3;">5</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
-      <span style="color: #796b00;">i</span>++;
-      <span style="color: #0083d2;">if</span> <span style="color: #795da3;">(</span><span style="color: #796b00;">i</span> != <span style="color: #0086b3;">6</span><span style="color: #795da3;">)</span> <span style="color: #795da3;">{</span>
-        <span style="color: #0086b3;">int</span> <span style="color: #627200;">j</span> = <span style="color: #796b00;">i</span>;                    <span style="color: #969896;">/* </span><span style="color: #969896;">ebx </span><span style="color: #969896;">*/</span>
-        <span style="color: #0086b3;">int</span> <span style="color: #0070f2;">index</span>;                    <span style="color: #969896;">/* </span><span style="color: #969896;">rax </span><span style="color: #969896;">*/</span>
-        <span style="color: #d60035;">do</span> <span style="color: #969896;">{</span>
-          <span style="color: #0070f2;">index</span> = <span style="color: #627200;">j</span>;
-          <span style="color: #008460;">tmp</span> = <span style="color: #00800f;">a</span><span style="color: #a71d5d;">[</span><span style="color: #0070f2;">index</span><span style="color: #a71d5d;">]</span>;
-          <span style="color: #0083d2;">if</span> <span style="color: #a71d5d;">(</span><span style="color: #008460;">tmp</span> == *<span style="color: #756c00;">target</span><span style="color: #a71d5d;">)</span> <span style="color: #a71d5d;">{</span>
-            <span style="color: #d60075;">explode_bomb</span><span style="color: #969896;">()</span>;
+    <span style="color: #0086b3;">int</span> <span style="color: #333333;">tmp</span> = *t - <span style="color: #0086b3;">1</span>;
+    <span style="color: #a71d5d;">if</span> <span style="color: #969896;">(</span>tmp &lt;= <span style="color: #0086b3;">5</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+      i++;
+      <span style="color: #a71d5d;">if</span> <span style="color: #795da3;">(</span>i != <span style="color: #0086b3;">6</span><span style="color: #795da3;">)</span> <span style="color: #795da3;">{</span>
+        <span style="color: #0086b3;">int</span> <span style="color: #333333;">j</span> = i;                    <span style="color: #969896;">/* </span><span style="color: #969896;">ebx </span><span style="color: #969896;">*/</span>
+        <span style="color: #0086b3;">int</span> <span style="color: #333333;">index</span>;                    <span style="color: #969896;">/* </span><span style="color: #969896;">rax </span><span style="color: #969896;">*/</span>
+        <span style="color: #a71d5d;">do</span> <span style="color: #969896;">{</span>
+          index = j;
+          tmp = a<span style="color: #a71d5d;">[</span>index<span style="color: #a71d5d;">]</span>;
+          <span style="color: #a71d5d;">if</span> <span style="color: #a71d5d;">(</span>tmp == *target<span style="color: #a71d5d;">)</span> <span style="color: #a71d5d;">{</span>
+            explode_bomb<span style="color: #969896;">()</span>;
           <span style="color: #a71d5d;">}</span>
-          <span style="color: #627200;">j</span>++;
-        <span style="color: #969896;">}</span> <span style="color: #c73204;">while</span> <span style="color: #969896;">(</span><span style="color: #627200;">j</span> &lt;= <span style="color: #0086b3;">5</span><span style="color: #969896;">)</span>;
-        <span style="color: #447700;">t</span>++;
-      <span style="color: #795da3;">}</span> <span style="color: #0084c9;">else</span> <span style="color: #795da3;">{</span>
-        <span style="color: #c40e9e;">goto</span>: <span style="color: #a835bc;">label</span>;            <span style="color: #969896;">/* </span><span style="color: #969896;">&#24403; r12d == 6 &#26102; =je 401153=  </span><span style="color: #969896;">*/</span>
+          j++;
+        <span style="color: #969896;">}</span> <span style="color: #a71d5d;">while</span> <span style="color: #969896;">(</span>j &lt;= <span style="color: #0086b3;">5</span><span style="color: #969896;">)</span>;
+        t++;
+      <span style="color: #795da3;">}</span> <span style="color: #a71d5d;">else</span> <span style="color: #795da3;">{</span>
+        <span style="color: #a71d5d;">goto</span>: label;            <span style="color: #969896;">/* </span><span style="color: #969896;">&#24403; r12d == 6 &#26102; =je 401153=  </span><span style="color: #969896;">*/</span>
       <span style="color: #795da3;">}</span>
-    <span style="color: #969896;">}</span> <span style="color: #0084c9;">else</span> <span style="color: #969896;">{</span>
-      <span style="color: #d60075;">explode_bomb</span><span style="color: #795da3;">()</span>;
+    <span style="color: #969896;">}</span> <span style="color: #a71d5d;">else</span> <span style="color: #969896;">{</span>
+      explode_bomb<span style="color: #795da3;">()</span>;
     <span style="color: #969896;">}</span>
   <span style="color: #0086b3;">}</span>
 
  <span style="color: #0086b3;">label</span>:
-  <span style="color: #0082da;">for</span> <span style="color: #0086b3;">(</span><span style="color: #796b00;">i</span> = <span style="color: #0086b3;">0</span>; <span style="color: #796b00;">i</span> &lt; <span style="color: #0086b3;">6</span>; <span style="color: #796b00;">i</span>++<span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
-    <span style="color: #00800f;">a</span><span style="color: #969896;">[</span><span style="color: #796b00;">i</span><span style="color: #969896;">]</span> = <span style="color: #0086b3;">7</span> - <span style="color: #00800f;">a</span><span style="color: #969896;">[</span><span style="color: #796b00;">i</span><span style="color: #969896;">]</span>;
+  <span style="color: #a71d5d;">for</span> <span style="color: #0086b3;">(</span>i = <span style="color: #0086b3;">0</span>; i &lt; <span style="color: #0086b3;">6</span>; i++<span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
+    a<span style="color: #969896;">[</span>i<span style="color: #969896;">]</span> = <span style="color: #0086b3;">7</span> - a<span style="color: #969896;">[</span>i<span style="color: #969896;">]</span>;
   <span style="color: #0086b3;">}</span>
 
   <span style="color: #969896;">/*</span><span style="color: #cc9393;">TODO</span><span style="color: #969896;">*/</span>
@@ -1050,9 +1050,9 @@ Here are some hints for what to think about at each stage:
 </div>
 
 
-<div id="outline-container-orgd234925" class="outline-2">
-<h2 id="orgd234925"><code>secret_phase</code></h2>
-<div class="outline-text-2" id="text-orgd234925">
+<div id="outline-container-orgf28ae10" class="outline-2">
+<h2 id="orgf28ae10"><code>secret_phase</code></h2>
+<div class="outline-text-2" id="text-orgf28ae10">
 <div class="org-src-container">
 <pre class="src src-ASM">0000000000401242 &lt;secret_phse&gt;:
   401242:	push   %rbx
@@ -1110,24 +1110,24 @@ Here are some hints for what to think about at each stage:
 对 <code>fun7</code> ，根据其汇编代码，写出等价的 C 语言递归函数：
 </p>
 <div class="org-src-container">
-<pre class="src src-C">  <span style="color: #0086b3;">int</span> <span style="color: #c40b9c;">fun7</span><span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> *<span style="color: #c63400;">x</span>, <span style="color: #0086b3;">int</span> <span style="color: #0085b1;">y</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
+<pre class="src src-C">  <span style="color: #0086b3;">int</span> <span style="color: #795da3;">fun7</span><span style="color: #969896;">(</span><span style="color: #0086b3;">int</span> *<span style="color: #333333;">x</span>, <span style="color: #0086b3;">int</span> <span style="color: #333333;">y</span><span style="color: #969896;">)</span> <span style="color: #969896;">{</span>
     <span style="color: #969896;">/* </span><span style="color: #969896;">rdi x; rsi y </span>
 <span style="color: #969896;">*/</span>
-    <span style="color: #0083d2;">if</span> <span style="color: #0086b3;">(</span><span style="color: #c63400;">x</span> == <span style="color: #0086b3;">NULL</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
-      <span style="color: #0085a3;">return</span> -<span style="color: #0086b3;">1</span>;
+    <span style="color: #a71d5d;">if</span> <span style="color: #0086b3;">(</span>x == <span style="color: #0086b3;">NULL</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
+      <span style="color: #a71d5d;">return</span> -<span style="color: #0086b3;">1</span>;
     <span style="color: #0086b3;">}</span>
 
-    <span style="color: #0086b3;">int</span> <span style="color: #008583;">ret</span> = <span style="color: #0086b3;">0</span>;
-    <span style="color: #0083d2;">if</span> <span style="color: #0086b3;">(</span>*<span style="color: #c63400;">x</span> == <span style="color: #0085b1;">y</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>                <span style="color: #969896;">/* </span><span style="color: #969896;">base </span><span style="color: #969896;">*/</span>
-      <span style="color: #0085a3;">return</span> <span style="color: #0086b3;">0</span>;                                          <span style="color: #969896;">// </span><span style="color: #969896;">1</span>
+    <span style="color: #0086b3;">int</span> <span style="color: #333333;">ret</span> = <span style="color: #0086b3;">0</span>;
+    <span style="color: #a71d5d;">if</span> <span style="color: #0086b3;">(</span>*x == y<span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>                <span style="color: #969896;">/* </span><span style="color: #969896;">base </span><span style="color: #969896;">*/</span>
+      <span style="color: #a71d5d;">return</span> <span style="color: #0086b3;">0</span>;                                          <span style="color: #969896;">// </span><span style="color: #969896;">1</span>
     <span style="color: #0086b3;">}</span>
 
-    <span style="color: #0083d2;">if</span> <span style="color: #0086b3;">(</span>*<span style="color: #c63400;">x</span> &lt; <span style="color: #0085b1;">y</span><span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
-      <span style="color: #008583;">ret</span> = <span style="color: #c40b9c;">fun7</span><span style="color: #969896;">(</span>*<span style="color: #795da3;">(</span><span style="color: #c63400;">x</span> + <span style="color: #0086b3;">0x10</span><span style="color: #795da3;">)</span>, <span style="color: #0085b1;">y</span><span style="color: #969896;">)</span>;                        <span style="color: #969896;">// </span><span style="color: #969896;">2</span>
-      <span style="color: #0085a3;">return</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">2</span> * <span style="color: #008583;">ret</span> + <span style="color: #0086b3;">1</span><span style="color: #969896;">)</span>;
-    <span style="color: #0086b3;">}</span> <span style="color: #0084c9;">else</span> <span style="color: #0086b3;">{</span>                      <span style="color: #969896;">/* </span><span style="color: #969896;">*x &gt; y </span><span style="color: #969896;">*/</span>
-      <span style="color: #008583;">ret</span> = <span style="color: #c40b9c;">fun7</span><span style="color: #969896;">(</span>*<span style="color: #795da3;">(</span><span style="color: #c63400;">x</span> + <span style="color: #0086b3;">0x8</span><span style="color: #795da3;">)</span>, <span style="color: #0085b1;">y</span><span style="color: #969896;">)</span>;                         <span style="color: #969896;">// </span><span style="color: #969896;">3</span>
-      <span style="color: #0085a3;">return</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">2</span> * <span style="color: #008583;">ret</span><span style="color: #969896;">)</span>;
+    <span style="color: #a71d5d;">if</span> <span style="color: #0086b3;">(</span>*x &lt; y<span style="color: #0086b3;">)</span> <span style="color: #0086b3;">{</span>
+      ret = fun7<span style="color: #969896;">(</span>*<span style="color: #795da3;">(</span>x + <span style="color: #0086b3;">0x10</span><span style="color: #795da3;">)</span>, y<span style="color: #969896;">)</span>;                        <span style="color: #969896;">// </span><span style="color: #969896;">2</span>
+      <span style="color: #a71d5d;">return</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">2</span> * ret + <span style="color: #0086b3;">1</span><span style="color: #969896;">)</span>;
+    <span style="color: #0086b3;">}</span> <span style="color: #a71d5d;">else</span> <span style="color: #0086b3;">{</span>                      <span style="color: #969896;">/* </span><span style="color: #969896;">*x &gt; y </span><span style="color: #969896;">*/</span>
+      ret = fun7<span style="color: #969896;">(</span>*<span style="color: #795da3;">(</span>x + <span style="color: #0086b3;">0x8</span><span style="color: #795da3;">)</span>, y<span style="color: #969896;">)</span>;                         <span style="color: #969896;">// </span><span style="color: #969896;">3</span>
+      <span style="color: #a71d5d;">return</span> <span style="color: #969896;">(</span><span style="color: #0086b3;">2</span> * ret<span style="color: #969896;">)</span>;
     <span style="color: #0086b3;">}</span>
   <span style="color: #969896;">}</span>
 </pre>
@@ -1174,14 +1174,14 @@ Here are some hints for what to think about at each stage:
 </div>
 
 
-<div id="outline-container-orgcb7dd7a" class="outline-2">
-<h2 id="orgcb7dd7a">总结</h2>
+<div id="outline-container-orgc4819e1" class="outline-2">
+<h2 id="orgc4819e1">总结</h2>
 </div>
 
 
-<div id="outline-container-org92a3ba2" class="outline-2">
-<h2 id="org92a3ba2">参考资料</h2>
-<div class="outline-text-2" id="text-org92a3ba2">
+<div id="outline-container-orge00e716" class="outline-2">
+<h2 id="orge00e716">参考资料</h2>
+<div class="outline-text-2" id="text-orge00e716">
 <ul class="org-ul">
 <li><a href="https://courses.cs.washington.edu/courses/cse351/16sp/lab-2.html">CSE 351 Lab2</a></li>
 <li><a href="http://stackoverflow.com/questions/12813962/sar-command-in-x86-assembly-with-one-parameter">SAR command in x86 assembly with one parameter</a></li>
